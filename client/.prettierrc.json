@@ -1,5 +1,5 @@
 {
-    "printWidth": 100,
+    "printWidth": 120,
     "tabWidth": 4,
     "bracketSpacing": true,
     "trailingComma": "es5",
@@ -8,13 +8,9 @@
     "singleQuote": true,
     "semi": false,
     "endOfLine": "auto",
-    "importOrder": [
-        "^react$",
-        "^[a-z\\-/]*$",
-        "(^@mui|components|providers)",
-        "(^[src/]*$|^[./]|^[../])",
-        ""
-    ],
+    "importOrder": ["^react$", "^[a-z\\-/]*$", "(^@mui|components|providers)", "(^[src/]*$|^[./]|^[../])", ""],
     "importOrderSeparation": true,
-    "experimentalBabelParserPluginsList": ["js", "jsx"]
+    "experimentalBabelParserPluginsList": ["js", "jsx"],
+    "parser": "babel",
+    "importOrderSortSpecifiers": true
 }
