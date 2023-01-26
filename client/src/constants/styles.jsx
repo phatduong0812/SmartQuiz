@@ -9,6 +9,7 @@ export const AppStyles = {
         grey100: '#E6EDFF',
         grey200: 'rgba(51, 51, 51, 0.5)',
         grey300: '#333333',
+        lightGrey100: '#CCDBFF',
         yellow100: '#FEDA01',
         yellow200: '#FFAF00',
         yellow300: '#e59d00',
