@@ -10,9 +10,9 @@ import { AppStyles } from '~/constants/styles'
 const Notification = () => {
     return (
         <Box component={Link} to="/notification" sx={{ textDecoration: ' none' }}>
-            <IconButton component="label" size="small" sx={{ ml: 3 }}>
+            <IconButton component="label" size="small" sx={{ ml: 5 }}>
                 <Badge color="secondary" max={99}>
-                    <NotificationsNone fontSize="large" sx={{ color: AppStyles.colors.blue200 }} />
+                    <NotificationsNone fontSize="medium" sx={{ color: AppStyles.colors['#004DFF'] }} />
                 </Badge>
             </IconButton>
         </Box>

@@ -10,9 +10,9 @@ import { AppStyles } from '~/constants/styles'
 const SearchCompo = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: '12px',
-    backgroundColor: AppStyles.colors.grey100,
+    backgroundColor: AppStyles.colors['#E6EDFF'],
     '&:hover': {
-        backgroundColor: AppStyles.colors.grey100,
+        backgroundColor: AppStyles.colors['#E6EDFF'],
     },
     marginRight: 0,
     marginLeft: theme.spacing(2),
@@ -34,7 +34,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }))
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: AppStyles.colors.grey200,
+    color: AppStyles.colors['rgba(51, 51, 51, 0.5)'],
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
@@ -65,7 +65,7 @@ const Search = () => {
     return (
         <SearchCompo>
             <SearchIconWrapper>
-                <SearchIcon sx={{ color: AppStyles.colors.blue100 }} />
+                <SearchIcon sx={{ color: AppStyles.colors['#185CFF'] }} />
             </SearchIconWrapper>
             <StyledInputBase
                 placeholder="Tìm kiếm"

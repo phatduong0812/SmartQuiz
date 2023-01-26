@@ -41,7 +41,7 @@ const Header = () => {
     const handleClickLogout = () => {}
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: AppStyles.colors.white200, boxShadow: 'none' }}>
+        <AppBar position="static" sx={{ backgroundColor: AppStyles.colors['#FAFBFF'], boxShadow: 'none' }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
@@ -65,7 +65,7 @@ const Header = () => {
                                     display: 'flex',
                                     alignItems: 'center',
                                     '& > .active > span': {
-                                        color: AppStyles.colors.blue200,
+                                        color: AppStyles.colors['#004DFF'],
                                     },
                                     ml: 5,
                                 }}
@@ -75,11 +75,11 @@ const Header = () => {
                                     to="/"
                                     sx={{
                                         textDecoration: 'none',
-                                        color: AppStyles.colors.grey300,
+                                        color: AppStyles.colors['#333333'],
                                         position: 'relative',
                                         fontFamily: 'Roboto',
                                         ':hover': {
-                                            color: AppStyles.colors.blue200,
+                                            color: AppStyles.colors['#004DFF'],
                                         },
                                     }}
                                     exact
@@ -94,12 +94,12 @@ const Header = () => {
                                     exact
                                     sx={{
                                         textDecoration: 'none',
-                                        color: AppStyles.colors.grey300,
+                                        color: AppStyles.colors['#333333'],
                                         position: 'relative',
                                         ml: 5,
                                         fontFamily: 'Roboto',
                                         ':hover': {
-                                            color: AppStyles.colors.blue200,
+                                            color: AppStyles.colors['#004DFF'],
                                         },
                                     }}
                                 >
@@ -109,15 +109,15 @@ const Header = () => {
                                 </Box>
                                 <Button
                                     sx={{
-                                        color: AppStyles.colors.white100,
+                                        color: AppStyles.colors['#FFFFFF'],
                                         ml: 5,
                                         borderRadius: 2.5,
                                         pr: 4,
                                         justifyContent: 'flex-start',
                                         textTransform: 'none',
-                                        backgroundColor: AppStyles.colors.blue200,
+                                        backgroundColor: AppStyles.colors['#004DFF'],
                                         ':hover': {
-                                            bgcolor: AppStyles.colors.blue300,
+                                            bgcolor: AppStyles.colors['#0045e5'],
                                             color: 'white',
                                         },
                                     }}
@@ -131,7 +131,7 @@ const Header = () => {
                                             p: 0,
                                         }}
                                     >
-                                        <AddBox fontSize="inherit" sx={{ color: AppStyles.colors.white100 }} />
+                                        <AddBox fontSize="inherit" sx={{ color: AppStyles.colors['#FFFFFF'] }} />
                                     </IconButton>
                                     <Typography ml={1}> Tạo học phần</Typography>
                                 </Button>
@@ -252,9 +252,14 @@ const Header = () => {
                                 <React.Fragment>
                                     <Button
                                         sx={{
-                                            color: AppStyles.colors.blue400,
+                                            color: AppStyles.colors['#000F33'],
                                             textTransform: 'none',
+                                            borderRadius: 2.5,
                                             ml: 5,
+                                            ':hover': {
+                                                bgcolor: 'none',
+                                                color: AppStyles.colors['#004DFF'],
+                                            },
                                         }}
                                         component={Link}
                                         to="/register"
@@ -264,13 +269,13 @@ const Header = () => {
                                     <Button
                                         sx={{
                                             color: '#fefefe',
-                                            backgroundColor: AppStyles.colors.yellow200,
+                                            backgroundColor: AppStyles.colors['#FFAF00'],
                                             p: 1,
                                             borderRadius: 2.5,
                                             ml: 2,
                                             textTransform: 'none',
                                             ':hover': {
-                                                bgcolor: AppStyles.colors.yellow300,
+                                                bgcolor: AppStyles.colors['#E59D00'],
                                                 color: 'white',
                                             },
                                         }}

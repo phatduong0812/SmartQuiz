@@ -1,66 +1,47 @@
 import React from 'react'
 
-import { Box, Grid, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
+import StudySetCards from '~/components/StudySetCards'
 
-import banner from '~/assets/images/Rectangle-3.png'
-import { AppStyles } from '~/constants/styles'
+import Banner from './Banner'
+import PopularTable from './PopularTable'
+
+let recent = [
+    { StudySetName: 'Sitta canadensis', PersonCreated: 'Arlan', NumberPeople: 35, Star: 5 },
+    { StudySetName: 'Felis libyca', PersonCreated: 'Karlen', NumberPeople: 23, Star: 3 },
+    { StudySetName: 'unavailable', PersonCreated: 'Warner', NumberPeople: 33, Star: 2 },
+    { StudySetName: 'Amblyrhynchus cristatus', PersonCreated: 'Lara', NumberPeople: 44, Star: 4 },
+    { StudySetName: 'Eutamias minimus', PersonCreated: 'Karlotta', NumberPeople: 38, Star: 4 },
+    { StudySetName: 'Dendrocitta vagabunda', PersonCreated: 'Vail', NumberPeople: 9, Star: 5 },
+    { StudySetName: 'Potos flavus', PersonCreated: 'Robinett', NumberPeople: 5, Star: 5 },
+    { StudySetName: 'Felis silvestris lybica', PersonCreated: 'Dulcy', NumberPeople: 1, Star: 5 },
+]
+let yourSet = [
+    { StudySetName: 'Sitta canadensis', PersonCreated: 'Arlan', NumberPeople: 35, Star: 5 },
+    { StudySetName: 'Felis libyca', PersonCreated: 'Karlen', NumberPeople: 23, Star: 3 },
+    { StudySetName: 'unavailable', PersonCreated: 'Warner', NumberPeople: 33, Star: 2 },
+    { StudySetName: 'Amblyrhynchus cristatus', PersonCreated: 'Lara', NumberPeople: 44, Star: 4 },
+]
+let reccomend = [
+    { StudySetName: 'Eutamias minimus', PersonCreated: 'Karlotta', NumberPeople: 38, Star: 4 },
+    { StudySetName: 'Dendrocitta vagabunda', PersonCreated: 'Vail', NumberPeople: 9, Star: 5 },
+    { StudySetName: 'Potos flavus', PersonCreated: 'Robinett', NumberPeople: 5, Star: 5 },
+    { StudySetName: 'Felis silvestris lybica', PersonCreated: 'Dulcy', NumberPeople: 1, Star: 5 },
+]
 
 const Home = () => {
     return (
         <React.Fragment>
-            <Grid mt={2} container spacing={2}>
+            <Grid mt={2} container spacing={3}>
                 <Grid item xs={12} md={8} lg={8}>
-                    <Box
-                        display="flex"
-                        width="100%"
-                        style={{
-                            backgroundImage: `url(${banner})`,
-                            aspectRatio: '16 / 9',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundSize: 'contain',
-                        }}
-                    >
-                        <Box display="flex" width="100%">
-                            <Box
-                                sx={{
-                                    backgroundColor: AppStyles.colors.blue300,
-                                    width: '60%',
-                                    height: '38.5%',
-                                    borderRadius: 4,
-                                    borderTopRightRadius: 0,
-                                    borderBottomRightRadius: 100,
-                                }}
-                            ></Box>
-                            <Box
-                                sx={{
-                                    backgroundColor: AppStyles.colors.blue300,
-                                    width: '15%',
-                                    height: '38.5%',
-                                    borderRadius: 4,
-                                    transform: 'skew(-20deg)',
-                                    borderTopRightRadius: 0,
-                                    borderBottomRightRadius: 100,
-                                    ml: -10,
-                                }}
-                            >
-                                <Typography
-                                    sx={{
-                                        color: AppStyles.colors.lightGrey100,
-                                        width: '15%',
-                                        fontSize: '220px',
-                                        transform: 'skew(20deg)',
-                                        ml: -48,
-                                        mt: -9,
-                                        opacity: 0.2,
-                                    }}
-                                >
-                                    -50%
-                                </Typography>
-                            </Box>
-                        </Box>
-                    </Box>
+                    <Banner />
+                    <StudySetCards title="Đã xem gần đây" studySets={recent} />
+                    <StudySetCards title="Học phần của bạn" studySets={yourSet} />
+                    <StudySetCards title="Gợi ý cho bạn" studySets={reccomend} />
                 </Grid>
-                <Grid item xs={12} md={4} lg={4}></Grid>
+                <Grid item xs={12} md={4} lg={4}>
+                    <PopularTable studySet={recent} />
+                </Grid>
             </Grid>
         </React.Fragment>
     )
