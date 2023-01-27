@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { Link as RouterLink } from 'react-router-dom'
 
@@ -10,8 +10,8 @@ const MoreMenu = ({ userId }) => {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <>
-            <IconButton ref={ref} onClick={() => setIsOpen(true)}>
+        <React.Fragment>
+            <IconButton size="small" sx={{ ml: 1 }} ref={ref} onClick={() => setIsOpen(true)}>
                 <MoreVert size="small" />
             </IconButton>
 
@@ -31,18 +31,8 @@ const MoreMenu = ({ userId }) => {
                     </ListItemIcon>
                     <ListItemText primary="View" primaryTypographyProps={{ variant: 'body2' }} />
                 </MenuItem>
-                {/* 
-                <MenuItem sx={{ color: 'text.secondary' }}>
-                    <ListItemIcon>
-                        <RemoveCircle color="warning" />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary="Ban Account"
-                        primaryTypographyProps={{ variant: 'body2' }}
-                    />
-                </MenuItem> */}
             </Menu>
-        </>
+        </React.Fragment>
     )
 }
 

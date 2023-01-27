@@ -31,19 +31,17 @@ let reccomend = [
 
 const Home = () => {
     return (
-        <React.Fragment>
-            <Grid mt={2} container spacing={3}>
-                <Grid item xs={12} md={8} lg={8}>
-                    <Banner />
-                    <StudySetCards title="Đã xem gần đây" studySets={recent} />
-                    <StudySetCards title="Học phần của bạn" studySets={yourSet} />
-                    <StudySetCards title="Gợi ý cho bạn" studySets={reccomend} />
-                </Grid>
-                <Grid item xs={12} md={4} lg={4}>
-                    <PopularTable studySet={recent} />
-                </Grid>
+        <Grid mt={2} container spacing={3} columnSpacing={4}>
+            <Grid item xs={12} md={8} lg={8}>
+                <Banner />
+                <StudySetCards title="Đã xem gần đây" studySets={recent} />
+                <StudySetCards title="Học phần của bạn" studySets={yourSet} />
+                <StudySetCards title="Gợi ý cho bạn" studySets={reccomend} />
             </Grid>
-        </React.Fragment>
+            <Grid item xs={12} md={4} lg={4}>
+                <PopularTable studySet={recent} />
+            </Grid>
+        </Grid>
     )
 }
 
