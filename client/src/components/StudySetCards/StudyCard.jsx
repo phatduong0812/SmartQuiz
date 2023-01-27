@@ -10,21 +10,19 @@ const StudyCard = ({ studySet }) => {
         <Grid item md={3}>
             <Card sx={{ maxWidth: 392, height: '1', backgroundColor: AppStyles.colors['#FAFBFF'], borderRadius: 3 }}>
                 <CardContent>
-                    <Box display="flex" justifyContent="left">
-                        <Typography
-                            textAlign={'left'}
-                            gutterBottom
-                            variant="body1"
-                            component="div"
-                            fontWeight={600}
-                            sx={{ textOverflow: 'clip' }}
-                        >
-                            {/* {studySet?.StudySetName} */}
-                            Toán THPT 2021-2022
-                        </Typography>
-                        {Math.random() < 0.5 && (
-                            <GppGood fontSize="small" sx={{ ml: 1, color: AppStyles.colors['#004DFF'] }} />
-                        )}
+                    <Box display="flex" alignItems="center" justifyContent="space-between">
+                        <Box display="flex" alignItems="center">
+                            <Typography variant="body1" fontWeight={600}>
+                                {/* {studySet?.StudySetName} */}
+                                Toán THPT 2021-2022
+                            </Typography>
+                            {Math.random() < 0.5 && (
+                                <GppGood
+                                    fontSize="small"
+                                    sx={{ ml: 1, mt: -0.5, color: AppStyles.colors['#004DFF'] }}
+                                />
+                            )}
+                        </Box>
                         <MoreMenu />
                     </Box>
                     <Box display="flex">

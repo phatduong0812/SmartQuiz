@@ -18,14 +18,16 @@ const Banner = () => {
                 backgroundImage: `url(${banner})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
+                borderRadius: 12,
+                overflow: 'hidden',
             }}
         >
             <Box display="flex" width="100%">
                 <Box
                     sx={{
                         backgroundColor: AppStyles.colors['#0045e5'],
-                        width: '60%',
-                        height: '96%',
+                        width: '62%',
+                        height: '100%',
                         borderRadius: 4,
                         borderTopRightRadius: 0,
                         borderBottomRightRadius: 100,
@@ -35,36 +37,40 @@ const Banner = () => {
                     display="flex"
                     sx={{
                         backgroundColor: AppStyles.colors['#0045e5'],
-                        width: '15%',
-                        height: '96%',
+                        width: '10%',
+                        height: '100%',
                         borderRadius: 4,
-                        transform: 'skew(-20deg)',
+                        transform: 'skew(-22deg)',
                         borderTopRightRadius: 0,
                         borderBottomRightRadius: 100,
-                        ml: -10,
+                        ml: -8,
                     }}
                 >
                     <Typography
                         sx={{
                             color: AppStyles.colors['#CCDBFF'],
                             width: '15%',
-                            fontSize: '220px',
-                            transform: 'skew(20deg)',
-                            ml: -50,
-                            mt: -9,
+                            fontSize: '320px',
+                            transform: 'skew(22deg)',
+                            ml: -82,
+                            mt: -14,
                             opacity: 0.2,
                             userSelect: 'none',
+                            fontWeight: 'bold',
                         }}
                     >
                         -50%
                     </Typography>
-                    <Box mt={2} ml={4} display="flex" flexDirection="column" sx={{ transform: 'skew(20deg)' }}>
-                        <Typography textAlign="left" sx={{ userSelect: 'none' }}>
+                    <Box mt={4} ml={12} display="flex" flexDirection="column" sx={{ transform: 'skew(20deg)' }}>
+                        <Typography
+                            variant="h6"
+                            textAlign="left"
+                            sx={{ userSelect: 'none', color: AppStyles.colors['#FFFFFF'] }}
+                        >
                             Trãi nghiệm
                         </Typography>
-                        <Box display="flex" alignItems="center">
+                        <Box display="flex" alignItems="center" mt={0.5}>
                             <Box
-                                mt={-1}
                                 component="img"
                                 alt="CQUIZ"
                                 src={logoBanner}
@@ -95,7 +101,12 @@ const Banner = () => {
                                 <Typography variant="h6">PREMIUM</Typography>
                             </Button>
                         </Box>
-                        <Typography mt={4} variant="caption" textAlign="left" sx={{ userSelect: 'none' }}>
+                        <Typography
+                            mt={8.5}
+                            variant="caption"
+                            textAlign="left"
+                            sx={{ userSelect: 'none', color: AppStyles.colors['#FFFFFF'] }}
+                        >
                             (*) Chương trình chỉ áp dụng cho thành viên mới
                         </Typography>
                     </Box>
