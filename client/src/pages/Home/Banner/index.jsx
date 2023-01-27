@@ -12,12 +12,12 @@ import { AppStyles } from '~/constants/styles'
 const Banner = () => {
     return (
         <Box
-            maxHeight={170}
+            height={240}
             display="flex"
             style={{
                 backgroundImage: `url(${banner})`,
                 backgroundRepeat: 'no-repeat',
-                backgroundSize: 'contain',
+                backgroundSize: 'cover',
             }}
         >
             <Box display="flex" width="100%">

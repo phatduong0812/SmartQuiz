@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Container } from '@mui/material'
+import { Box } from '@mui/material'
 
 import Footer from '../Common/Footer'
 import Header from '../Common/Header'
@@ -9,8 +9,8 @@ const Layout = ({ children }) => {
     return (
         <React.Fragment>
             <Header />
-            <Box minHeight="60vh">
-                <Container maxWidth="lg"> {children}</Container>
+            <Box minHeight="100vh" maxWidth={1660} sx={{ m: '0 auto', pt: 11 }}>
+                {children}
             </Box>
             <Footer />
         </React.Fragment>
