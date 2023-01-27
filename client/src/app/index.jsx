@@ -1,4 +1,3 @@
-import '../App.css'
 import RouteList from '../routes'
 
 function App() {
