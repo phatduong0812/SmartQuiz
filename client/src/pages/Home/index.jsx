@@ -10,7 +10,7 @@ import StudySetCards from '~/pages/Home/StudySetCards'
 
 const Home = () => {
     return (
-        <Grid maxWidth={1660} mt={2} container spacing={3} columnSpacing={4} sx={{ m: '0 auto' }}>
+        <Grid maxWidth={1660} container spacing={3} columnSpacing={4} sx={{ pt: 2, m: '0 auto' }}>
             <Grid item xs={12} md={8} lg={8}>
                 <Banner />
                 <StudySetCards title="Đã xem gần đây" studySets={Mock_Data.recent} />

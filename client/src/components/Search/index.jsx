@@ -10,6 +10,7 @@ import { AppStyles } from '~/constants/styles'
 let searchHeightValue, searchWidthValue, iconPaddingLeftValue, inputWidthValue, inputHeightValue
 
 const SearchCompo = styled('div')(({ theme }) => ({
+    display: 'flex',
     position: 'relative',
     borderRadius: '12px',
     backgroundColor: AppStyles.colors['#E6EDFF'],
@@ -25,9 +26,9 @@ const SearchCompo = styled('div')(({ theme }) => ({
 }))
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, iconPaddingLeftValue), // iconPaddingLeft
+    padding: theme.spacing(1, 0),
     height: '100%',
-    position: 'absolute',
+    position: 'relative',
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
@@ -48,12 +49,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }))
 
-const Search = ({ searchHeight, searchWidth, iconPaddingLeft, inputWidth, inputHeight }) => {
+const Search = ({ searchHeight, searchWidth, inputWidth, inputHeight }) => {
     const [value, setValue] = useState('')
     // const history = useHistory()
     searchHeightValue = searchHeight
     searchWidthValue = searchWidth
-    iconPaddingLeftValue = iconPaddingLeft
+
     inputWidthValue = inputWidth
     inputHeight ? (inputHeightValue = inputHeight) : (inputHeightValue = 1)
 
@@ -70,9 +71,6 @@ const Search = ({ searchHeight, searchWidth, iconPaddingLeft, inputWidth, inputH
 
     return (
         <SearchCompo>
-            <SearchIconWrapper>
-                <SearchIcon sx={{ color: AppStyles.colors['#185CFF'] }} />
-            </SearchIconWrapper>
             <StyledInputBase
                 placeholder="Tìm kiếm"
                 inputProps={{ 'aria-label': 'search' }}
@@ -80,6 +78,9 @@ const Search = ({ searchHeight, searchWidth, iconPaddingLeft, inputWidth, inputH
                 onChange={changeHandler}
                 onKeyDown={searchHandler}
             />
+            <SearchIconWrapper>
+                <SearchIcon sx={{ color: AppStyles.colors['#185CFF'] }} />
+            </SearchIconWrapper>
         </SearchCompo>
     )
 }

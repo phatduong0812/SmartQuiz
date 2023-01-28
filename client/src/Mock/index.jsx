@@ -9,6 +9,18 @@ export const Mock_Data = {
         { StudySetName: 'Potos flavus', PersonCreated: 'Robinett', NumberPeople: 5, Star: 5 },
         { StudySetName: 'Felis silvestris lybica', PersonCreated: 'Dulcy', NumberPeople: 1, Star: 5 },
     ],
+    search: [
+        { StudySetName: 'Sitta canadensis', PersonCreated: 'Arlan', NumberPeople: 35, Star: 5 },
+        { StudySetName: 'Felis libyca', PersonCreated: 'Karlen', NumberPeople: 23, Star: 3 },
+        { StudySetName: 'unavailable', PersonCreated: 'Warner', NumberPeople: 33, Star: 2 },
+        { StudySetName: 'Amblyrhynchus cristatus', PersonCreated: 'Lara', NumberPeople: 44, Star: 4 },
+        { StudySetName: 'Eutamias minimus', PersonCreated: 'Karlotta', NumberPeople: 38, Star: 4 },
+        { StudySetName: 'Dendrocitta vagabunda', PersonCreated: 'Vail', NumberPeople: 9, Star: 5 },
+        { StudySetName: 'Potos flavus', PersonCreated: 'Robinett', NumberPeople: 5, Star: 5 },
+        { StudySetName: 'Felis silvestris lybica', PersonCreated: 'Dulcy', NumberPeople: 1, Star: 5 },
+        { StudySetName: 'Felis silvestris lybica', PersonCreated: 'Dulcy', NumberPeople: 1, Star: 5 },
+        { StudySetName: 'Felis silvestris lybica', PersonCreated: 'Dulcy', NumberPeople: 1, Star: 5 },
+    ],
     yourSet: [
         { StudySetName: 'Sitta canadensis', PersonCreated: 'Arlan', NumberPeople: 35, Star: 5 },
         { StudySetName: 'Felis libyca', PersonCreated: 'Karlen', NumberPeople: 23, Star: 3 },
