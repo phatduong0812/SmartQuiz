@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Box } from '@mui/material'
 
-import Footer from '../Common/Footer'
+// import Footer from '../Common/Footer'
 import Header from '../Common/Header'
 
 const Layout = ({ children }) => {
@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
             <Box minHeight="100vh" maxWidth={1660} sx={{ m: '0 auto', pt: 8 }}>
                 {children}
             </Box>
-            <Footer />
+            {/* <Footer /> */}
         </React.Fragment>
     )
 }
