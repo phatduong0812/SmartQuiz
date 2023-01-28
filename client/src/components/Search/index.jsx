@@ -7,6 +7,8 @@ import { styled } from '@mui/material/styles'
 
 import { AppStyles } from '~/constants/styles'
 
+let searchHeightValue, searchWidthValue, iconPaddingLeftValue, inputWidthValue, inputHeightValue
+
 const SearchCompo = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: '12px',
@@ -14,17 +16,16 @@ const SearchCompo = styled('div')(({ theme }) => ({
     '&:hover': {
         backgroundColor: AppStyles.colors['#E6EDFF'],
     },
-    marginRight: 0,
-    marginLeft: theme.spacing(2),
+    marginRight: 12,
+    height: searchHeightValue, // searchHeight
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(3),
-        width: 'auto',
+        width: searchWidthValue, // searchWidth
     },
 }))
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 21),
+    padding: theme.spacing(0, iconPaddingLeftValue), // iconPaddingLeft
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -36,20 +37,25 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: AppStyles.colors['rgba(51, 51, 51, 0.5)'],
     '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
+        padding: theme.spacing(inputHeightValue, 1, 1, 0), // inputHeightValue
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(0.5)})`,
         transition: theme.transitions.create('width'),
-        width: '65%',
+        width: '100%',
         [theme.breakpoints.up('md')]: {
-            width: '65%',
+            width: inputWidthValue, // inputWidth
         },
     },
 }))
 
-const Search = () => {
+const Search = ({ searchHeight, searchWidth, iconPaddingLeft, inputWidth, inputHeight }) => {
     const [value, setValue] = useState('')
     // const history = useHistory()
+    searchHeightValue = searchHeight
+    searchWidthValue = searchWidth
+    iconPaddingLeftValue = iconPaddingLeft
+    inputWidthValue = inputWidth
+    inputHeight ? (inputHeightValue = inputHeight) : (inputHeightValue = 1)
 
     const changeHandler = (event) => setValue(event.target.value)
 

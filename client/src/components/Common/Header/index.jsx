@@ -166,7 +166,7 @@ const Header = () => {
                             },
                         }}
                     >
-                        <Search />
+                        <Search searchHeight="auto" searchWidth={300} iconPaddingLeft={33} inputWidth={235} />
                         <Notification />
                         {hasLogin ? (
                             <React.Fragment>

@@ -12,7 +12,17 @@ const StudyCard = ({ studySet }) => {
                 <CardContent>
                     <Box display="flex" alignItems="center" justifyContent="space-between">
                         <Box display="flex" alignItems="center">
-                            <Typography variant="body1" fontWeight={600}>
+                            <Typography
+                                variant="body1"
+                                fontWeight={600}
+                                sx={{
+                                    overflow: 'hidden',
+                                    display: '-webkit-box',
+                                    WebkitBoxOrient: 'vertical',
+                                    WebkitLineClamp: '1',
+                                    textOverflow: 'ellipsis',
+                                }}
+                            >
                                 {/* {studySet?.StudySetName} */}
                                 Toán THPT 2021-2022
                             </Typography>
