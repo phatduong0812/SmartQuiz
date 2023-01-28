@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
     return (
         <React.Fragment>
             <Header />
-            <Box minHeight="100vh" maxWidth={1660} sx={{ m: '0 auto', pt: 8 }}>
+            <Box minHeight="100vh" sx={{ m: '0 auto', pt: 8 }}>
                 {children}
             </Box>
             <Footer />

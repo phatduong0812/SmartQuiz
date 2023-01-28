@@ -52,9 +52,15 @@ const TableContent = ({ studySet }) => {
                                 variant="body1"
                                 component="div"
                                 fontWeight={600}
-                                sx={{ textOverflow: 'clip' }}
+                                sx={{
+                                    overflow: 'hidden',
+                                    display: '-webkit-box',
+                                    WebkitBoxOrient: 'vertical',
+                                    WebkitLineClamp: '1',
+                                    textOverflow: 'ellipsis',
+                                }}
                             >
-                                {/* {studySet?.StudySetName} */}
+                                {/* {data?.StudySetName} */}
                                 Toán THPT 2021-2022
                             </Typography>
                             {Math.random() < 0.5 && (
