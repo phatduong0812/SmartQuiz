@@ -86,7 +86,6 @@ const Header = () => {
                                         color: AppStyles.colors['#004DFF'],
                                     },
                                 }}
-                                exact
                             >
                                 <Typography component="span" variant="h6">
                                     Trang chủ
@@ -95,7 +94,6 @@ const Header = () => {
                             <Box
                                 component={NavLink}
                                 to="/thu-vien"
-                                exact
                                 sx={{
                                     textDecoration: 'none',
                                     color: AppStyles.colors['#333333'],
