@@ -1,11 +1,9 @@
-import React from 'react'
-
 import { Tune } from '@mui/icons-material'
 import { Button, Grid, IconButton, Typography } from '@mui/material'
 import PageTitle from '~/components/PageTitle'
 import Search from '~/components/Search'
 
-import logo from '../../../assets/images/logo.png'
+import logo from '../../../assets/images/Logo.png'
 import Filter from './Filter'
 
 import { Mock_Data } from '~/Mock'
