@@ -19,8 +19,8 @@ import {
 } from '@mui/material'
 import { grey, yellow } from '@mui/material/colors'
 
+import logo from '../../../assets/images/Logo.png'
 import avatar from '../../../assets/images/User 5.png'
-import logo from '../../../assets/images/logo.png'
 import Notification from '../../Noti'
 import Search from '../../Search'
 
