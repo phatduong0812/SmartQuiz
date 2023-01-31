@@ -27,5 +27,7 @@ public partial class User
 
     public virtual ICollection<StudySet> StudySetsNavigation { get; } = new List<StudySet>();
 
+    public virtual ICollection<TestResult> TestResults { get; } = new List<TestResult>();
+
     public virtual ICollection<StudySet> StudySets { get; } = new List<StudySet>();
 }
