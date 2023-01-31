@@ -52,7 +52,7 @@ builder.Services.AddAuthentication(options =>
         options.ClientSecret = googleAuthNSection["ClientSecret"];
         options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.SaveTokens = true;
-        options.CallbackPath = "/signin-google";
+        options.ReturnUrlParameter = "~/";
         options.Scope.Add("profile");
         options.Events.OnCreatingTicket = context =>
         {
