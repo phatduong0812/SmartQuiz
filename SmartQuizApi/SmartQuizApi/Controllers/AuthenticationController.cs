@@ -33,8 +33,7 @@ namespace SmartQuizApi.Controllers
         }
 
         [HttpGet]
-        [Route("signin-google")]
-        //[HttpGet("signin-google")]
+        [Route("~/signin-google")]
         public async Task<IActionResult> ExternalLoginCallBack()
         {
             var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
