@@ -32,7 +32,6 @@ builder.Services.AddAuthentication(options =>
 })
     .AddJwtBearer(options =>
     {
-        options.RequireHttpsMetadata = true;
         options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -53,7 +52,7 @@ builder.Services.AddAuthentication(options =>
         options.ClientSecret = googleAuthNSection["ClientSecret"];
         options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.SaveTokens = true;
-        options.ReturnUrlParameter = "~/";
+        options.CallbackPath = "/signin-google";
         options.Scope.Add("profile");
         options.Events.OnCreatingTicket = context =>
         {
