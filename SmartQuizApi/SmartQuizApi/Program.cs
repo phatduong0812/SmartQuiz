@@ -27,18 +27,14 @@ builder.Services.AddDbContext<SmartquizContext>(options =>
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
 })
     .AddJwtBearer(options =>
     {
-        options.RequireHttpsMetadata = true;
         options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey =
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("SecretKey"))),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("SecretKey"))),
             ValidateLifetime = true,
             ValidateAudience = true,
             ValidateIssuer = true,
@@ -54,7 +50,6 @@ builder.Services.AddAuthentication(options =>
         options.ClientSecret = googleAuthNSection["ClientSecret"];
         options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.SaveTokens = true;
-        options.ReturnUrlParameter = "~/";
         options.Scope.Add("profile");
         options.Events.OnCreatingTicket = context =>
         {
