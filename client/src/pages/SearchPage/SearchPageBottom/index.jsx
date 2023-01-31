@@ -28,6 +28,7 @@ const SearchPageBottom = () => {
             </Box>
             <Typography
                 mt={5}
+                mb={10}
                 textAlign="center"
                 variant="body2"
                 fontWeight={400}
