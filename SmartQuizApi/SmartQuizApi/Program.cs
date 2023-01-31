@@ -37,8 +37,7 @@ builder.Services.AddAuthentication(options =>
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey =
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("SecretKey"))),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("SecretKey"))),
             ValidateLifetime = true,
             ValidateAudience = true,
             ValidateIssuer = true,
@@ -54,7 +53,7 @@ builder.Services.AddAuthentication(options =>
         options.ClientSecret = googleAuthNSection["ClientSecret"];
         options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.SaveTokens = true;
-        options.ReturnUrlParameter = "~/";
+        //options.ReturnUrlParameter = "~/";
         options.Scope.Add("profile");
         options.Events.OnCreatingTicket = context =>
         {
