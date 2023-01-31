@@ -8,6 +8,8 @@ import App from './app'
 import './index.css'
 import { store } from './store'
 
+import '@fontsource/manrope'
+
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <Router>

@@ -35,6 +35,8 @@ public partial class StudySet
 
     public virtual Subject Subject { get; set; } = null!;
 
+    public virtual ICollection<TestResult> TestResults { get; } = new List<TestResult>();
+
     public virtual User User { get; set; } = null!;
 
     public virtual ICollection<User> Users { get; } = new List<User>();

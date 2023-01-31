@@ -19,8 +19,8 @@ import {
 } from '@mui/material'
 import { grey, yellow } from '@mui/material/colors'
 
+import logo from '../../../assets/images/Logo.png'
 import avatar from '../../../assets/images/User 5.png'
-import logo from '../../../assets/images/logo.png'
 import Notification from '../../Noti'
 import Search from '../../Search'
 
@@ -86,7 +86,6 @@ const Header = () => {
                                         color: AppStyles.colors['#004DFF'],
                                     },
                                 }}
-                                exact
                             >
                                 <Typography component="span" variant="h6">
                                     Trang chủ
@@ -95,7 +94,6 @@ const Header = () => {
                             <Box
                                 component={NavLink}
                                 to="/thu-vien"
-                                exact
                                 sx={{
                                     textDecoration: 'none',
                                     color: AppStyles.colors['#333333'],
@@ -126,7 +124,7 @@ const Header = () => {
                                     },
                                 }}
                                 component={Link}
-                                to="/dang-nhap"
+                                to="/create"
                             >
                                 <IconButton
                                     aria-label="create"
