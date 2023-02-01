@@ -9,5 +9,6 @@ namespace SmartQuizApi.Data.IRepositories
         void Update(T entity);
         void Delete(T entity);
         void BulkDelete(IEnumerable<T> entities);
+        IQueryable<T> GetAll();
     }
 }

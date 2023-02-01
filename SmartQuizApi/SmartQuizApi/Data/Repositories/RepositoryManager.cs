@@ -7,6 +7,10 @@ namespace SmartQuizApi.Data.Repositories
     {
         private SmartquizContext _context;
         private IUserRepository _userRepository;
+        private IStudySetRepository _studySetRepository;
+        private ISchoolRepository _schooolRepository;
+        private IGradeRepository _gradeRepository;
+        private ISubjectRepository _subjectRepository;
         public RepositoryManager(SmartquizContext context)
         {
             _context= context;
@@ -24,6 +28,53 @@ namespace SmartQuizApi.Data.Repositories
             }
         }
 
+        public IStudySetRepository StudySet
+        {
+            get
+            {
+                if (_studySetRepository == null)
+                {
+                    _studySetRepository = new StudySetRepository(_context);
+                }
+                return _studySetRepository;
+            }
+        }
+
+        public ISchoolRepository School
+        {
+            get
+            {
+                if (_schooolRepository == null)
+                {
+                    _schooolRepository = new SchoolRepository(_context);
+                }
+                return _schooolRepository;
+            }
+        }
+
+        public IGradeRepository Grade
+        {
+            get
+            {
+                if (_gradeRepository == null)
+                {
+                    _gradeRepository = new GradeRepository(_context);
+                }
+                return _gradeRepository;
+            }
+        }
+
+        public ISubjectRepository Subject
+        {
+            get
+            {
+                if (_subjectRepository == null)
+                {
+                    _subjectRepository = new SubjectRepository(_context);
+                }
+                return (_subjectRepository);
+            }
+        }
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
