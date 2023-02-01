@@ -14,7 +14,6 @@ const StudySetCards = ({ title, studySets }) => {
                     color: 'black',
                     pb: 0.125,
                     mb: 2,
-                    cursor: 'pointer',
                 }}
             >
                 {title}

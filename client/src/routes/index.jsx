@@ -7,6 +7,7 @@ import CreateStudySet from '~/pages/CreateStudySet'
 import Home from '~/pages/Home'
 import Login from '~/pages/Login'
 import SearchPage from '~/pages/SearchPage'
+import StudySetDetail from '~/pages/StudySetDetail'
 
 const publicRoutes = [
     {
@@ -25,6 +26,12 @@ const publicRoutes = [
         element: <SearchPage />,
         path: 'search',
         name: 'search',
+        layout: 'common',
+    },
+    {
+        element: <StudySetDetail />,
+        path: 'detail',
+        name: 'detail',
         layout: 'common',
     },
 ]

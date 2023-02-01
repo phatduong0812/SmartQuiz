@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { GppGood, Groups2, Star } from '@mui/icons-material'
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material'
 
@@ -8,7 +10,14 @@ import { AppStyles } from '~/constants/styles'
 const StudyCard = ({ studySet }) => {
     return (
         <Grid item md={3}>
-            <Card sx={{ maxWidth: 392, height: '1', backgroundColor: AppStyles.colors['#FAFBFF'], borderRadius: 3 }}>
+            <Card
+                sx={{
+                    maxWidth: 392,
+                    height: '1',
+                    backgroundColor: AppStyles.colors['#FAFBFF'],
+                    borderRadius: 3,
+                }}
+            >
                 <CardContent>
                     <Box display="flex" alignItems="center" justifyContent="space-between">
                         <Box display="flex" alignItems="center">
@@ -21,7 +30,13 @@ const StudyCard = ({ studySet }) => {
                                     WebkitBoxOrient: 'vertical',
                                     WebkitLineClamp: '1',
                                     textOverflow: 'ellipsis',
+                                    userSelect: 'none',
+                                    cursor: 'pointer',
+                                    color: 'black',
+                                    textDecoration: 'none',
                                 }}
+                                component={Link}
+                                to="/detail"
                             >
                                 {/* {studySet?.StudySetName} */}
                                 Toán THPT 2021-2022
@@ -47,6 +62,7 @@ const StudyCard = ({ studySet }) => {
                                 WebkitLineClamp: '2',
                                 textOverflow: 'ellipsis',
                                 fontSize: 14,
+                                userSelect: 'none',
                             }}
                         >
                             Người tạo
@@ -55,7 +71,7 @@ const StudyCard = ({ studySet }) => {
                             ml={0.5}
                             variant="body1"
                             color="text.secondary"
-                            sx={{ fontWeight: 'bold', fontSize: 14 }}
+                            sx={{ fontWeight: 'bold', fontSize: 14, userSelect: 'none' }}
                         >
                             {studySet?.PersonCreated}
                         </Typography>
@@ -65,7 +81,12 @@ const StudyCard = ({ studySet }) => {
                             <Groups2 fontSize="small" sx={{ color: AppStyles.colors['#767680'] }} />
                             <Typography
                                 ml={1}
-                                sx={{ color: AppStyles.colors['#767680'], fontSize: 14, fontWeight: 400 }}
+                                sx={{
+                                    color: AppStyles.colors['#767680'],
+                                    fontSize: 14,
+                                    fontWeight: 400,
+                                    userSelect: 'none',
+                                }}
                             >
                                 {studySet?.NumberPeople}
                             </Typography>
@@ -74,7 +95,12 @@ const StudyCard = ({ studySet }) => {
                             <Star fontSize="small" sx={{ color: AppStyles.colors['#767680'] }} />
                             <Typography
                                 ml={1}
-                                sx={{ color: AppStyles.colors['#767680'], fontSize: 14, fontWeight: 400 }}
+                                sx={{
+                                    color: AppStyles.colors['#767680'],
+                                    fontSize: 14,
+                                    fontWeight: 400,
+                                    userSelect: 'none',
+                                }}
                             >
                                 {studySet?.Star}
                             </Typography>
