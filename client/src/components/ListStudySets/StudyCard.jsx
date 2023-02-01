@@ -36,7 +36,7 @@ const StudyCard = ({ studySet }) => {
                                     textDecoration: 'none',
                                 }}
                                 component={Link}
-                                to="/detail"
+                                to={`/detail/${studySet.id}`}
                             >
                                 {/* {studySet?.StudySetName} */}
                                 Toán THPT 2021-2022
