@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
@@ -32,8 +33,7 @@ namespace SmartQuizApi.Controllers
             return Challenge(props, "Google");
         }
 
-        [HttpGet]
-        [Route("~/signin-google")]
+        [HttpGet("signin-google")]
         public async Task<IActionResult> ExternalLoginCallBack()
         {
             var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -52,7 +52,7 @@ namespace SmartQuizApi.Controllers
                 await _repositoryManager.SaveChangesAsync();
                 user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
             }
-          
+
             var accessToken = await _authService.GenerateToken(user);
             Response.Cookies.Append("jwt", accessToken, new CookieOptions
             {
