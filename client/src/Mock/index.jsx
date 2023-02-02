@@ -119,3 +119,205 @@ export const Mock_Data = {
         },
     ],
 }
+
+const levelSchool = [
+    {
+        label: 'Cấp 2',
+        value: 2,
+    },
+    {
+        label: 'Cấp 3',
+        value: 3,
+    },
+    {
+        label: 'Đại học',
+        value: 4,
+    },
+]
+
+const level = {
+    university: 'Đại học',
+    secondarySchool: 'Cấp 2',
+    highSchool: 'Cấp 3',
+}
+
+const secondarySchool = [
+    {
+        label: 6,
+        value: 1,
+    },
+    {
+        label: 7,
+        value: 2,
+    },
+    {
+        label: 8,
+        value: 3,
+    },
+    {
+        label: 9,
+        value: 4,
+    },
+]
+
+const highSchool = [
+    {
+        label: 10,
+        value: 5,
+    },
+    {
+        label: 11,
+        value: 6,
+    },
+    {
+        label: 12,
+        value: 7,
+    },
+]
+
+const universitiesName = [
+    {
+        label: 'Đại học Quốc gia TP.HCM',
+        value: 1,
+    },
+    {
+        label: 'Đại học Bách khoa',
+        value: 2,
+    },
+    {
+        label: 'Đại học Luật TP.HCM',
+        value: 3,
+    },
+    {
+        label: 'Đại học Tôn Đức Thắng',
+        value: 4,
+    },
+    {
+        label: 'Trường Đại học Văn Lang',
+        value: 5,
+    },
+    {
+        label: 'Đại học Y Dược TP.HCM',
+        value: 6,
+    },
+    {
+        label: 'Đại học Hoa Sen',
+        value: 7,
+    },
+    {
+        label: 'Đại học Kinh tế TP.HCM',
+        value: 8,
+    },
+    {
+        label: 'Đại học CNTT',
+        value: 9,
+    },
+    {
+        label: 'Đại học Cảnh sát Nhân dân',
+        value: 10,
+    },
+    {
+        label: 'Đại học FPT',
+        value: 11,
+    },
+    {
+        label: 'Đại học Công nghệ TP.HCM',
+        value: 12,
+    },
+]
+
+'Toán', 'Vật Lý', 'Lịch Sử', 'Tiếng Anh', 'Địa lý', 'Sinh học'
+
+const secondarySubjects = [
+    {
+        label: 'Toán',
+        value: 1,
+    },
+    {
+        label: 'Vật Lý',
+        value: 2,
+    },
+    {
+        label: 'Lịch Sử',
+        value: 3,
+    },
+    {
+        label: 'Tiếng Anh',
+        value: 4,
+    },
+    {
+        label: 'Địa lý',
+        value: 5,
+    },
+    {
+        label: 'Sinh học',
+        value: 6,
+    },
+]
+
+const highSchoolSubjects = [
+    {
+        label: 'Toán',
+        value: 1,
+    },
+    {
+        label: 'Vật Lý',
+        value: 2,
+    },
+    {
+        label: 'Lịch Sử',
+        value: 3,
+    },
+    {
+        label: 'Tiếng Anh',
+        value: 4,
+    },
+    {
+        label: 'Địa lý',
+        value: 5,
+    },
+    {
+        label: 'Sinh học',
+        value: 6,
+    },
+    {
+        label: 'Hóa học',
+        value: 7,
+    },
+]
+
+const selectedChoices = [
+    {
+        label: 2,
+        value: 2,
+    },
+    {
+        label: 3,
+        value: 3,
+    },
+    {
+        label: 4,
+        value: 4,
+    },
+    {
+        label: 5,
+        value: 5,
+    },
+]
+
+const initialValue = {
+    value: '',
+    label: '',
+}
+
+export {
+    universitiesName,
+    levelSchool,
+    secondarySchool,
+    highSchool,
+    secondarySubjects,
+    highSchoolSubjects,
+    selectedChoices,
+    initialValue,
+    level,
+}

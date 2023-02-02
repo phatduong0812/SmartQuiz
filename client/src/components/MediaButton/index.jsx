@@ -2,7 +2,7 @@ import { Avatar, Box, Paper, Typography } from '@mui/material'
 
 import { AppStyles } from '~/constants/styles'
 
-const MediaButton = ({ src }) => {
+const MediaButton = ({ src, onClick, content }) => {
     return (
         <Box
             width="1"
@@ -23,13 +23,14 @@ const MediaButton = ({ src }) => {
                 transition: 'all 0.3s',
                 backgroundColor: AppStyles.colors['#FAFBFF'],
             }}
+            onClick={onClick}
         >
             <Avatar sx={{ width: 32, height: 32, justifySelf: 'flex-start' }} src={src} />
             <Typography
                 variant="body1"
                 sx={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)' }}
             >
-                Đăng nhập với Google
+                {content}
             </Typography>
         </Box>
     )

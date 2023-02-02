@@ -34,6 +34,13 @@ const publicRoutes = [
         name: 'detail',
         layout: 'common',
     },
+    {
+        element: <CreateStudySet />,
+        path: 'create',
+        name: 'create-study-set',
+        layout: 'common',
+        role: 'user',
+    },
 ]
 
 const privateRoutes = [
