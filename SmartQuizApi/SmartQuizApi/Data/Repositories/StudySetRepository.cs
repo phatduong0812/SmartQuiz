@@ -1,4 +1,5 @@
-﻿using SmartQuizApi.Data.IRepositories;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartQuizApi.Data.IRepositories;
 using SmartQuizApi.Data.Models;
 
 namespace SmartQuizApi.Data.Repositories
@@ -19,9 +20,9 @@ namespace SmartQuizApi.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public StudySet GetStudySetById(int id)
+        public StudySet? GetStudySetById(int id)
         {
-            throw new NotImplementedException();
+            return GetByCondition(x => x.Id == id).Include(x => x.User).FirstOrDefault();
         }
     }
 }

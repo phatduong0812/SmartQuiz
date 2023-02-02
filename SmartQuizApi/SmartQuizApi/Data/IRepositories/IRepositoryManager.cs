@@ -7,6 +7,7 @@
         ISchoolRepository School { get; }
         IGradeRepository Grade { get; }
         ISubjectRepository Subject { get; }
+        IQuestionRepository Question { get; }
         Task SaveChangesAsync();
     }
 }
