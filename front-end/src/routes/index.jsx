@@ -1,36 +1,39 @@
+import { Suspense, lazy } from 'react'
+
 import { Route, Switch } from 'react-router-dom'
 
 import { CommonLayout } from '~/components/layout'
 
+import HybridRoute from './HyBridRoute'
+import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
 
-import CreateStudySet from '~/pages/CreateStudySet'
-import Home from '~/pages/Home'
-import Login from '~/pages/Login'
-import SearchPage from '~/pages/SearchPage'
-import StudySetDetail from '~/pages/StudySetDetail'
+import Loading from '~/pages/Loading'
 
 const publicRoutes = [
     {
-        component: Login,
+        component: lazy(() => import('~/pages/Login')),
         path: '/login',
         name: 'login',
         layout: 'common',
     },
+]
+
+const hyBridRoutes = [
     {
-        component: Home,
+        component: lazy(() => import('../pages/Home')),
         path: '/',
-        name: '/home',
+        name: 'home',
         layout: 'common',
     },
     {
-        component: SearchPage,
+        component: lazy(() => import('~/pages/SearchPage')),
         path: '/search',
         name: 'search',
         layout: 'common',
     },
     {
-        component: StudySetDetail,
+        component: lazy(() => import('~/pages/StudySetDetail')),
         path: '/detail/:id',
         name: 'detail',
         layout: 'common',
@@ -39,8 +42,8 @@ const publicRoutes = [
 
 const privateRoutes = [
     {
-        element: <CreateStudySet />,
-        path: 'create',
+        component: lazy(() => import('~/pages/CreateStudySet')),
+        path: '/create',
         name: 'create-study-set',
         layout: 'common',
         role: 'user',
@@ -48,17 +51,32 @@ const privateRoutes = [
 ]
 
 const RouteList = (
-    <Route>
-        <CommonLayout>
-            <Switch>
-                {publicRoutes.map(
-                    ({ layout, ...route }) =>
-                        layout === 'common' && <PublicRoute key={route.name} exact={true} {...route} />
-                )}
-            </Switch>
-            {/* <Redirect to="/" /> */}
-        </CommonLayout>
-    </Route>
+    <Suspense fallback={<Loading />}>
+        <Switch>
+            <Route>
+                <CommonLayout>
+                    <Suspense fallback={<Loading />}>
+                        <Switch>
+                            {publicRoutes.map(
+                                ({ layout, ...route }) =>
+                                    layout === 'common' && <PublicRoute key={route.name} exact={true} {...route} />
+                            )}
+                            {hyBridRoutes.map(
+                                ({ layout, ...route }) =>
+                                    layout === 'common' && <HybridRoute key={route.name} exact={true} {...route} />
+                            )}
+                            {privateRoutes.map(
+                                ({ layout, ...route }) =>
+                                    layout === 'common' && <PrivateRoute key={route.name} exact={true} {...route} />
+                            )}
+                        </Switch>
+                    </Suspense>
+                    {/* <Redirect to="/" /> */}
+                </CommonLayout>
+            </Route>
+            <Route path="/admin"></Route>
+        </Switch>
+    </Suspense>
 )
 
 export default RouteList

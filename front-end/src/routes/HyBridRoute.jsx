@@ -1,25 +1,16 @@
-import { Navigate, Outlet } from 'react-router-dom'
-
-import { AdminLayout, CommonLayout } from '../components/layout'
+import { Redirect, Route } from 'react-router-dom'
 
 import { useAppSelector } from '../hooks/redux-hooks'
 
-const HybridRoute = () => {
+const HybridRoute = (props) => {
+    const { component, ...rest } = props
     const auth = useAppSelector((state) => state.auth)
 
     if (auth && auth.email && auth.role === 'admin') {
-        return <Navigate to="/admin" replace={true} />
+        return <Redirect to="/admin" />
     }
 
-    return !auth.role || auth.role === 'user' ? (
-        <CommonLayout>
-            <Outlet />
-        </CommonLayout>
-    ) : (
-        <AdminLayout>
-            <Outlet />
-        </AdminLayout>
-    )
+    return <Route component={component} {...rest} />
 }
 
 export default HybridRoute
