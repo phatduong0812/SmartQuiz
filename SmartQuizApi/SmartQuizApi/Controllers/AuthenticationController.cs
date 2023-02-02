@@ -58,7 +58,7 @@ namespace SmartQuizApi.Controllers
             {
                 HttpOnly = true
             });
-            return Redirect($"{accessToken}");
+            return Redirect($"http://localhost:3000/login?token={accessToken}");
         }
 
         [HttpPost]

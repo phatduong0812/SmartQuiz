@@ -8,6 +8,7 @@ const initialState = {
     role: '',
     status: '',
     image: '',
+    exp: 0,
 }
 
 const authSlice = createSlice({
@@ -16,12 +17,13 @@ const authSlice = createSlice({
     reducers: {
         login: (state, action) => {
             state.email = action.payload.email
-            // state.username = action.payload.name
-            // state.role = action.payload.role
-            // state.image = action.payload.image
-            // state.exp = action.payload.exp
-            // state.userId = action.payload.userId
-            state = action.payload
+            state.username = action.payload.name
+            state.role = action.payload.role
+            state.image = action.payload.image
+            state.exp = action.payload.exp
+            state.userId = action.payload.userId
+            state.exp = action.payload.exp
+            state.token = action.payload.token
         },
         logout: () => initialState,
     },
