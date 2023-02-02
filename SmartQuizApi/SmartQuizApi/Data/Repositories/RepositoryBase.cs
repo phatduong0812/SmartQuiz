@@ -36,5 +36,10 @@ namespace SmartQuizApi.Data.Repositories
         {
             _context.Set<T>().Update(entity);
         }
+
+        public IQueryable<T> GetAll()
+        {
+            return _context.Set<T>();
+        }
     }
 }

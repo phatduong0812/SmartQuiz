@@ -30,7 +30,7 @@ const publicRoutes = [
     },
     {
         element: <StudySetDetail />,
-        path: 'detail',
+        path: 'detail/:id',
         name: 'detail',
         layout: 'common',
     },

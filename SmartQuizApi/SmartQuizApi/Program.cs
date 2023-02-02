@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using SmartQuizApi.Config;
 using SmartQuizApi.Data.IRepositories;
 using SmartQuizApi.Data.Models;
 using SmartQuizApi.Data.Repositories;
@@ -27,9 +28,12 @@ builder.Services.AddDbContext<SmartquizContext>(options =>
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
 })
     .AddJwtBearer(options =>
     {
+        options.RequireHttpsMetadata = true;
         options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -49,6 +53,7 @@ builder.Services.AddAuthentication(options =>
         options.ClientId = googleAuthNSection["ClientId"];
         options.ClientSecret = googleAuthNSection["ClientSecret"];
         options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.ReturnUrlParameter = "~/";
         options.SaveTokens = true;
         options.Scope.Add("profile");
         options.Events.OnCreatingTicket = context =>
@@ -67,6 +72,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 });
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
 
@@ -82,8 +88,6 @@ app.UseCookiePolicy(new CookiePolicyOptions
 {
     Secure = CookieSecurePolicy.Always
 });
-
-app.UseHttpsRedirection();
 
 app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
