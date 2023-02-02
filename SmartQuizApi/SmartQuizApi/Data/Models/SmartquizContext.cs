@@ -128,9 +128,7 @@ public partial class SmartquizContext : DbContext
 
         modelBuilder.Entity<Grade>(entity =>
         {
-            entity.Property(e => e.Grade1)
-                .HasMaxLength(50)
-                .HasColumnName("Grade");
+            entity.Property(e => e.Name).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Method>(entity =>
@@ -150,7 +148,7 @@ public partial class SmartquizContext : DbContext
 
         modelBuilder.Entity<School>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK_Universities");
+            entity.HasKey(e => e.Id).HasName("PK_Schools_1");
         });
 
         modelBuilder.Entity<StudySet>(entity =>
