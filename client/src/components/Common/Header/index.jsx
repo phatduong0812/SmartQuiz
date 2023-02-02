@@ -113,9 +113,9 @@ const Header = () => {
                                 sx={{
                                     color: AppStyles.colors['#FFFFFF'],
                                     ml: 5,
-                                    borderRadius: 2.5,
-                                    pr: 4,
-                                    justifyContent: 'flex-start',
+                                    borderRadius: 3,
+                                    px: 3,
+                                    py: 1,
                                     textTransform: 'none',
                                     backgroundColor: AppStyles.colors['#004DFF'],
                                     ':hover': {
