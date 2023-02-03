@@ -17,7 +17,10 @@ namespace SmartQuizApi.Data.Repositories
 
         public Task<List<StudySet>> GetListStudySetsAsync()
         {
-            throw new NotImplementedException();
+            return GetByCondition(x => true).Include(x => x.User)
+                                            .Include(x => x.Grade)
+                                            .Include(x => x.Subject)
+                                            .Include(x => x.Class).ToListAsync();
         }
 
         public StudySet? GetStudySetById(int id)

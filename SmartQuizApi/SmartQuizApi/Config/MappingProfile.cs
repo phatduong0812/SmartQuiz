@@ -20,6 +20,10 @@ namespace SmartQuizApi.Config
             CreateMap<StudySet, GetStudySetDetailsDTO>().ForMember(dest => dest.Creator, opt => opt.MapFrom(src => src.User.Name));
             CreateMap<Question, GetQuestionDTO>();
             CreateMap<Answer, GetAnswerDTO>();
+            CreateMap<StudySet, GetStudySetsListDTO>().ForMember(des => des.Creator, opt => opt.MapFrom(src => src.User.Name))
+                                                      .ForMember(des => des.GradeName, opt => opt.MapFrom(src => src.Grade.Name))
+                                                      .ForMember(des => des.SubjectName, opt => opt.MapFrom(src => src.Subject.Name))
+                                                      .ForMember(des => des.SchoolName, opt => opt.MapFrom(src => src.School.Name));
         }
     }
 }
