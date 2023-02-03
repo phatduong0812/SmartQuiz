@@ -31,7 +31,7 @@ const useAuthAction = () => {
 
     const logoutHandler = () => {
         LocalStorageUtils.deleteUser()
-        logout()
+        dispatch(logout())
         history.push('/login')
     }
 
