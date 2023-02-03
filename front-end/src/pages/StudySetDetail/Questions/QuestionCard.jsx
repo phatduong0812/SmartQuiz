@@ -13,9 +13,9 @@ const QuestionCard = ({ question }) => {
         >
             <Box flexBasis="60%" p={2}>
                 <Typography mb={3} sx={{ fontSize: 17, fontWeight: 500 }}>
-                    {question.quest}
+                    {question.name}
                 </Typography>
-                {question.ans.map((value, index) => (
+                {question.answers.map((value, index) => (
                     <Typography key={index} sx={{ fontSize: 17, mb: 1 }}>
                         {value.name}
                     </Typography>
@@ -32,7 +32,7 @@ const QuestionCard = ({ question }) => {
             />
             <Box flexBasis="40%" sx={{ p: 2 }}>
                 <Typography sx={{ fontWeight: 500 }}>
-                    {question.ans.find((value) => value.id === question.correct).name}
+                    {question.answers.find((value) => value.isCorrectAnswer === true).name}
                 </Typography>
             </Box>
         </Box>

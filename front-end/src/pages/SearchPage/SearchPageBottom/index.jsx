@@ -1,12 +1,37 @@
+import { useEffect, useState } from 'react'
+
 import { Box, Grid, Typography } from '@mui/material'
 import ListStudySets from '~/components/ListStudySets'
 
 import Sort from './Sort'
 
-import { Mock_Data } from '~/Mock'
+import { useSnackbar } from '~/HOC/SnackbarContext'
+import { useStudySet } from '~/actions/study-set'
 import { AppStyles } from '~/constants/styles'
+import Loading from '~/pages/Loading'
 
 const SearchPageBottom = () => {
+    const { getStudySetList } = useStudySet()
+    const [isFirstRender, setIsFirstRender] = useState(true)
+    const [studySet, setStudySet] = useState({})
+    const showSnackbar = useSnackbar()
+
+    useEffect(() => {
+        getStudySetList()
+            .then((response) => {
+                const data = response.data.data
+                setStudySet(data)
+                setIsFirstRender(false)
+            })
+            .catch(() => {
+                showSnackbar({
+                    severity: 'error',
+                    children: 'Something went wrong, please try again later.',
+                })
+                setIsFirstRender(false)
+            })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     return (
         <Grid maxWidth={1112} container sx={{ m: '0 auto', mt: 2 }} flexDirection="column">
             <Box mt={1} display="flex" justifyContent="space-between" alignItems="center">
@@ -23,9 +48,7 @@ const SearchPageBottom = () => {
                 </Typography>
                 <Sort />
             </Box>
-            <Box mt={2}>
-                <ListStudySets studySets={Mock_Data.search} />
-            </Box>
+            <Box mt={2}>{isFirstRender ? <Loading /> : <ListStudySets studySets={studySet} />}</Box>
             <Typography
                 mt={5}
                 mb={10}
@@ -36,7 +59,7 @@ const SearchPageBottom = () => {
                     color: AppStyles.colors['#767680'],
                 }}
             >
-                Có 10 kết quả tìm kiếm phù hợp
+                Có {studySet.length} kết quả tìm kiếm phù hợp
             </Typography>
         </Grid>
     )
