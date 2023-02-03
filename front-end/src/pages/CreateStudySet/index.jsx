@@ -5,6 +5,7 @@ import { Box, Button, Container } from '@mui/material'
 
 import Modal from './Modal'
 import NewStudySet from './NewStudySet'
+import Questions from './Questions'
 
 import { initialValue, level, levelSchool } from '~/Mock'
 import { AppStyles } from '~/constants/styles'
@@ -94,6 +95,7 @@ const CreateStudySet = () => {
                     </Button>
                 </Box>
                 <Modal onClose={closeModalHandler} submitQuestionHandler={addQuestionHandler} open={openModal} />
+                <Questions />
             </Container>
         </React.Fragment>
     )

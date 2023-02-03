@@ -1,25 +1,27 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import App from '~/app'
-import './index.css'
 
-import '@fontsource/manrope'
+import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
+
 import SnackbarProvider from './HOC/SnackbarContext'
+import './index.css'
 import { store } from './store'
 
+import '@fontsource/manrope'
+import App from '~/app'
+
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <Router>
-        <SnackbarProvider>
-          <App />
-        </SnackbarProvider>
-      </Router>
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <Provider store={store}>
+            <Router>
+                <SnackbarProvider>
+                    <App />
+                </SnackbarProvider>
+            </Router>
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
 )
 
 // If you want to start measuring performance in your app, pass a function

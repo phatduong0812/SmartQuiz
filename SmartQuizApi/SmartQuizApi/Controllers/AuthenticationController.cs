@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
@@ -58,7 +57,7 @@ namespace SmartQuizApi.Controllers
             {
                 HttpOnly = true
             });
-            return Redirect($"{accessToken}");
+            return Redirect($"http://localhost:3000/login?token={accessToken}");
         }
 
         [HttpPost]

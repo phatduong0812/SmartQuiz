@@ -1,18 +1,14 @@
-﻿using SmartQuizApi.Data.DTOs.QuestionDTOs;
-using SmartQuizApi.Data.Models;
-using System.ComponentModel.DataAnnotations;
-
-namespace SmartQuizApi.Data.DTOs.StudySetDTOs
+﻿namespace SmartQuizApi.Data.DTOs.StudySetDTOs
 {
-    public class GetStudySetDetailsDTO
+    public class GetStudySetsListDTO
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
-
-        public string Creator { get; set; }
+        public string Name { get; set; } = null!;
 
         public int UserId { get; set; }
+
+        public string Creator { get; set; }
 
         public int SchoolId { get; set; }
 
@@ -30,6 +26,8 @@ namespace SmartQuizApi.Data.DTOs.StudySetDTOs
 
         public bool IsPublic { get; set; }
 
-        public List<GetQuestionDTO>? Questions { get; set; }
+        public DateTime CreateAt { get; set; }
+
+        public DateTime UpdateAt { get; set; }
     }
 }

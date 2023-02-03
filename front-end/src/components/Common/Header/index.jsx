@@ -20,25 +20,28 @@ import {
 import { grey, yellow } from '@mui/material/colors'
 
 import logo from '../../../assets/images/Logo.png'
-import avatar from '../../../assets/images/User 5.png'
 import Notification from '../../Noti'
 import Search from '../../Search'
 
 import { AppStyles } from '~/constants/styles'
+import useAuthAction from '~/features/authSlice/auth-actions'
 import { useAppSelector } from '~/hooks/redux-hooks'
 
 const Header = () => {
     const [anchorEl, setAnchorEl] = useState(null)
+    const { logoutHandler } = useAuthAction()
     const open = Boolean(anchorEl)
 
-    const { email } = useAppSelector((state) => state.auth)
+    const { email, username, image } = useAppSelector((state) => state.auth)
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
     }
     const handleClose = () => {
         setAnchorEl(null)
     }
-    const handleClickLogout = () => {}
+    const handleClickLogout = () => {
+        logoutHandler()
+    }
 
     return (
         <AppBar position="fixed" sx={{ backgroundColor: AppStyles.colors['#FAFBFF'], boxShadow: 'none' }}>
@@ -60,7 +63,7 @@ const Header = () => {
                         >
                             <Link to="/">
                                 <Box>
-                                    <Avatar sx={{ height: 50, width: 150 }} src={logo} alt="logo"></Avatar>
+                                    <Avatar sx={{ height: 50, width: 150 }} src={logo} alt="logo" />
                                 </Box>
                             </Link>
                         </Box>
@@ -173,7 +176,7 @@ const Header = () => {
                             <React.Fragment>
                                 <Tooltip title="">
                                     <IconButton onClick={handleClick} size="medium" sx={{ ml: 3 }}>
-                                        <Avatar src={avatar} sx={{ width: 40, height: 40 }} />
+                                        <Avatar src={image} sx={{ width: 40, height: 40 }} />
                                     </IconButton>
                                 </Tooltip>
 
@@ -216,12 +219,12 @@ const Header = () => {
                                         alignItems="center"
                                         mb={1}
                                     >
-                                        <Avatar alt="avatar" src={avatar} sx={{ width: 80, height: 80, mb: 2 }} />
+                                        <Avatar alt="avatar" src={image} sx={{ width: 80, height: 80, mb: 2 }} />
                                         <Typography variant="body1" fontWeight={700} textAlign="center">
-                                            {/* {auth.name} */}
+                                            {username}
                                         </Typography>
                                         <Typography variant="body1" textAlign="center">
-                                            {/* {auth.email} */}
+                                            {email}
                                         </Typography>
                                         <Divider textAlign="center" sx={{ width: '100%', mt: 2 }}>
                                             <Chip label="Standard" />
