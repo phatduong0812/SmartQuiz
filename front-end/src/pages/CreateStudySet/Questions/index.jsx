@@ -1,5 +1,7 @@
+import Question from './Question'
+
 const Questions = () => {
-    return <div>Questions</div>
+    return <Question />
 }
 
 export default Questions
