@@ -38,7 +38,7 @@ const StudyCard = ({ studySet }) => {
                                 to={`/detail/${studySet.id}`}
                             >
                                 {/* {studySet?.StudySetName} */}
-                                Toán THPT 2021-2022
+                                {studySet.name}
                             </Typography>
                             {Math.random() < 0.5 && (
                                 <GppGood
@@ -72,7 +72,7 @@ const StudyCard = ({ studySet }) => {
                             color="text.secondary"
                             sx={{ fontWeight: 'bold', fontSize: 14, userSelect: 'none' }}
                         >
-                            {studySet?.PersonCreated}
+                            {studySet?.creator}
                         </Typography>
                     </Box>
                     <Box display="flex" mt={2} textAlign={'left'}>
@@ -87,7 +87,7 @@ const StudyCard = ({ studySet }) => {
                                     userSelect: 'none',
                                 }}
                             >
-                                {studySet?.NumberPeople}
+                                0
                             </Typography>
                         </Box>
                         <Box ml={2} display="flex" alignItems="center" justifyContent="center">
@@ -101,7 +101,7 @@ const StudyCard = ({ studySet }) => {
                                     userSelect: 'none',
                                 }}
                             >
-                                {studySet?.Star}
+                                {studySet?.gradeName}
                             </Typography>
                         </Box>
                     </Box>

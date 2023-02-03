@@ -1,19 +1,17 @@
 import React from 'react'
 
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { Quiz } from '@mui/icons-material'
 import { Box, Button, IconButton, Typography } from '@mui/material'
 
-import { Mock_Data } from '~/Mock'
 import { AppStyles } from '~/constants/styles'
 
-const DetailHeader = ({ numberQuestion }) => {
-    const { id } = useParams()
+const DetailHeader = ({ info }) => {
     return (
         <React.Fragment>
             <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-                Toán THPT 2021-2022
+                {info.name}
             </Typography>
             <Button
                 variant="outlined"
@@ -63,11 +61,11 @@ const DetailHeader = ({ numberQuestion }) => {
                     Người tạo
                 </Typography>
                 <Typography ml={0.5} variant="body1" color="text.secondary" sx={{ fontWeight: 'bold', fontSize: 14 }}>
-                    {Mock_Data.recent[id - 1].PersonCreated}
+                    {info.creator}
                 </Typography>
             </Box>
             <Typography mt={5} variant="h5" sx={{ fontWeight: 'bold' }}>
-                Số lượng câu ({numberQuestion.length})
+                Số lượng câu ({info.questions.length})
             </Typography>
         </React.Fragment>
     )
