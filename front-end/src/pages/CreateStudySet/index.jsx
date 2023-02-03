@@ -42,6 +42,12 @@ const CreateStudySet = () => {
 
     const subjectChangeHandler = (name, value) => setSubject(() => ({ label: name, value: value }))
 
+    const deleteQuestionDraft = (id) => {
+        const cloneQuestions = JSON.parse(JSON.stringify(questions))
+        const updatedQuestion = cloneQuestions.filter((question) => question.id !== id)
+        setQuestions(updatedQuestion)
+    }
+
     const infoStudySetHandler = {
         titleChangeHandler,
         levelChangeHandler,
@@ -95,7 +101,7 @@ const CreateStudySet = () => {
                     </Button>
                 </Box>
                 <Modal onClose={closeModalHandler} submitQuestionHandler={addQuestionHandler} open={openModal} />
-                <Questions />
+                <Questions questions={questions} deleteQuestionDraft={deleteQuestionDraft} />
             </Container>
         </React.Fragment>
     )

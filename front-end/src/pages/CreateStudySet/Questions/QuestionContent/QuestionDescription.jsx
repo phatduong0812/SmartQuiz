@@ -1,10 +1,15 @@
-import { Grid, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
+import QuestionCardLeft from '~/components/QuestionCard/QuestionCardLeft'
+import QuestionCardRight from '~/components/QuestionCard/QuestionCardRight'
 
-const QuestionDescription = () => {
+const QuestionDescription = ({ quest, ans }) => {
     return (
-        <Grid container>
-            <Grid item sx={6}>
-                <Typography>Câu hỏi</Typography>
+        <Grid container columnSpacing={8} mt={2}>
+            <Grid item xs={6}>
+                <QuestionCardLeft>{quest}</QuestionCardLeft>
+            </Grid>
+            <Grid item xs={6}>
+                <QuestionCardRight questions={ans} />
             </Grid>
         </Grid>
     )

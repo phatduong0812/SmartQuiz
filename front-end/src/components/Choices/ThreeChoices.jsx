@@ -4,6 +4,8 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 
 import Answers from './Answers'
 
+import { questionUniqueId, uniqueId } from '~/utils/IdGenerator'
+
 const answers = ['A', 'B', 'C']
 
 const ThreeChoices = ({ submitQuestionHandler }) => {
@@ -30,23 +32,27 @@ const ThreeChoices = ({ submitQuestionHandler }) => {
 
     const submitQuestion = () => {
         const question = {
-            name: questionName,
-            values: [
+            quest: questionName,
+            ans: [
                 {
+                    id: questionUniqueId(),
                     name: firstChoice,
-                    answer: true,
+                    isCorrect: answersSelected.includes('A'),
                 },
                 {
+                    id: questionUniqueId(),
                     name: secondChoice,
-                    answer: false,
+                    isCorrect: answersSelected.includes('B'),
                 },
                 {
+                    id: questionUniqueId(),
                     name: thirdChoice,
-                    answer: true,
+                    isCorrect: answersSelected.includes('C'),
                 },
             ],
             multiple: true,
             answers: answersSelected,
+            id: uniqueId(),
         }
         submitQuestionHandler(question)
         resetHandler()
