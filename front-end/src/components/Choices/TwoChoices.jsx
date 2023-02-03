@@ -4,6 +4,8 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 
 import Answers from './Answers'
 
+import { questionUniqueId, uniqueId } from '~/utils/IdGenerator'
+
 const answers = ['A', 'B']
 
 const TwoChoices = ({ submitQuestionHandler }) => {
@@ -28,19 +30,22 @@ const TwoChoices = ({ submitQuestionHandler }) => {
 
     const submitQuestion = () => {
         const question = {
-            name: 'Is java an oop language?',
-            values: [
+            quest: questionName,
+            ans: [
                 {
+                    id: questionUniqueId(),
                     name: firstChoice,
-                    value: answersSelected.includes('A'),
+                    isCorrect: answersSelected.includes('A'),
                 },
                 {
+                    id: questionUniqueId(),
                     name: secondChoice,
-                    value: answersSelected.includes('B'),
+                    isCorrect: answersSelected.includes('B'),
                 },
             ],
             multiple: false,
             answers: answersSelected,
+            id: uniqueId(),
         }
         submitQuestionHandler(question)
         resetHandler()

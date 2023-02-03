@@ -3,7 +3,7 @@ import { Badge, Box, IconButton, Stack, Typography } from '@mui/material'
 
 import { AppStyles } from './../../../../constants/styles'
 
-const QuestionAction = ({ index }) => {
+const QuestionAction = ({ index, id, deleteQuestionDraft }) => {
     return (
         <Box sx={{ p: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Typography fontWeight={700}>{index + 1}.</Typography>
@@ -21,7 +21,7 @@ const QuestionAction = ({ index }) => {
                     </Badge>
                 </IconButton>
             </Stack>
-            <IconButton aria-label="delete">
+            <IconButton aria-label="delete" onClick={() => deleteQuestionDraft(id)}>
                 <Delete />
             </IconButton>
         </Box>
