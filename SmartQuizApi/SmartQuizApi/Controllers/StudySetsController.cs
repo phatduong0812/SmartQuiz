@@ -67,5 +67,20 @@ namespace SmartQuizApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response(500, ex.Message));
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetStudySetsList()
+        {
+            try
+            {
+                var studySetsList = await _repositoryManager.StudySet.GetListStudySetsAsync();
+                var studySetsListDTO = _mapper.Map<List<GetStudySetsListDTO>>(studySetsList);
+                return StatusCode(StatusCodes.Status200OK, new Response(200, studySetsListDTO));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response(500, ex.Message));
+            }
+        }
     }
 }
