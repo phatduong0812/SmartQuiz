@@ -18,7 +18,9 @@ const StudySetDetail = () => {
     const [studySetDetail, setStudySetDetail] = useState({})
     const [isFirstRender, setIsFirstRender] = useState(true)
     useEffect(() => {
-        getStudySet(id)
+        const controller = new AbortController()
+        const signal = controller.signal
+        getStudySet(id, signal)
             .then((response) => {
                 const data = response.data.data
 
@@ -32,6 +34,9 @@ const StudySetDetail = () => {
                 })
                 setIsFirstRender(false)
             })
+        return () => {
+            controller.abort()
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (

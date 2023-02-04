@@ -17,7 +17,9 @@ const SearchPageBottom = () => {
     const showSnackbar = useSnackbar()
 
     useEffect(() => {
-        getStudySetList()
+        const controller = new AbortController()
+        const signal = controller.abort()
+        getStudySetList(signal)
             .then((response) => {
                 const data = response.data.data
                 setStudySet(data)
@@ -30,6 +32,9 @@ const SearchPageBottom = () => {
                 })
                 setIsFirstRender(false)
             })
+        return () => {
+            controller.abort()
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
