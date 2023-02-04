@@ -36,6 +36,9 @@ namespace SmartQuizApi.Controllers
                 }
 
                 var studySet = _mapper.Map<StudySet>(createStudySetDTO);
+                studySet.Id = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+                var questionsList = _mapper.Map<List<Question>>(createStudySetDTO.Questions);
+                questionsList.ForEach(x => x.StudySetId= studySet.Id);
                 _repositoryManager.StudySet.CreateStudySet(studySet);
                 await _repositoryManager.SaveChangesAsync();
                 return StatusCode(StatusCodes.Status201Created, new Response(201, "", "Create successfully"));
@@ -47,7 +50,7 @@ namespace SmartQuizApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetStudySetDetail(int id, [FromQuery] PaginationParams @params)
+        public async Task<IActionResult> GetStudySetDetail(string id, [FromQuery] PaginationParams @params)
         {
             try
             {

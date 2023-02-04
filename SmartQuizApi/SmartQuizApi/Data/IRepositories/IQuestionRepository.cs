@@ -4,6 +4,6 @@ namespace SmartQuizApi.Data.IRepositories
 {
     public interface IQuestionRepository
     {
-        Task<List<Question>> GetQuestionsByStudySetId(int id);
+        Task<List<Question>> GetQuestionsByStudySetId(string id);
     }
 }
