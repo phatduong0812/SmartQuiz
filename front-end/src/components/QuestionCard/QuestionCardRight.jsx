@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material'
 
 import Answer from './Answer'
 
-const answers = ['A', 'B', 'C', 'D', 'E']
+import { choices } from '~/Mock'
 
 const QuestionCardRight = ({ questions }) => {
     return (
@@ -11,7 +11,7 @@ const QuestionCardRight = ({ questions }) => {
             {questions.map((question, index) => (
                 <Answer
                     key={question.id}
-                    choice={answers[index]}
+                    choice={choices[index]}
                     isCorrect={question.isCorrect}
                     answer={question.name}
                 />

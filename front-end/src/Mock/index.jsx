@@ -480,6 +480,8 @@ const selectedChoices = [
     },
 ]
 
+const choices = ['A', 'B', 'C', 'D', 'E']
+
 const initialValue = {
     value: '',
     label: '',
@@ -495,4 +497,5 @@ export {
     selectedChoices,
     initialValue,
     level,
+    choices,
 }
