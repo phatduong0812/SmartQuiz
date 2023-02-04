@@ -1,8 +1,11 @@
+import { useRef } from 'react'
+
 import { Box, Divider, Typography } from '@mui/material'
 
 import { AppStyles } from '~/constants/styles'
 
-const QuestionCard = ({ question }) => {
+const QuestionCard = ({ question, ans }) => {
+    const correctAnswersIndex = useRef([])
     return (
         <Box
             display="flex"
@@ -17,7 +20,7 @@ const QuestionCard = ({ question }) => {
                 </Typography>
                 {question.answers.map((value, index) => (
                     <Typography key={index} sx={{ fontSize: 17, mb: 1 }}>
-                        {value.name}
+                        {ans[index]}. {value.name}
                     </Typography>
                 ))}
             </Box>
@@ -31,9 +34,17 @@ const QuestionCard = ({ question }) => {
                 }}
             />
             <Box flexBasis="40%" sx={{ p: 2 }}>
-                <Typography sx={{ fontWeight: 500 }}>
-                    {question.answers.find((value) => value.isCorrectAnswer === true).name}
-                </Typography>
+                {question.answers
+                    .filter(
+                        (value, index) =>
+                            value.isCorrectAnswer === true && correctAnswersIndex.current.push(ans[index]) && true
+                    )
+                    .map((value) => value.name)
+                    .map((name, index) => (
+                        <Typography sx={{ fontWeight: 500, mb: 1.5 }} key={index}>
+                            {correctAnswersIndex.current[index]}. {name}
+                        </Typography>
+                    ))}
             </Box>
         </Box>
     )

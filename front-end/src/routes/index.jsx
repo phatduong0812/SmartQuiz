@@ -28,13 +28,13 @@ const hyBridRoutes = [
     },
     {
         component: lazy(() => import('~/pages/SearchPage')),
-        path: '/search',
+        path: '/study-sets',
         name: 'search',
         layout: 'common',
     },
     {
         component: lazy(() => import('~/pages/StudySetDetail')),
-        path: '/detail/:id',
+        path: '/study-sets/:id',
         name: 'detail',
         layout: 'common',
     },
