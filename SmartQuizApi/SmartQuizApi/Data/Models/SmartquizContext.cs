@@ -138,7 +138,9 @@ public partial class SmartquizContext : DbContext
 
         modelBuilder.Entity<Question>(entity =>
         {
-            entity.Property(e => e.StudySetId).HasColumnName("Study_set_id");
+            entity.Property(e => e.StudySetId)
+                .HasMaxLength(50)
+                .HasColumnName("Study_set_id");
 
             entity.HasOne(d => d.StudySet).WithMany(p => p.Questions)
                 .HasForeignKey(d => d.StudySetId)
@@ -155,6 +157,7 @@ public partial class SmartquizContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK_Study_set");
 
+            entity.Property(e => e.Id).HasMaxLength(50);
             entity.Property(e => e.ClassId).HasColumnName("Class_id");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("date")
@@ -206,7 +209,9 @@ public partial class SmartquizContext : DbContext
             entity.Property(e => e.StartTime)
                 .HasColumnType("date")
                 .HasColumnName("Start_time");
-            entity.Property(e => e.StudySetId).HasColumnName("Study_set_id");
+            entity.Property(e => e.StudySetId)
+                .HasMaxLength(50)
+                .HasColumnName("Study_set_id");
             entity.Property(e => e.UserId).HasColumnName("User_id");
 
             entity.HasOne(d => d.StudySet).WithMany(p => p.TestResults)
