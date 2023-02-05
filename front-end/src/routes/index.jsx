@@ -38,6 +38,12 @@ const hyBridRoutes = [
         name: 'detail',
         layout: 'common',
     },
+    {
+        component: lazy(() => import('~/pages/TestPage')),
+        path: '/study-sets/:id/test',
+        name: 'detail',
+        layout: 'common',
+    },
 ]
 
 const privateRoutes = [
