@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SmartQuizApi.Data.DTOs.QuestionDTOs;
+using System.ComponentModel.DataAnnotations;
 
 namespace SmartQuizApi.Data.DTOs.StudySetDTOs
 {
@@ -23,5 +24,7 @@ namespace SmartQuizApi.Data.DTOs.StudySetDTOs
 
         [Required]
         public bool IsPublic { get; set; }
+
+        public List<CreateQuestionDTO> Questions { get; set; }
     }
 }

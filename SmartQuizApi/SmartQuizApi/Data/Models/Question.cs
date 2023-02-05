@@ -5,11 +5,11 @@ namespace SmartQuizApi.Data.Models;
 
 public partial class Question
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
     public string Name { get; set; } = null!;
 
-    public int StudySetId { get; set; }
+    public string StudySetId { get; set; } = null!;
 
     public virtual ICollection<Answer> Answers { get; } = new List<Answer>();
 

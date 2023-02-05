@@ -9,7 +9,7 @@ public partial class TestResult
 
     public int UserId { get; set; }
 
-    public int StudySetId { get; set; }
+    public string StudySetId { get; set; } = null!;
 
     public double Mark { get; set; }
 

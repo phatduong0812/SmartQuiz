@@ -6,6 +6,6 @@ namespace SmartQuizApi.Data.IRepositories
     {
         void CreateStudySet(StudySet studySet);
         Task<List<StudySet>> GetListStudySetsAsync();   
-        StudySet? GetStudySetById(int id);
+        StudySet? GetStudySetById(string id);
     }
 }
