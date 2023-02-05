@@ -2,7 +2,7 @@
 {
     public class CreateAnwserDTO
     {
-        public string AnswerName { get; set; }
+        public string Name { get; set; }
 
         public bool IsCorrectAnswer { get; set; }
     }

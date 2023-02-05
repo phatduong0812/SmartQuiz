@@ -13,6 +13,7 @@ namespace SmartQuizApi.Data.Repositories
         private IGradeRepository _gradeRepository;
         private ISubjectRepository _subjectRepository;
         private IQuestionRepository _questionRepository;
+        private IAnnswerRepository _annswerRepository;
         public RepositoryManager(SmartquizContext context)
         {
             _context= context;
@@ -87,6 +88,18 @@ namespace SmartQuizApi.Data.Repositories
                     _questionRepository = new QuestionRepository(_context);
                 }
                 return _questionRepository;
+            }
+        }
+
+        public IAnnswerRepository Annswer
+        {
+            get
+            {
+                if (_annswerRepository == null)
+                {
+                    _annswerRepository = new AnswerRepository(_context);
+                }
+                return _annswerRepository;
             }
         }
         public async Task SaveChangesAsync()

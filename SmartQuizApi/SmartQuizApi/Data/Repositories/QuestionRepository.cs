@@ -10,9 +10,14 @@ namespace SmartQuizApi.Data.Repositories
         {
         }
 
+        public void CreateQuestion(Question question)
+        {
+            Create(question);
+        }
+
         public async Task<List<Question>> GetQuestionsByStudySetId(string id)
         {
-            return await GetByCondition(x => x.Equals(id)).Include(x => x.Answers).ToListAsync();
+            return await GetByCondition(x => x.StudySetId.Equals(id)).Include(x => x.Answers).ToListAsync();
         }
     }
 }

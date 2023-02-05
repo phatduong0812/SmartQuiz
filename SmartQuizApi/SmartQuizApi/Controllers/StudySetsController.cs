@@ -36,10 +36,17 @@ namespace SmartQuizApi.Controllers
                 }
 
                 var studySet = _mapper.Map<StudySet>(createStudySetDTO);
-                studySet.Id = DateTime.Now.ToString("yyyyMMddHHmmssffff");
-                var questionsList = _mapper.Map<List<Question>>(createStudySetDTO.Questions);
-                questionsList.ForEach(x => x.StudySetId= studySet.Id);
-                _repositoryManager.StudySet.CreateStudySet(studySet);
+                studySet.Id = Guid.NewGuid().ToString();
+                foreach (var question in studySet.Questions)
+                {
+                    question.Id = Guid.NewGuid().ToString();
+                    question.StudySetId= studySet.Id;
+                    foreach (var answer in question.Answers)
+                    {
+                        answer.QuestionId = question.Id;
+                    } 
+                }
+                _repositoryManager.StudySet.CreateStudySet(studySet);         
                 await _repositoryManager.SaveChangesAsync();
                 return StatusCode(StatusCodes.Status201Created, new Response(201, "", "Create successfully"));
             }

@@ -48,7 +48,9 @@ public partial class SmartquizContext : DbContext
         modelBuilder.Entity<Answer>(entity =>
         {
             entity.Property(e => e.IsCorrectAnswer).HasColumnName("Is_correct_answer");
-            entity.Property(e => e.QuestionId).HasColumnName("Question_id");
+            entity.Property(e => e.QuestionId)
+                .HasMaxLength(50)
+                .HasColumnName("Question_id");
 
             entity.HasOne(d => d.Question).WithMany(p => p.Answers)
                 .HasForeignKey(d => d.QuestionId)
@@ -138,6 +140,7 @@ public partial class SmartquizContext : DbContext
 
         modelBuilder.Entity<Question>(entity =>
         {
+            entity.Property(e => e.Id).HasMaxLength(50);
             entity.Property(e => e.StudySetId)
                 .HasMaxLength(50)
                 .HasColumnName("Study_set_id");

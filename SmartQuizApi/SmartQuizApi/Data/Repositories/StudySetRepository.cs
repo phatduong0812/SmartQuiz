@@ -26,7 +26,7 @@ namespace SmartQuizApi.Data.Repositories
 
         public StudySet? GetStudySetById(string id)
         {
-            return GetByCondition(x => x.Equals(id)).Include(x => x.User)
+            return GetByCondition(x => x.Id.Equals(id)).Include(x => x.User)
                                                 .Include(x => x.Grade)
                                                 .Include(x => x.Subject)
                                                 .Include(x => x.Class)
