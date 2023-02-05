@@ -180,17 +180,14 @@ public partial class SmartquizContext : DbContext
 
             entity.HasOne(d => d.Grade).WithMany(p => p.StudySets)
                 .HasForeignKey(d => d.GradeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_StudySets_Grades");
 
             entity.HasOne(d => d.School).WithMany(p => p.StudySets)
                 .HasForeignKey(d => d.SchoolId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_StudySets_Schools");
 
             entity.HasOne(d => d.Subject).WithMany(p => p.StudySets)
                 .HasForeignKey(d => d.SubjectId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_StudySets_Subjects");
 
             entity.HasOne(d => d.User).WithMany(p => p.StudySetsNavigation)

@@ -1,4 +1,4 @@
-import { get } from '~/utils/ApiCaller'
+import { get, post } from '~/utils/ApiCaller'
 
 const useStudySet = () => {
     const getStudySetList = (signal) => get({ endpoint: '/api/StudySets', signal })
@@ -7,7 +7,8 @@ const useStudySet = () => {
             endpoint: `/api/StudySets/${id}`,
             signal: signal,
         })
-    return { getStudySetList, getStudySet }
+    const createStudySet = (studySet) => post({ endpoint: '/api/studySets', body: studySet })
+    return { getStudySetList, getStudySet, createStudySet }
 }
 
 export default useStudySet

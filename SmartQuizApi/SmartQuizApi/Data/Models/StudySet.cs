@@ -11,11 +11,11 @@ public partial class StudySet
 
     public int UserId { get; set; }
 
-    public int SchoolId { get; set; }
+    public int? SchoolId { get; set; }
 
-    public int GradeId { get; set; }
+    public int? GradeId { get; set; }
 
-    public int SubjectId { get; set; }
+    public int? SubjectId { get; set; }
 
     public int? ClassId { get; set; }
 
@@ -27,13 +27,13 @@ public partial class StudySet
 
     public virtual Class? Class { get; set; }
 
-    public virtual Grade Grade { get; set; } = null!;
+    public virtual Grade? Grade { get; set; }
 
     public virtual ICollection<Question> Questions { get; } = new List<Question>();
 
-    public virtual School School { get; set; } = null!;
+    public virtual School? School { get; set; }
 
-    public virtual Subject Subject { get; set; } = null!;
+    public virtual Subject? Subject { get; set; }
 
     public virtual ICollection<TestResult> TestResults { get; } = new List<TestResult>();
 

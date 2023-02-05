@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { GppGood, Groups2, Star } from '@mui/icons-material'
 import { Avatar, Box, Divider, Grid, Typography } from '@mui/material'
 
@@ -12,7 +10,7 @@ const TableContent = ({ studySet }) => {
     return (
         <Box p={2}>
             {studySet.slice(0, -1).map((data, index) => (
-                <Grid key={data.StudySetName} pl={2} pt={2} container spacing={3}>
+                <Grid key={index} pl={2} pt={2} container spacing={3}>
                     <Grid item xs={4} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
                         {index < 1 ? (
                             <Avatar

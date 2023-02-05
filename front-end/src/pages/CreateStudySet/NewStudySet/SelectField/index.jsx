@@ -19,7 +19,7 @@ const SelectField = ({ label, isRequired, ml = 3, onChange, value, data, isDisab
         <Box maxWidth={260} ml={ml}>
             <Typography component="label" variant="body1" sx={{ color: AppStyles.colors['#FAFBFF'] }}>
                 {label}
-            </Typography>{' '}
+            </Typography>
             {isRequired && <LabelRequired />}
             <SelectCompo
                 selectStyle={selectStyle}
