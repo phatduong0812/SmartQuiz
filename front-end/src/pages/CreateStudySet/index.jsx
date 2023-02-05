@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { useHistory } from 'react-router-dom'
+
 import { AddBox } from '@mui/icons-material'
 import { Box, Container, Typography } from '@mui/material'
 import ButtonCompo from '~/components/ButtonCompo'
@@ -9,7 +11,9 @@ import NewStudySet from './NewStudySet'
 import Questions from './Questions'
 
 import { Mock_Data, initialValue, level, levelSchool } from '~/Mock'
+import { useStudySet } from '~/actions/study-set'
 import { AppStyles } from '~/constants/styles'
+import { useAppSelector } from '~/hooks/redux-hooks'
 
 const CreateStudySet = () => {
     const [schoolLevel, setSchoolLevel] = useState(levelSchool[0])
@@ -20,6 +24,9 @@ const CreateStudySet = () => {
     const [title, setTitle] = useState('')
     const [questions, setQuestions] = useState(Mock_Data.questions)
     const [openModal, setOpenModal] = useState(false)
+    const { userId } = useAppSelector((state) => state.auth)
+    const { createStudySet } = useStudySet()
+    const history = useHistory()
 
     const addQuestionHandler = (question) => {
         setQuestions((prev) => [...prev, question])
@@ -33,7 +40,7 @@ const CreateStudySet = () => {
         setOpenModal(false)
     }
 
-    const titleChangeHandler = (_, value) => setTitle(value)
+    const titleChangeHandler = ({ target: { value } }) => setTitle(value)
 
     const levelChangeHandler = (name, value) => setSchoolLevel(() => ({ label: name, value: value }))
 
@@ -67,6 +74,36 @@ const CreateStudySet = () => {
         questions,
     }
 
+    const submitStudySetHandler = (event) => {
+        event.preventDefault()
+
+        const formatQuestions = questions.map((item) => {
+            return {
+                name: item.quest,
+                answers: item.ans.map((ans) => {
+                    return {
+                        name: ans.name,
+                        isCorrectAnswer: ans.isCorrect,
+                    }
+                }),
+            }
+        })
+
+        const studySet = {
+            name: title,
+            userId: +userId,
+            schoolId: isUniversity ? universityName.value : null,
+            gradeId: isUniversity ? null : classLevel.value,
+            subjectId: isUniversity ? null : subject.value,
+            classId: null,
+            isPublic: true,
+            questions: formatQuestions,
+        }
+        createStudySet(studySet).then(() => {
+            history.push('/')
+        })
+    }
+
     useEffect(() => {
         if (schoolLevel.label === level.university) {
             setIsUniversity(true)
@@ -80,7 +117,7 @@ const CreateStudySet = () => {
     }, [schoolLevel])
 
     return (
-        <Box component="form">
+        <Box component="form" onSubmit={submitStudySetHandler}>
             <Container maxWidth="xl">
                 <NewStudySet infoStudySetHandler={infoStudySetHandler} infoStudySet={infoStudySet} />
                 <Modal onClose={closeModalHandler} submitQuestionHandler={addQuestionHandler} open={openModal} />
@@ -126,7 +163,11 @@ const CreateStudySet = () => {
                             >
                                 Lưu nháp
                             </ButtonCompo>
-                            <ButtonCompo variant="contained" style={{ backgroundColor: AppStyles.colors['#004DFF'] }}>
+                            <ButtonCompo
+                                variant="contained"
+                                style={{ backgroundColor: AppStyles.colors['#004DFF'] }}
+                                type="submit"
+                            >
                                 Tạo học phần
                             </ButtonCompo>
                         </Box>

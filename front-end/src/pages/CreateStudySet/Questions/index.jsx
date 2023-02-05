@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import Question from './Question'
 
@@ -6,10 +6,10 @@ const Questions = ({ questions, deleteQuestionDraft }) => {
     return (
         <React.Fragment>
             {questions.map((question, index) => (
-                <Question key={question.id} index={index} {...question} deleteQuestionDraft={deleteQuestionDraft} />
+                <Question key={index} index={index} {...question} deleteQuestionDraft={deleteQuestionDraft} />
             ))}
         </React.Fragment>
     )
 }
 
-export default Questions
+export default memo(Questions)

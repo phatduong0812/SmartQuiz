@@ -90,6 +90,7 @@ const Header = () => {
                                         color: AppStyles.colors['#004DFF'],
                                     },
                                 }}
+                                exact
                             >
                                 <Typography component="span" variant="h6">
                                     Trang chủ
