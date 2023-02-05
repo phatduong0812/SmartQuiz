@@ -26,14 +26,14 @@ namespace SmartQuizApi.Controllers
         {
             try
             {
-                var school = _repositoryManager.School.GetSchoolById(createStudySetDTO.SchoolId);
-                var subject = _repositoryManager.Subject.GetSubjectById(createStudySetDTO.SubjectId);
-                var grade = _repositoryManager.Grade.GetGradeById(createStudySetDTO.GradeId);
+                //var school = _repositoryManager.School.GetSchoolById(createStudySetDTO.SchoolId);
+                //var subject = _repositoryManager.Subject.GetSubjectById(createStudySetDTO.SubjectId);
+                //var grade = _repositoryManager.Grade.GetGradeById(createStudySetDTO.GradeId);
 
-                if (school == null || subject == null || grade == null)
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest, new Response(400, "", "Some id do not exist"));
-                }
+                //if (school == null || subject == null || grade == null)
+                //{
+                //    return StatusCode(StatusCodes.Status400BadRequest, new Response(400, "", "Some id do not exist"));
+                //}
 
                 var studySet = _mapper.Map<StudySet>(createStudySetDTO);
                 studySet.Id = Guid.NewGuid().ToString();

@@ -7,15 +7,9 @@ import { Box, InputBase, Typography } from '@mui/material'
 
 import SelectField from './SelectField/index'
 
-import {
-    highSchool,
-    highSchoolSubjects,
-    levelSchool,
-    secondarySchool,
-    secondarySubjects,
-    universitiesName,
-} from '~/Mock'
+import { highSchool, highSchoolSubjects, levelSchool, secondarySchool, secondarySubjects } from '~/Mock'
 import { AppStyles } from '~/constants/styles'
+import { useAppSelector } from '~/hooks/redux-hooks'
 
 const NewStudySet = ({ infoStudySetHandler, infoStudySet }) => {
     const {
@@ -27,6 +21,7 @@ const NewStudySet = ({ infoStudySetHandler, infoStudySet }) => {
     } = infoStudySetHandler
 
     const { schoolLevel, isUniversity, universityName, classLevel, subject, title } = infoStudySet
+    const universitiesName = useAppSelector((state) => state.schools)
     return (
         <Box sx={{ backgroundColor: AppStyles.colors['#004DFF'], p: 4, mt: 5, borderRadius: 2 }}>
             <Box display="flex" alignItems="center" mb={1}>
@@ -36,7 +31,7 @@ const NewStudySet = ({ infoStudySetHandler, infoStudySet }) => {
                 <DriveFileRenameOutlineIcon sx={{ color: '#FFFFFF' }} />
             </Box>
             <InputBase
-                placeholder="Mô tả"
+                placeholder="Tiêu đề"
                 type="text"
                 sx={{
                     borderBottom: `0.5px solid #fefefe`,
@@ -50,6 +45,7 @@ const NewStudySet = ({ infoStudySetHandler, infoStudySet }) => {
                 fullWidth
                 onChange={titleChangeHandler}
                 value={title}
+                required
             />
             <Box sx={{ mt: 3 }} display="flex">
                 <SelectField
