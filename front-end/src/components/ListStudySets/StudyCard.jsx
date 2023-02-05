@@ -35,7 +35,7 @@ const StudyCard = ({ studySet }) => {
                                     textDecoration: 'none',
                                 }}
                                 component={Link}
-                                to={`/detail/${studySet.id}`}
+                                to={`/study-sets/${studySet.id}`}
                             >
                                 {/* {studySet?.StudySetName} */}
                                 {studySet.name}
