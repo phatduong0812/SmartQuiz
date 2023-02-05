@@ -11,7 +11,7 @@ public partial class Answer
 
     public bool IsCorrectAnswer { get; set; }
 
-    public int QuestionId { get; set; }
+    public string QuestionId { get; set; } = null!;
 
     public virtual Question Question { get; set; } = null!;
 }

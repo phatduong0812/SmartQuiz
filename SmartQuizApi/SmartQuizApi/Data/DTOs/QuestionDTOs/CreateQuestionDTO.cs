@@ -2,11 +2,10 @@
 
 namespace SmartQuizApi.Data.DTOs.QuestionDTOs
 {
-    public class GetQuestionDTO
+    public class CreateQuestionDTO
     {
-        public string Id { get; set; }
-
         public string Name { get; set; }
-        public List<GetAnswerDTO>? Answers { get; set; }
+
+        public List<CreateAnwserDTO> Answers { get; set; }
     }
 }

@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { AddBox } from '@mui/icons-material'
-import { Box, Button, Container } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
+import ButtonCompo from '~/components/ButtonCompo'
 
 import Modal from './Modal'
 import NewStudySet from './NewStudySet'
 import Questions from './Questions'
 
-import { initialValue, level, levelSchool } from '~/Mock'
+import { Mock_Data, initialValue, level, levelSchool } from '~/Mock'
 import { AppStyles } from '~/constants/styles'
 
 const CreateStudySet = () => {
@@ -17,7 +18,7 @@ const CreateStudySet = () => {
     const [classLevel, setClassLevel] = useState(initialValue)
     const [subject, setSubject] = useState(initialValue)
     const [title, setTitle] = useState('')
-    const [questions, setQuestions] = useState([])
+    const [questions, setQuestions] = useState(Mock_Data.questions)
     const [openModal, setOpenModal] = useState(false)
 
     const addQuestionHandler = (question) => {
@@ -41,6 +42,12 @@ const CreateStudySet = () => {
     const classChangeHandler = (name, value) => setClassLevel(() => ({ label: name, value: value }))
 
     const subjectChangeHandler = (name, value) => setSubject(() => ({ label: name, value: value }))
+
+    const deleteQuestionDraft = (id) => {
+        const cloneQuestions = JSON.parse(JSON.stringify(questions))
+        const updatedQuestion = cloneQuestions.filter((question) => question.id !== id)
+        setQuestions(updatedQuestion)
+    }
 
     const infoStudySetHandler = {
         titleChangeHandler,
@@ -73,31 +80,60 @@ const CreateStudySet = () => {
     }, [schoolLevel])
 
     return (
-        <React.Fragment>
-            <Container maxWidth="xl" component="form">
+        <Box component="form">
+            <Container maxWidth="xl">
                 <NewStudySet infoStudySetHandler={infoStudySetHandler} infoStudySet={infoStudySet} />
-                <Box mt={2} display="flex" justifyContent="flex-end">
-                    <Button
-                        variant="contained"
-                        sx={{
-                            borderRadius: 3,
-                            px: 3,
-                            backgroundColor: AppStyles.colors['#004DFF'],
-                            ':hover': {
-                                bgcolor: AppStyles.colors['#0045e5'],
-                                color: 'white',
-                            },
-                        }}
-                        onClick={openModalHandler}
-                        startIcon={<AddBox sx={{ color: AppStyles.colors['#FFFFFF'] }} />}
-                    >
-                        Thêm thẻ mới
-                    </Button>
-                </Box>
                 <Modal onClose={closeModalHandler} submitQuestionHandler={addQuestionHandler} open={openModal} />
-                <Questions />
+                <Questions questions={questions} deleteQuestionDraft={deleteQuestionDraft} />
+                <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    mt={3}
+                    py={4}
+                    sx={{
+                        borderRadius: 4,
+                        backgroundColor: AppStyles.colors['#CCDBFF'],
+                        transition: 'all 0.3s linear',
+                        cursor: 'pointer',
+                        '&:hover': {
+                            opacity: 0.75,
+                        },
+                    }}
+                    onClick={openModalHandler}
+                >
+                    <AddBox sx={{ color: AppStyles.colors['#000F33'] }} />
+                    <Typography fontWeight={600} variant="h6" sx={{ color: AppStyles.colors['#000F33'], ml: 1 }}>
+                        Thêm thẻ mới
+                    </Typography>
+                </Box>
             </Container>
-        </React.Fragment>
+            <Box sx={{ backgroundColor: AppStyles.colors['#FAFBFF'], mt: 3 }}>
+                <Container maxWidth="xl">
+                    <Box display="flex" justifyContent="space-between" py={3} alignItems="center">
+                        <Box display="flex" alignItems="baseline">
+                            <Typography variant="h6" sx={{ color: '#000000', mr: 2, fontWeight: 600 }}>
+                                Tổng câu hỏi
+                            </Typography>
+                            <Typography variant="h5" sx={{ color: '#000000', fontWeight: 600 }}>
+                                {questions.length}
+                            </Typography>
+                        </Box>
+                        <Box display="flex">
+                            <ButtonCompo
+                                variant="outlined"
+                                style={{ backgroundColor: AppStyles.colors['#CCDBFF'], mr: 2 }}
+                            >
+                                Lưu nháp
+                            </ButtonCompo>
+                            <ButtonCompo variant="contained" style={{ backgroundColor: AppStyles.colors['#004DFF'] }}>
+                                Tạo học phần
+                            </ButtonCompo>
+                        </Box>
+                    </Box>
+                </Container>
+            </Box>
+        </Box>
     )
 }
 
