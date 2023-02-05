@@ -7,7 +7,7 @@ import { Box, Button, IconButton, Typography } from '@mui/material'
 
 import { AppStyles } from '~/constants/styles'
 
-const DetailHeader = ({ info }) => {
+const DetailHeader = ({ info, id }) => {
     return (
         <React.Fragment>
             <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
@@ -28,7 +28,7 @@ const DetailHeader = ({ info }) => {
                     },
                 }}
                 component={Link}
-                to="/test"
+                to={`/study-sets/${id}/test`}
             >
                 <IconButton
                     aria-label="create"

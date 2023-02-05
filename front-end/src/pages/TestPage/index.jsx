@@ -2,16 +2,14 @@ import React, { useEffect, useState } from 'react'
 
 import { useParams } from 'react-router-dom'
 
-import { Box } from '@mui/material'
-
 import Loading from '../Loading'
-import DetailHeader from './DetailHeader'
-import Questions from './Questions'
+import TestPageBottom from './TestPageBottom'
+import TestPageHeader from './TestPageHeader'
 
 import { useSnackbar } from '~/HOC/SnackbarContext'
 import { useStudySet } from '~/actions/study-set'
 
-const StudySetDetail = () => {
+const TestPage = () => {
     const { id } = useParams()
     const { getStudySet } = useStudySet()
     const showSnackbar = useSnackbar()
@@ -40,17 +38,11 @@ const StudySetDetail = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
-        <Box maxWidth={1112} sx={{ m: '0 auto', mt: 5, mb: 9 }}>
-            {isFirstRender ? (
-                <Loading />
-            ) : (
-                <React.Fragment>
-                    <DetailHeader info={studySetDetail} id={id} />
-                    <Questions questions={studySetDetail.questions} />
-                </React.Fragment>
-            )}
-        </Box>
+        <React.Fragment>
+            <TestPageHeader />
+            {isFirstRender ? <Loading /> : <TestPageBottom questions={studySetDetail.questions} />}
+        </React.Fragment>
     )
 }
 
-export default StudySetDetail
+export default TestPage
