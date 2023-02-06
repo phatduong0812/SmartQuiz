@@ -2,11 +2,18 @@ import React, { memo } from 'react'
 
 import Question from './Question'
 
-const Questions = ({ questions, deleteQuestionDraft }) => {
+const Questions = ({ quest, deleteQuestionDraft, openEditModal }) => {
+    const questions = JSON.parse(quest)
     return (
         <React.Fragment>
             {questions.map((question, index) => (
-                <Question key={index} index={index} {...question} deleteQuestionDraft={deleteQuestionDraft} />
+                <Question
+                    key={question.id}
+                    index={index}
+                    {...question}
+                    deleteQuestionDraft={deleteQuestionDraft}
+                    openEditModal={openEditModal}
+                />
             ))}
         </React.Fragment>
     )

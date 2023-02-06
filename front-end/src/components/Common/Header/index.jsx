@@ -232,23 +232,21 @@ const Header = () => {
                                         </Divider>
                                     </Box>
 
-                                    <MenuItem sx={{ display: 'flex', pr: 5 }}>
+                                    {/* <MenuItem sx={{ display: 'flex', pr: 5 }}>
                                         <Typography ml={1}>Học phần của tôi</Typography>
                                     </MenuItem>
 
                                     <MenuItem
                                         sx={{ display: 'flex', pr: 5 }}
-                                        // onClick={() => history.push('/bookmark')}
                                     >
                                         <Typography ml={1}>Học phần đã lưu</Typography>
                                     </MenuItem>
 
                                     <MenuItem
                                         sx={{ display: 'flex', pr: 5 }}
-                                        // onClick={() => history.push('/profile')}
                                     >
                                         <Typography ml={1}>Thông tin cá nhân</Typography>
-                                    </MenuItem>
+                                    </MenuItem> */}
 
                                     <MenuItem sx={{ display: 'flex', pr: 5 }} onClick={handleClickLogout}>
                                         <Typography ml={1}>Đăng xuất</Typography>

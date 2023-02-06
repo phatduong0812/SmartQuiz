@@ -8,12 +8,12 @@ import { questionUniqueId, uniqueId } from '~/utils/IdGenerator'
 
 const answers = ['A', 'B', 'C']
 
-const ThreeChoices = ({ submitQuestionHandler }) => {
-    const [firstChoice, setFirstChoice] = useState('')
-    const [secondChoice, setSecondChoice] = useState('')
-    const [thirdChoice, setThirdChoice] = useState('')
-    const [questionName, setQuestionName] = useState('')
-    const [answersSelected, setAnswersSelected] = useState([])
+const ThreeChoices = ({ submitQuestionHandler, first, second, third, questName, ansSelected, id = -1 }) => {
+    const [firstChoice, setFirstChoice] = useState(first ? first : '')
+    const [secondChoice, setSecondChoice] = useState(second ? second : '')
+    const [thirdChoice, setThirdChoice] = useState(third ? third : '')
+    const [questionName, setQuestionName] = useState(questName ? questName : '')
+    const [answersSelected, setAnswersSelected] = useState(ansSelected ? ansSelected : [])
 
     const handlerAnswers = (event) => {
         const {
@@ -52,7 +52,7 @@ const ThreeChoices = ({ submitQuestionHandler }) => {
             ],
             multiple: true,
             answers: answersSelected,
-            id: uniqueId(),
+            id: id === -1 ? uniqueId() : id,
         }
         submitQuestionHandler(question)
         resetHandler()

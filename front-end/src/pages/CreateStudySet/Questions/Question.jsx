@@ -9,11 +9,16 @@ const CardLayoutStyle = {
     mt: 5,
 }
 
-const Question = ({ index, quest, ans, deleteQuestionDraft, id }) => {
+const Question = ({ index, quest, ans, deleteQuestionDraft, id, openEditModal }) => {
     return (
         <CardLayout style={CardLayoutStyle}>
             <CardContent>
-                <QuestionAction index={index} deleteQuestionDraft={deleteQuestionDraft} id={id} />
+                <QuestionAction
+                    index={index}
+                    deleteQuestionDraft={deleteQuestionDraft}
+                    id={id}
+                    openEditModal={openEditModal}
+                />
                 <Divider />
                 <QuestionDescription quest={quest} ans={ans} />
             </CardContent>
