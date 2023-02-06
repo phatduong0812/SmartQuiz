@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
+import { v4 as uuid } from 'uuid'
 
 import { AddBox } from '@mui/icons-material'
 import { Box, Container, Typography } from '@mui/material'
@@ -18,13 +19,14 @@ import { useAppSelector } from '~/hooks/redux-hooks'
 import LocalStorageUtils from '~/utils/LocalStorageUtils'
 
 const CreateStudySet = () => {
-    const [schoolLevel, setSchoolLevel] = useState(levelSchool[0])
-    const [isUniversity, setIsUniversity] = useState(false)
-    const [universityName, setUniversityName] = useState(initialValue)
-    const [classLevel, setClassLevel] = useState(initialValue)
-    const [subject, setSubject] = useState(initialValue)
-    const [title, setTitle] = useState('')
-    const [questions, setQuestions] = useState(Mock_Data.questions)
+    const { state } = useLocation()
+    const [schoolLevel, setSchoolLevel] = useState(state ? state.schoolLevel : levelSchool[0])
+    const [isUniversity, setIsUniversity] = useState(state ? state.isUniversity : false)
+    const [universityName, setUniversityName] = useState(state ? state.universityName : initialValue)
+    const [classLevel, setClassLevel] = useState(state ? state.classLevel : initialValue)
+    const [subject, setSubject] = useState(state ? state.subject : initialValue)
+    const [title, setTitle] = useState(state ? state.title : '')
+    const [questions, setQuestions] = useState(state ? state.questions : Mock_Data.questions)
     const [openModal, setOpenModal] = useState(false)
     const { userId } = useAppSelector((state) => state.auth)
     const [modalMode, setModalMode] = useState('create')
@@ -126,11 +128,21 @@ const CreateStudySet = () => {
             history.push('/')
         })
     }
-
     const saveDraft = () => {
+        const drafts = LocalStorageUtils.getItem('drafts') || []
+        drafts.push({
+            id: uuid(),
+            title,
+            isUniversity,
+            classLevel,
+            subject,
+            universityName,
+            questions,
+            schoolLevel,
+        })
         LocalStorageUtils.setItem('drafts', {
             path: history.location.pathname,
-            questions: questions,
+            studySet: drafts,
         })
     }
 
