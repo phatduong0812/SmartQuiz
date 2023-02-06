@@ -1,9 +1,9 @@
-import { Delete, Image, Lock } from '@mui/icons-material'
+import { Delete, Edit, Image, Lock } from '@mui/icons-material'
 import { Badge, Box, IconButton, Stack, Typography } from '@mui/material'
 
 import { AppStyles } from './../../../../constants/styles'
 
-const QuestionAction = ({ index, id, deleteQuestionDraft }) => {
+const QuestionAction = ({ index, id, deleteQuestionDraft, openEditModal }) => {
     return (
         <Box sx={{ p: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Typography fontWeight={700}>{index + 1}.</Typography>
@@ -21,9 +21,14 @@ const QuestionAction = ({ index, id, deleteQuestionDraft }) => {
                     </Badge>
                 </IconButton>
             </Stack>
-            <IconButton aria-label="delete" onClick={() => deleteQuestionDraft(id)}>
-                <Delete />
-            </IconButton>
+            <Box display="flex">
+                <IconButton onClick={() => openEditModal(id)}>
+                    <Edit color="primary" />
+                </IconButton>
+                <IconButton onClick={() => deleteQuestionDraft(id)}>
+                    <Delete />
+                </IconButton>
+            </Box>
         </Box>
     )
 }

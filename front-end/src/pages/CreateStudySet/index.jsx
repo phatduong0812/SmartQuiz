@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { useHistory } from 'react-router-dom'
 
@@ -7,6 +7,7 @@ import { Box, Container, Typography } from '@mui/material'
 import ButtonCompo from '~/components/ButtonCompo'
 
 import Modal from './Modal'
+import ModalUpdate from './ModalUpdate'
 import NewStudySet from './NewStudySet'
 import Questions from './Questions'
 
@@ -14,6 +15,7 @@ import { Mock_Data, initialValue, level, levelSchool } from '~/Mock'
 import { useStudySet } from '~/actions/study-set'
 import { AppStyles } from '~/constants/styles'
 import { useAppSelector } from '~/hooks/redux-hooks'
+import LocalStorageUtils from '~/utils/LocalStorageUtils'
 
 const CreateStudySet = () => {
     const [schoolLevel, setSchoolLevel] = useState(levelSchool[0])
@@ -25,19 +27,36 @@ const CreateStudySet = () => {
     const [questions, setQuestions] = useState(Mock_Data.questions)
     const [openModal, setOpenModal] = useState(false)
     const { userId } = useAppSelector((state) => state.auth)
+    const [modalMode, setModalMode] = useState('create')
+    const [question, setQuestion] = useState({})
     const { createStudySet } = useStudySet()
     const history = useHistory()
 
-    const addQuestionHandler = (question) => {
-        setQuestions((prev) => [...prev, question])
+    const mutateQuestionHandler = (question) => {
+        if (modalMode === 'create') setQuestions((prev) => [...prev, question])
+        else if (modalMode === 'edit') {
+            const questionIndex = questions.findIndex((quest) => quest.id === question.id)
+            const updatedQuestions = JSON.parse(JSON.stringify(questions))
+            updatedQuestions.splice(questionIndex, 1, question)
+            setQuestions(updatedQuestions)
+            closeModalHandler()
+        }
     }
 
     const openModalHandler = () => {
+        setModalMode('create')
         setOpenModal(true)
     }
 
     const closeModalHandler = () => {
         setOpenModal(false)
+    }
+
+    const openEditModal = (id) => {
+        const questionSelected = questions.find((quest) => quest.id === id)
+        setQuestion(questionSelected)
+        setModalMode('edit')
+        setOpenModal(true)
     }
 
     const titleChangeHandler = ({ target: { value } }) => setTitle(value)
@@ -50,11 +69,15 @@ const CreateStudySet = () => {
 
     const subjectChangeHandler = (name, value) => setSubject(() => ({ label: name, value: value }))
 
-    const deleteQuestionDraft = (id) => {
-        const cloneQuestions = JSON.parse(JSON.stringify(questions))
-        const updatedQuestion = cloneQuestions.filter((question) => question.id !== id)
-        setQuestions(updatedQuestion)
-    }
+    const deleteQuestionDraft = useCallback(
+        (id) => {
+            const cloneQuestions = JSON.parse(JSON.stringify(questions))
+            const updatedQuestion = cloneQuestions.filter((question) => question.id !== id)
+            setQuestions(updatedQuestion)
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [JSON.stringify(questions)]
+    )
 
     const infoStudySetHandler = {
         titleChangeHandler,
@@ -104,6 +127,13 @@ const CreateStudySet = () => {
         })
     }
 
+    const saveDraft = () => {
+        LocalStorageUtils.setItem('drafts', {
+            path: history.location.pathname,
+            questions: questions,
+        })
+    }
+
     useEffect(() => {
         if (schoolLevel.label === level.university) {
             setIsUniversity(true)
@@ -120,8 +150,32 @@ const CreateStudySet = () => {
         <Box component="form" onSubmit={submitStudySetHandler}>
             <Container maxWidth="xl">
                 <NewStudySet infoStudySetHandler={infoStudySetHandler} infoStudySet={infoStudySet} />
-                <Modal onClose={closeModalHandler} submitQuestionHandler={addQuestionHandler} open={openModal} />
-                <Questions questions={questions} deleteQuestionDraft={deleteQuestionDraft} />
+                {(() => {
+                    switch (modalMode) {
+                        case 'create':
+                            return (
+                                <Modal
+                                    onClose={closeModalHandler}
+                                    submitQuestionHandler={mutateQuestionHandler}
+                                    open={openModal}
+                                />
+                            )
+                        case 'edit':
+                            return (
+                                <ModalUpdate
+                                    onClose={closeModalHandler}
+                                    submitQuestionHandler={mutateQuestionHandler}
+                                    open={openModal}
+                                    question={question}
+                                />
+                            )
+                    }
+                })()}
+                <Questions
+                    quest={JSON.stringify(questions)}
+                    deleteQuestionDraft={deleteQuestionDraft}
+                    openEditModal={openEditModal}
+                />
                 <Box
                     display="flex"
                     alignItems="center"
@@ -160,6 +214,7 @@ const CreateStudySet = () => {
                             <ButtonCompo
                                 variant="outlined"
                                 style={{ backgroundColor: AppStyles.colors['#CCDBFF'], mr: 2 }}
+                                onClick={saveDraft}
                             >
                                 Lưu nháp
                             </ButtonCompo>
