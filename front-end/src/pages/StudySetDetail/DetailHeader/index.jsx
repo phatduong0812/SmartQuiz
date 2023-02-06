@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { Quiz } from '@mui/icons-material'
+import { Edit, Quiz } from '@mui/icons-material'
 import { Box, Button, IconButton, Typography } from '@mui/material'
 
 import { AppStyles } from '~/constants/styles'
@@ -13,36 +13,68 @@ const DetailHeader = ({ info, id }) => {
             <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                 {info.name}
             </Typography>
-            <Button
-                variant="outlined"
-                sx={{
-                    mt: 2,
-                    color: 'black',
-                    borderRadius: 1.5,
-                    pr: 4,
-                    justifyContent: 'flex-start',
-                    textTransform: 'none',
-                    backgroundColor: AppStyles.colors['#CCDBFF'],
-                    ':hover': {
-                        bgcolor: '#b7c5e5',
-                    },
-                }}
-                component={Link}
-                to={`/study-sets/${id}/test`}
-            >
-                <IconButton
-                    aria-label="create"
-                    size="large"
+            <Box display="flex" mt={2}>
+                <Button
+                    variant="outlined"
                     sx={{
-                        p: 0,
+                        mr: 2,
+                        color: 'black',
+                        borderRadius: 1.5,
+                        pr: 4,
+                        justifyContent: 'flex-start',
+                        textTransform: 'none',
+                        backgroundColor: AppStyles.colors['#CCDBFF'],
+                        ':hover': {
+                            bgcolor: '#b7c5e5',
+                        },
                     }}
+                    component={Link}
+                    to={`/study-sets/${id}/test`}
                 >
-                    <Quiz fontSize="inherit" sx={{ color: AppStyles.colors['#004DFF'] }} />
-                </IconButton>
-                <Typography ml={1} sx={{ fontWeight: 500 }}>
-                    Kiểm tra
-                </Typography>
-            </Button>
+                    <IconButton
+                        aria-label="create"
+                        size="large"
+                        sx={{
+                            p: 0,
+                        }}
+                    >
+                        <Quiz fontSize="inherit" sx={{ color: AppStyles.colors['#004DFF'] }} />
+                    </IconButton>
+                    <Typography ml={1} sx={{ fontWeight: 500 }}>
+                        Kiểm tra
+                    </Typography>
+                </Button>
+                <Button
+                    variant="outlined"
+                    sx={{
+                        mr: 2,
+                        color: 'black',
+                        borderRadius: 1.5,
+                        pr: 4,
+                        justifyContent: 'flex-start',
+                        textTransform: 'none',
+                        backgroundColor: AppStyles.colors['#CCDBFF'],
+                        ':hover': {
+                            bgcolor: '#b7c5e5',
+                        },
+                    }}
+                    component={Link}
+                    to={`/study-sets/${id}/update`}
+                >
+                    <IconButton
+                        aria-label="create"
+                        size="large"
+                        sx={{
+                            p: 0,
+                        }}
+                    >
+                        <Edit fontSize="inherit" sx={{ color: AppStyles.colors['#004DFF'] }} />
+                    </IconButton>
+                    <Typography ml={1} sx={{ fontWeight: 500 }}>
+                        Chỉnh sửa
+                    </Typography>
+                </Button>
+            </Box>
             <Box display="flex" mt={4}>
                 <Typography
                     textAlign={'left'}

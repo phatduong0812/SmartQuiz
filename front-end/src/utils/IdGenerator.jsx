@@ -1,11 +1,11 @@
-function* studySetIdGenerator(ID = 0) {
+function* studySetIdGenerator(ID = 1) {
     let id = ID
     while (true) {
         yield id++
     }
 }
 
-function* questionIdGenerator(ID = 0) {
+function* questionIdGenerator(ID = 1) {
     let id = ID
     while (true) {
         yield id++

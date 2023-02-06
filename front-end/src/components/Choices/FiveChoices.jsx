@@ -8,14 +8,24 @@ import { questionUniqueId, uniqueId } from '~/utils/IdGenerator'
 
 const answers = ['A', 'B', 'C', 'D', 'E']
 
-const FiveChoices = ({ submitQuestionHandler }) => {
-    const [firstChoice, setFirstChoice] = useState('')
-    const [secondChoice, setSecondChoice] = useState('')
-    const [thirdChoice, setThirdChoice] = useState('')
-    const [fourthChoice, setFourthChoice] = useState('')
-    const [fifthChoice, setFifthChoice] = useState('')
-    const [questionName, setQuestionName] = useState('')
-    const [answersSelected, setAnswersSelected] = useState([])
+const FiveChoices = ({
+    submitQuestionHandler,
+    first,
+    second,
+    third,
+    fourth,
+    fifth,
+    questName,
+    ansSelected,
+    id = -1,
+}) => {
+    const [firstChoice, setFirstChoice] = useState(first ? first : '')
+    const [secondChoice, setSecondChoice] = useState(second ? second : '')
+    const [thirdChoice, setThirdChoice] = useState(third ? third : '')
+    const [fourthChoice, setFourthChoice] = useState(fourth ? fourth : '')
+    const [fifthChoice, setFifthChoice] = useState(fifth)
+    const [questionName, setQuestionName] = useState(questName ? questName : '')
+    const [answersSelected, setAnswersSelected] = useState(ansSelected ? ansSelected : [])
 
     const handlerAnswers = (event) => {
         const {
@@ -66,7 +76,7 @@ const FiveChoices = ({ submitQuestionHandler }) => {
             ],
             answers: answersSelected,
             multiple: true,
-            id: uniqueId(),
+            id: id === -1 ? uniqueId() : id,
         }
         submitQuestionHandler(question)
         resetHandler()
