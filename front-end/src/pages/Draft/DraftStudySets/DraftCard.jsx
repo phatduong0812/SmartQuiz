@@ -36,7 +36,7 @@ const DraftCard = ({ studyset, path }) => {
                             color: AppStyles.colors['#FFAF00'],
                         },
                     }}
-                    onClick={() => history.push(path, studyset)}
+                    onClick={() => history.replace(path, studyset)}
                 >
                     {!studyset.title ? 'Không có chủ đề' : studyset.title}
                 </Typography>
