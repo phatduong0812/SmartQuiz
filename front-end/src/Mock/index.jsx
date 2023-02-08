@@ -42,20 +42,20 @@ export const Mock_Data = {
             NumberPeople: 9,
             gradeName: 5,
         },
-        {
-            id: 7,
-            name: 'Potos flavus',
-            creator: 'Robinett',
-            NumberPeople: 5,
-            gradeName: 5,
-        },
-        {
-            id: 8,
-            name: 'Felis silvestris lybica',
-            creator: 'Dulcy',
-            NumberPeople: 1,
-            gradeName: 5,
-        },
+        // {
+        //     id: 7,
+        //     name: 'Potos flavus',
+        //     creator: 'Robinett',
+        //     NumberPeople: 5,
+        //     gradeName: 5,
+        // },
+        // {
+        //     id: 8,
+        //     name: 'Felis silvestris lybica',
+        //     creator: 'Dulcy',
+        //     NumberPeople: 1,
+        //     gradeName: 5,
+        // },
     ],
     search: [
         {
@@ -151,13 +151,13 @@ export const Mock_Data = {
             NumberPeople: 33,
             gradeName: 2,
         },
-        {
-            id: 4,
-            name: 'Amblyrhynchus cristatus',
-            creator: 'Lara',
-            NumberPeople: 44,
-            gradeName: 4,
-        },
+        // {
+        //     id: 4,
+        //     name: 'Amblyrhynchus cristatus',
+        //     creator: 'Lara',
+        //     NumberPeople: 44,
+        //     gradeName: 4,
+        // },
     ],
     reccomend: [
         {
@@ -181,13 +181,13 @@ export const Mock_Data = {
             NumberPeople: 33,
             gradeName: 2,
         },
-        {
-            id: 4,
-            name: 'Amblyrhynchus cristatus',
-            creator: 'Lara',
-            NumberPeople: 44,
-            gradeName: 4,
-        },
+        // {
+        //     id: 4,
+        //     name: 'Amblyrhynchus cristatus',
+        //     creator: 'Lara',
+        //     NumberPeople: 44,
+        //     gradeName: 4,
+        // },
     ],
     dropdown1: [
         { name: 'Tất cả kết quả', id: 5 },
