@@ -32,5 +32,10 @@ namespace SmartQuizApi.Data.Repositories
                                                 .Include(x => x.Class)
                                                 .Include(x => x.School).FirstOrDefault();
         }
+
+        public void UpdateStudySet(StudySet studySet)
+        {
+            Update(studySet);
+        }
     }
 }
