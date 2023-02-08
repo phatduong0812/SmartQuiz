@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
+import { v4 as uuid } from 'uuid'
 
 import { AddBox } from '@mui/icons-material'
 import { Box, Container, Typography } from '@mui/material'
@@ -18,17 +19,19 @@ import { useAppSelector } from '~/hooks/redux-hooks'
 import LocalStorageUtils from '~/utils/LocalStorageUtils'
 
 const CreateStudySet = () => {
-    const [schoolLevel, setSchoolLevel] = useState(levelSchool[0])
-    const [isUniversity, setIsUniversity] = useState(false)
-    const [universityName, setUniversityName] = useState(initialValue)
-    const [classLevel, setClassLevel] = useState(initialValue)
-    const [subject, setSubject] = useState(initialValue)
-    const [title, setTitle] = useState('')
-    const [questions, setQuestions] = useState(Mock_Data.questions)
+    const { state } = useLocation()
+    const [schoolLevel, setSchoolLevel] = useState(state ? state.schoolLevel : levelSchool[0])
+    const [isUniversity, setIsUniversity] = useState(state ? state.isUniversity : false)
+    const [universityName, setUniversityName] = useState(state ? state.universityName : initialValue)
+    const [classLevel, setClassLevel] = useState(state ? state.classLevel : initialValue)
+    const [subject, setSubject] = useState(state ? state.subject : initialValue)
+    const [title, setTitle] = useState(state ? state.title : '')
+    const [questions, setQuestions] = useState(state ? state.questions : Mock_Data.questions)
     const [openModal, setOpenModal] = useState(false)
     const { userId } = useAppSelector((state) => state.auth)
     const [modalMode, setModalMode] = useState('create')
     const [question, setQuestion] = useState({})
+    // const draftModeUnmountUnexpected = useRef(true)
     const { createStudySet } = useStudySet()
     const history = useHistory()
 
@@ -100,6 +103,15 @@ const CreateStudySet = () => {
     const submitStudySetHandler = (event) => {
         event.preventDefault()
 
+        if (state) {
+            const drafts = LocalStorageUtils.getItem('drafts')
+            const updateDrafts = drafts.studySet.filter((draft) => draft.id !== state.id)
+            LocalStorageUtils.setItem('drafts', {
+                path: '/create',
+                studySet: updateDrafts,
+            })
+        }
+
         const formatQuestions = questions.map((item) => {
             return {
                 name: item.quest,
@@ -128,10 +140,32 @@ const CreateStudySet = () => {
     }
 
     const saveDraft = () => {
-        LocalStorageUtils.setItem('drafts', {
-            path: history.location.pathname,
-            questions: questions,
-        })
+        const drafts = LocalStorageUtils.getItem('drafts') || { path: history.location.pathname, studySet: [] }
+        const draft = {
+            id: uuid(),
+            title,
+            isUniversity,
+            classLevel,
+            subject,
+            universityName,
+            questions,
+            schoolLevel,
+        }
+        if (state) {
+            const draftIndex = drafts.studySet.findIndex((draft) => draft.id === state.id)
+            const updateDrafts = JSON.parse(JSON.stringify(drafts.studySet))
+            updateDrafts.splice(draftIndex, 1, draft)
+            LocalStorageUtils.setItem('drafts', {
+                path: '/create',
+                studySet: updateDrafts,
+            })
+        } else {
+            drafts.studySet.push(draft)
+            LocalStorageUtils.setItem('drafts', {
+                path: '/create',
+                studySet: drafts.studySet,
+            })
+        }
     }
 
     useEffect(() => {
@@ -143,8 +177,18 @@ const CreateStudySet = () => {
         }
         setClassLevel(initialValue)
         setSubject(initialValue)
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [schoolLevel])
+
+    useEffect(() => {
+        return () => {
+            if (history.location.pathname !== '/create') {
+                saveDraft()
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [schoolLevel.value, title.value, subject.value, questions.length, universityName.value])
 
     return (
         <Box component="form" onSubmit={submitStudySetHandler}>

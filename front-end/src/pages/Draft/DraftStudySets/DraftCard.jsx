@@ -1,20 +1,20 @@
-import React from 'react'
-
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import { CardContent, Typography } from '@mui/material'
 import CardLayout from '~/components/CardLayout'
 
 import { AppStyles } from '~/constants/styles'
 
-const DraftCard = ({ studyset }) => {
-    const CardLayoutStyle = {
-        mb: 1.5,
-        borderRadius: 1,
-        p: 1,
-        height: 79,
-        width: 860,
-    }
+const CardLayoutStyle = {
+    mb: 1.5,
+    borderRadius: 1,
+    p: 1,
+    height: 79,
+    width: 860,
+}
+
+const DraftCard = ({ studyset, path }) => {
+    const history = useHistory()
     return (
         <CardLayout style={CardLayoutStyle}>
             <CardContent>
@@ -36,10 +36,9 @@ const DraftCard = ({ studyset }) => {
                             color: AppStyles.colors['#FFAF00'],
                         },
                     }}
-                    component={Link}
-                    to="/"
+                    onClick={() => history.replace(path, studyset)}
                 >
-                    {studyset.name}
+                    {!studyset.title ? 'Không có chủ đề' : studyset.title}
                 </Typography>
             </CardContent>
         </CardLayout>
