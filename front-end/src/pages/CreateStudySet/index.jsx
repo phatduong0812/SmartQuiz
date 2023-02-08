@@ -31,7 +31,6 @@ const CreateStudySet = () => {
     const { userId } = useAppSelector((state) => state.auth)
     const [modalMode, setModalMode] = useState('create')
     const [question, setQuestion] = useState({})
-    // const draftModeUnmountUnexpected = useRef(true)
     const { createStudySet } = useStudySet()
     const history = useHistory()
 
@@ -103,15 +102,6 @@ const CreateStudySet = () => {
     const submitStudySetHandler = (event) => {
         event.preventDefault()
 
-        if (state) {
-            const drafts = LocalStorageUtils.getItem('drafts')
-            const updateDrafts = drafts.studySet.filter((draft) => draft.id !== state.id)
-            LocalStorageUtils.setItem('drafts', {
-                path: '/create',
-                studySet: updateDrafts,
-            })
-        }
-
         const formatQuestions = questions.map((item) => {
             return {
                 name: item.quest,
@@ -135,6 +125,14 @@ const CreateStudySet = () => {
             questions: formatQuestions,
         }
         createStudySet(studySet).then(() => {
+            if (state) {
+                const drafts = LocalStorageUtils.getItem('drafts')
+                const updateDrafts = drafts.studySet.filter((draft) => draft.id !== state.id)
+                LocalStorageUtils.setItem('drafts', {
+                    path: '/create',
+                    studySet: updateDrafts,
+                })
+            }
             history.push('/')
         })
     }
@@ -188,7 +186,7 @@ const CreateStudySet = () => {
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [schoolLevel.value, title.value, subject.value, questions.length, universityName.value])
+    }, [schoolLevel.value, title.value, subject.value, JSON.stringify(questions), universityName.value])
 
     return (
         <Box component="form" onSubmit={submitStudySetHandler}>
