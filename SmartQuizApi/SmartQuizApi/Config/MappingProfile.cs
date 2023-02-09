@@ -31,6 +31,7 @@ namespace SmartQuizApi.Config
             CreateMap<CreateAnwserDTO, Answer>();
             CreateMap<UpdateStudySetDTO, StudySet>().ForMember(des => des.Id, opt => opt.Ignore());
             CreateMap<UpdateQuestionDTO, Question>().ForMember(des => des.Id, opt => opt.Ignore());
+            CreateMap<UpdateAnswerDTO, Answer>().ForMember(des => des.Id, opt => opt.Ignore());
         }
     }
 }

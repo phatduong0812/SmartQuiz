@@ -49,7 +49,7 @@ namespace SmartQuizApi.Controllers
                 }
                 _repositoryManager.StudySet.CreateStudySet(studySet);
                 await _repositoryManager.SaveChangesAsync();
-                return StatusCode(StatusCodes.Status201Created, new Response(201, "", "Create successfully"));
+                return StatusCode(StatusCodes.Status201Created, new Response(201, studySet.Id, "Create successfully"));
             }
             catch (Exception ex)
             {
@@ -110,7 +110,10 @@ namespace SmartQuizApi.Controllers
                     return StatusCode(StatusCodes.Status400BadRequest, new Response(400, "Study set id does not exist"));
                 }
 
+                var questionsList = await _repositoryManager.Question.GetQuestionsByStudySetId(studySet.Id);
                 _mapper.Map(updateStudySetDTO, studySet);
+                _mapper.Map(questionsList, updateStudySetDTO.Questions);
+                _repositoryManager.Question.UpdateQuestion(questionsList);
                 _repositoryManager.StudySet.UpdateStudySet(studySet);
                 await _repositoryManager.SaveChangesAsync();
                 return StatusCode(StatusCodes.Status200OK, new Response(200, "", "Update successfully"));
