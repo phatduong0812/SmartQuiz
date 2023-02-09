@@ -11,13 +11,13 @@ import MoreMenu from '../MoreMenu'
 import logo from '~/assets/images/User 5.png'
 import { AppStyles } from '~/constants/styles'
 
-const ClassCard = ({ studySet }) => {
+const ClassCard = ({ studySet, md }) => {
     const CardLayoutStyle = {
         borderRadius: 3,
         boxShadow: '0px 1px 2px rgba(0, 46, 153, 0.3), 0px 1px 3px 1px rgba(0, 46, 153, 0.15)',
     }
     return (
-        <Grid item md={4}>
+        <Grid item md={md}>
             <CardLayout style={CardLayoutStyle}>
                 <CardContent>
                     <Box display="flex" alignItems="center" justifyContent="space-between">

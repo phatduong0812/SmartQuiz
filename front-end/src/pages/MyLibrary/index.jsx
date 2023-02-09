@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { Avatar, Box, Tab, Typography } from '@mui/material'
 import FullWidthHeaderWhite from '~/components/FullWidthHeaderWhite'
+
+import Draft from './Draft'
+import MyClass from './MyClass'
 
 // import logo from '~/assets/images/User 5.png'
 import { AppStyles } from '~/constants/styles'
@@ -20,7 +23,7 @@ const MyLibrary = () => {
     }
     return (
         <FullWidthHeaderWhite maxWidthContent={1670}>
-            <Box display="flex" flexDirection="column" width={800}>
+            <Box display="flex" flexDirection="column" width={700}>
                 <Box display="flex" alignItems="center">
                     <Box>
                         <Avatar sx={{ height: 80, width: 80 }} src={image} alt="logo" />
@@ -54,30 +57,66 @@ const MyLibrary = () => {
                     </Box>
                 </Box>
 
-                <Box width="100%">
+                <Box width="100%" mt={4}>
                     <TabContext value={index}>
-                        <TabList onChange={changeIndexHandler} variant="fullWidth">
-                            <Tab label="Lớp học của tôi" value={'0'} sx={{ minWidth: 200 }} />
-                            <Tab label="Học phần của tôi" value={'1'} sx={{ minWidth: 200 }} />
-                            <Tab label="Đã lưu" value={'2'} sx={{ minWidth: 200 }} />
-                            <Tab label="Nháp" value={'3'} sx={{ minWidth: 200 }} />
-                        </TabList>
-                        <TabPanel value={'0'}>
-                            <Box
+                        <TabList onChange={changeIndexHandler} variant="standard">
+                            <Tab
+                                label="Lớp học của tôi"
+                                value={'0'}
                                 sx={{
-                                    p: 0,
-                                    backgroundColor: '#eef2ff',
-                                    width: '100%',
-                                    mt: 2,
-                                    position: 'absolute',
+                                    minWidth: 100,
+                                    textTransform: 'none',
+                                    fontSize: 16,
+                                    fontWeight: 500,
+                                    color: AppStyles.colors['#333333'],
                                 }}
-                            >
-                                Login
-                            </Box>
+                            />
+                            <Tab
+                                label="Học phần của tôi"
+                                value={'1'}
+                                sx={{
+                                    minWidth: 100,
+                                    textTransform: 'none',
+                                    fontSize: 16,
+                                    fontWeight: 500,
+                                    color: AppStyles.colors['#333333'],
+                                }}
+                            />
+                            <Tab
+                                label="Đã lưu"
+                                value={'2'}
+                                sx={{
+                                    minWidth: 100,
+                                    textTransform: 'none',
+                                    fontSize: 16,
+                                    fontWeight: 500,
+                                    color: AppStyles.colors['#333333'],
+                                }}
+                            />
+                            <Tab
+                                label="Bản nháp"
+                                value={'3'}
+                                sx={{
+                                    minWidth: 100,
+                                    textTransform: 'none',
+                                    fontSize: 16,
+                                    fontWeight: 500,
+                                    color: AppStyles.colors['#333333'],
+                                }}
+                            />
+                        </TabList>
+                        <TabPanel value={'0'} sx={{ p: 0 }}>
+                            <MyClass />
                         </TabPanel>
-                        <TabPanel value={'1'}>Đăng ký</TabPanel>
-                        <TabPanel value={'2'}>Đăng ký</TabPanel>
-                        <TabPanel value={'3'}>Đăng ký</TabPanel>
+                        <TabPanel value={'1'} sx={{ p: 0 }}>
+                            Đăng ký
+                        </TabPanel>
+                        <TabPanel value={'2'} sx={{ p: 0 }}>
+                            Đăng ký
+                        </TabPanel>
+                        <TabPanel value={'3'} sx={{ p: 0 }}>
+                            <Draft />
+                        </TabPanel>
                     </TabContext>
                 </Box>
             </Box>

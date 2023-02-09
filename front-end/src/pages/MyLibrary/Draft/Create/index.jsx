@@ -1,9 +1,11 @@
-import { Box, Typography } from '@mui/material'
-import ListClassCard from '~/components/ListClassCard'
+import React from 'react'
 
-const ClassList = ({ title, studySets }) => {
+import { Typography } from '@mui/material'
+import ListDraft from '~/components/ListDraft'
+
+const Create = ({ title, studySets }) => {
     return (
-        <Box mt={4}>
+        <React.Fragment>
             <Typography
                 textAlign={'left'}
                 variant="h6"
@@ -17,9 +19,9 @@ const ClassList = ({ title, studySets }) => {
             >
                 {title}
             </Typography>
-            <ListClassCard studySets={studySets} md={4} />
-        </Box>
+            <ListDraft studySets={studySets} md={4} />
+        </React.Fragment>
     )
 }
 
-export default ClassList
+export default Create

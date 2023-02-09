@@ -2,16 +2,16 @@ import React from 'react'
 
 import { Grid } from '@mui/material'
 
-import ClassCard from './ClassCard'
+import DraftCard from './DraftCard'
 
-const ListClassCard = ({ studySets, md }) => {
+const ListDraft = ({ studySets }) => {
     return (
         <Grid container rowSpacing={2} columnSpacing={3} display="flex">
             {studySets.map((studySet) => (
-                <ClassCard key={studySet.id} studySet={studySet} md={md} />
+                <DraftCard key={studySet.id} studySet={studySet} />
             ))}
         </Grid>
     )
 }
 
-export default ListClassCard
+export default ListDraft
