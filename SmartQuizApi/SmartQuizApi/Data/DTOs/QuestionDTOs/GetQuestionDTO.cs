@@ -7,6 +7,8 @@ namespace SmartQuizApi.Data.DTOs.QuestionDTOs
         public string Id { get; set; }
 
         public string Name { get; set; }
+
+        public bool MultipleChoice { get; set; }
         public List<GetAnswerDTO>? Answers { get; set; }
     }
 }

@@ -18,7 +18,7 @@ const SearchPageBottom = () => {
 
     useEffect(() => {
         const controller = new AbortController()
-        const signal = controller.abort()
+        const signal = controller.signal
         getStudySetList(signal)
             .then((response) => {
                 const data = response.data.data

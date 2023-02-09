@@ -6,5 +6,7 @@ namespace SmartQuizApi.Data.IRepositories
     {
         Task<List<Question>> GetQuestionsByStudySetId(string id);
         void CreateQuestion(Question question);
+        void UpdateQuestion(Question question);
+        Question? GetQuestionById(string id);
     }
 }

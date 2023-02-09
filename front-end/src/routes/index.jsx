@@ -21,12 +21,6 @@ const publicRoutes = [
 
 const hyBridRoutes = [
     {
-        component: lazy(() => import('../pages/Home')),
-        path: '/',
-        name: 'home',
-        layout: 'common',
-    },
-    {
         component: lazy(() => import('~/pages/SearchPage')),
         path: '/study-sets',
         name: 'search',
@@ -42,6 +36,12 @@ const hyBridRoutes = [
 
 const privateRoutes = [
     {
+        component: lazy(() => import('../pages/Home')),
+        path: '/',
+        name: 'home',
+        layout: 'common',
+    },
+    {
         component: lazy(() => import('~/pages/CreateStudySet')),
         path: '/create',
         name: 'create-study-set',
@@ -52,6 +52,12 @@ const privateRoutes = [
         component: lazy(() => import('~/pages/Draft')),
         path: '/drafts',
         name: 'drafts',
+        layout: 'common',
+    },
+    {
+        component: lazy(() => import('~/pages/UpdateStudySet')),
+        path: '/study-sets/:id/update',
+        name: 'update',
         layout: 'common',
     },
     {

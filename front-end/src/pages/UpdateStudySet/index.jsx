@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
 import { AddBox } from '@mui/icons-material'
 import { Box, Container, Typography } from '@mui/material'
 import ButtonCompo from '~/components/ButtonCompo'
 
+import Loading from '../Loading'
 import Modal from './Modal'
 import ModalUpdate from './ModalUpdate'
 import NewStudySet from './NewStudySet'
@@ -18,8 +19,11 @@ import { AppStyles } from '~/constants/styles'
 import { useAppSelector } from '~/hooks/redux-hooks'
 import LocalStorageUtils from '~/utils/LocalStorageUtils'
 
-const CreateStudySet = () => {
+const UpdateStudySet = () => {
     const { state } = useLocation()
+    const { id } = useParams()
+    const { getStudySet } = useStudySet()
+    const [loading, setIsLoading] = useState(true)
     const [schoolLevel, setSchoolLevel] = useState(state ? state.schoolLevel : levelSchool[0])
     const [isUniversity, setIsUniversity] = useState(state ? state.isUniversity : false)
     const [universityName, setUniversityName] = useState(state ? state.universityName : initialValue)
@@ -32,7 +36,6 @@ const CreateStudySet = () => {
     const [modalMode, setModalMode] = useState('create')
     const [question, setQuestion] = useState({})
     const history = useHistory()
-    const { createStudySet } = useStudySet()
 
     const mutateQuestionHandler = (question) => {
         if (modalMode === 'create') setQuestions((prev) => [...prev, question])
@@ -99,44 +102,6 @@ const CreateStudySet = () => {
         questions,
     }
 
-    const submitStudySetHandler = (event) => {
-        event.preventDefault()
-
-        const formatQuestions = questions.map((item) => {
-            return {
-                name: item.quest,
-                answers: item.ans.map((ans) => {
-                    return {
-                        name: ans.name,
-                        isCorrectAnswer: ans.isCorrect,
-                    }
-                }),
-            }
-        })
-
-        const studySet = {
-            name: title,
-            userId: +userId,
-            schoolId: isUniversity ? universityName.value : null,
-            gradeId: isUniversity ? null : classLevel.value,
-            subjectId: isUniversity ? null : subject.value,
-            classId: null,
-            isPublic: true,
-            questions: formatQuestions,
-        }
-        createStudySet(studySet).then(() => {
-            if (state) {
-                const drafts = LocalStorageUtils.getItem('drafts')
-                const updateDrafts = drafts.studySet.filter((draft) => draft.id !== state.id)
-                LocalStorageUtils.setItem('drafts', {
-                    path: '/create',
-                    studySet: updateDrafts,
-                })
-            }
-            history.push('/')
-        })
-    }
-
     const saveDraft = () => {
         const drafts = LocalStorageUtils.getItem('drafts') || { path: history.location.pathname, studySet: [] }
         const draft = {
@@ -153,14 +118,14 @@ const CreateStudySet = () => {
             const draftIndex = drafts.studySet.findIndex((draft) => draft.id === state.id)
             const updateDrafts = JSON.parse(JSON.stringify(drafts.studySet))
             updateDrafts.splice(draftIndex, 1, draft)
-            LocalStorageUtils.setItem('create', {
-                path: '/create',
+            LocalStorageUtils.setItem('update', {
+                path: `/study-sets/${id}/update`,
                 studySet: updateDrafts,
             })
         } else {
             drafts.studySet.push(draft)
-            LocalStorageUtils.setItem('create', {
-                path: '/create',
+            LocalStorageUtils.setItem('update', {
+                path: `/study-sets/${id}/update`,
                 studySet: drafts.studySet,
             })
         }
@@ -181,15 +146,49 @@ const CreateStudySet = () => {
 
     useEffect(() => {
         return () => {
-            if (history.location.pathname !== '/create') {
+            if (history.location.pathname !== `/study-sets/${id}/update`) {
                 saveDraft()
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [schoolLevel.value, title, subject.value, JSON.stringify(questions), universityName.value])
 
-    return (
-        <Box component="form" onSubmit={submitStudySetHandler}>
+    useEffect(() => {
+        const controller = new AbortController()
+        const signal = controller.signal
+        if (!state) {
+            getStudySet(id, signal).then((res) => {
+                const studySet = res.data.data
+                setTitle(studySet.name)
+                if (studySet.schoolId) {
+                    setIsUniversity(true)
+                    setSchoolLevel(levelSchool[2])
+                    setUniversityName({ value: studySet.schoolId, label: studySet.schoolName })
+                } else {
+                    setIsUniversity(false)
+                    if (studySet.gradeId > 5) {
+                        setSchoolLevel(levelSchool[1])
+                    } else {
+                        setSchoolLevel(levelSchool[0])
+                    }
+                    setClassLevel({ value: studySet.gradeId, label: studySet.gradeName })
+                    setSubject({ value: studySet.subjectId, label: studySet.subjectName })
+                }
+                setIsLoading(false)
+            })
+        } else {
+            setIsLoading(false)
+        }
+        return () => {
+            controller.abort()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    return loading ? (
+        <Loading />
+    ) : (
+        <Box component="form">
             <Container maxWidth="xl">
                 <NewStudySet infoStudySetHandler={infoStudySetHandler} infoStudySet={infoStudySet} />
                 {(() => {
@@ -275,4 +274,4 @@ const CreateStudySet = () => {
     )
 }
 
-export default CreateStudySet
+export default UpdateStudySet
