@@ -19,7 +19,7 @@ const StudySetCards = ({ title, studySets }) => {
             >
                 {title}
             </Typography>
-            <ListStudySets studySets={studySets} />
+            <ListStudySets studySets={studySets} md={4} />
         </Box>
     )
 }

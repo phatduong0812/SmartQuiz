@@ -6,6 +6,7 @@ import FullWidthHeaderWhite from '~/components/FullWidthHeaderWhite'
 
 import Draft from './Draft'
 import MyClass from './MyClass'
+import MyStudySets from './MyStudySets'
 
 // import logo from '~/assets/images/User 5.png'
 import { AppStyles } from '~/constants/styles'
@@ -109,7 +110,7 @@ const MyLibrary = () => {
                             <MyClass />
                         </TabPanel>
                         <TabPanel value={'1'} sx={{ p: 0 }}>
-                            Đăng ký
+                            <MyStudySets />
                         </TabPanel>
                         <TabPanel value={'2'} sx={{ p: 0 }}>
                             Đăng ký

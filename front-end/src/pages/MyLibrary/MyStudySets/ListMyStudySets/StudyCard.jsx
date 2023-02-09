@@ -1,22 +1,23 @@
-import { Link } from 'react-router-dom'
-
 import { GppGood } from '@mui/icons-material'
 import { Avatar, Box, CardContent, Grid, Typography } from '@mui/material'
-
-import CardLayout from '../CardLayout'
-import MoreMenu from '../MoreMenu'
+import CardLayout from '~/components/CardLayout'
+import MoreMenu from '~/components/MoreMenu'
 
 import logo from '~/assets/images/User 5.png'
 import { AppStyles } from '~/constants/styles'
 
-const CardLayoutStyle = {
-    borderRadius: 3,
-    boxShadow: '0px 1px 2px rgba(0, 46, 153, 0.3), 0px 1px 3px 1px rgba(0, 46, 153, 0.15)',
-}
-
-const StudyCard = ({ studySet, md }) => {
+const StudyCard = ({ studySet, setId, studySets, setClickIndex, clickIndex, index }) => {
+    const CardLayoutStyle = {
+        borderRadius: 3,
+        boxShadow: '0px 1px 2px rgba(0, 46, 153, 0.3), 0px 1px 3px 1px rgba(0, 46, 153, 0.15)',
+        backgroundColor: clickIndex === index && AppStyles.colors['#004DFF'],
+    }
+    const getId = () => {
+        setId(studySet.id)
+        setClickIndex(studySets.findIndex((obj) => obj.id === studySet.id))
+    }
     return (
-        <Grid item md={md}>
+        <Grid item>
             <CardLayout style={CardLayoutStyle}>
                 <CardContent>
                     <Box display="flex" alignItems="center" justifyContent="space-between">
@@ -32,11 +33,12 @@ const StudyCard = ({ studySet, md }) => {
                                     textOverflow: 'ellipsis',
                                     userSelect: 'none',
                                     cursor: 'pointer',
-                                    color: 'black',
+                                    color: clickIndex === index && AppStyles.colors['#FFFFFF'],
                                     textDecoration: 'none',
                                 }}
-                                component={Link}
-                                to={`/study-sets/${studySet.id}`}
+                                onClick={getId}
+                                // component={Link}
+                                // to={`/thu-vien/${studySet.id}`}
                             >
                                 {/* {studySet?.StudySetName} */}
                                 {studySet.name}
@@ -54,7 +56,6 @@ const StudyCard = ({ studySet, md }) => {
                         <Typography
                             textAlign={'left'}
                             variant="body1"
-                            color="text.secondary"
                             sx={{
                                 overflow: 'hidden',
                                 display: '-webkit-box',
@@ -63,15 +64,21 @@ const StudyCard = ({ studySet, md }) => {
                                 textOverflow: 'ellipsis',
                                 fontSize: 14,
                                 userSelect: 'none',
+                                opacity: '50%',
+                                color: clickIndex === index ? AppStyles.colors['#FFFFFF'] : AppStyles.colors['#333333'],
                             }}
                         >
-                            ĐẠI HỌC |
+                            {!studySet.subjectName ? studySet.schoolName : studySet.subjectName} |
                         </Typography>
                         <Typography
                             ml={0.5}
                             variant="body1"
-                            color="text.secondary"
-                            sx={{ fontSize: 14, userSelect: 'none' }}
+                            sx={{
+                                fontSize: 14,
+                                userSelect: 'none',
+                                opacity: '50%',
+                                color: clickIndex === index ? AppStyles.colors['#FFFFFF'] : AppStyles.colors['#333333'],
+                            }}
                         >
                             100 câu
                         </Typography>
@@ -81,9 +88,10 @@ const StudyCard = ({ studySet, md }) => {
                         <Typography
                             ml={1}
                             sx={{
-                                color: AppStyles.colors['#767680'],
+                                color: clickIndex === index ? AppStyles.colors['#FFFFFF'] : AppStyles.colors['#333333'],
                                 fontSize: 14,
                                 fontWeight: 500,
+                                opacity: '70%',
                                 userSelect: 'none',
                             }}
                         >
