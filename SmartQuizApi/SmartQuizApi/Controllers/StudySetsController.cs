@@ -37,16 +37,17 @@ namespace SmartQuizApi.Controllers
 
                 var studySet = _mapper.Map<StudySet>(createStudySetDTO);
                 studySet.Id = Guid.NewGuid().ToString();
+                studySet.CreateAt = DateTime.Now;
                 foreach (var question in studySet.Questions)
                 {
                     question.Id = Guid.NewGuid().ToString();
-                    question.StudySetId= studySet.Id;
+                    question.StudySetId = studySet.Id;
                     foreach (var answer in question.Answers)
                     {
                         answer.QuestionId = question.Id;
-                    } 
+                    }
                 }
-                _repositoryManager.StudySet.CreateStudySet(studySet);         
+                _repositoryManager.StudySet.CreateStudySet(studySet);
                 await _repositoryManager.SaveChangesAsync();
                 return StatusCode(StatusCodes.Status201Created, new Response(201, "", "Create successfully"));
             }
@@ -70,9 +71,13 @@ namespace SmartQuizApi.Controllers
                 var studySetDTO = _mapper.Map<GetStudySetDetailsDTO>(studySet);
                 var questionsList = await _repositoryManager.Question.GetQuestionsByStudySetId(studySet.Id);
                 studySetDTO.Questions = _mapper.Map<List<GetQuestionDTO>>(questionsList);
+                foreach (var question in studySetDTO.Questions)
+                {
+                    question.MultipleChoice = question.Answers.Where(x => x.IsCorrectAnswer == true).Count() > 1;
+                }
                 return StatusCode(StatusCodes.Status200OK, new Response(200, studySetDTO));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response(500, ex.Message));
             }
@@ -86,6 +91,29 @@ namespace SmartQuizApi.Controllers
                 var studySetsList = await _repositoryManager.StudySet.GetListStudySetsAsync();
                 var studySetsListDTO = _mapper.Map<List<GetStudySetsListDTO>>(studySetsList);
                 return StatusCode(StatusCodes.Status200OK, new Response(200, studySetsListDTO));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response(500, ex.Message));
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditStudySet(UpdateStudySetDTO updateStudySetDTO)
+        {
+            try
+            {
+                var studySet = _repositoryManager.StudySet.GetStudySetById(updateStudySetDTO.Id);
+                
+                if (studySet == null)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, new Response(400, "Study set id does not exist"));
+                }
+
+                _mapper.Map(updateStudySetDTO, studySet);
+                _repositoryManager.StudySet.UpdateStudySet(studySet);
+                await _repositoryManager.SaveChangesAsync();
+                return StatusCode(StatusCodes.Status200OK, new Response(200, "", "Update successfully"));
             }
             catch (Exception ex)
             {
