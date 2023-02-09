@@ -31,8 +31,8 @@ const CreateStudySet = () => {
     const { userId } = useAppSelector((state) => state.auth)
     const [modalMode, setModalMode] = useState('create')
     const [question, setQuestion] = useState({})
-    const { createStudySet } = useStudySet()
     const history = useHistory()
+    const { createStudySet } = useStudySet()
 
     const mutateQuestionHandler = (question) => {
         if (modalMode === 'create') setQuestions((prev) => [...prev, question])
@@ -153,13 +153,13 @@ const CreateStudySet = () => {
             const draftIndex = drafts.studySet.findIndex((draft) => draft.id === state.id)
             const updateDrafts = JSON.parse(JSON.stringify(drafts.studySet))
             updateDrafts.splice(draftIndex, 1, draft)
-            LocalStorageUtils.setItem('drafts', {
+            LocalStorageUtils.setItem('create', {
                 path: '/create',
                 studySet: updateDrafts,
             })
         } else {
             drafts.studySet.push(draft)
-            LocalStorageUtils.setItem('drafts', {
+            LocalStorageUtils.setItem('create', {
                 path: '/create',
                 studySet: drafts.studySet,
             })
@@ -177,7 +177,7 @@ const CreateStudySet = () => {
         setSubject(initialValue)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [schoolLevel])
+    }, [schoolLevel.value])
 
     useEffect(() => {
         return () => {
@@ -186,7 +186,7 @@ const CreateStudySet = () => {
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [schoolLevel.value, title.value, subject.value, JSON.stringify(questions), universityName.value])
+    }, [schoolLevel.value, title, subject.value, JSON.stringify(questions), universityName.value])
 
     return (
         <Box component="form" onSubmit={submitStudySetHandler}>

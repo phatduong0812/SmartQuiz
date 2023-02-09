@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 
+import { v4 as uuid } from 'uuid'
+
 import { Box, Button, TextField, Typography } from '@mui/material'
 
 import Answers from './Answers'
-
-import { questionUniqueId, uniqueId } from '~/utils/IdGenerator'
 
 const answers = ['A', 'B', 'C']
 
@@ -35,24 +35,24 @@ const ThreeChoices = ({ submitQuestionHandler, first, second, third, questName, 
             quest: questionName,
             ans: [
                 {
-                    id: questionUniqueId(),
+                    id: uuid(),
                     name: firstChoice,
                     isCorrect: answersSelected.includes('A'),
                 },
                 {
-                    id: questionUniqueId(),
+                    id: uuid(),
                     name: secondChoice,
                     isCorrect: answersSelected.includes('B'),
                 },
                 {
-                    id: questionUniqueId(),
+                    id: uuid(),
                     name: thirdChoice,
                     isCorrect: answersSelected.includes('C'),
                 },
             ],
             multiple: true,
             answers: answersSelected,
-            id: id === -1 ? uniqueId() : id,
+            id: id === -1 ? uuid() : id,
         }
         submitQuestionHandler(question)
         resetHandler()
