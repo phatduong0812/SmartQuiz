@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { GppGood } from '@mui/icons-material'
 import { Avatar, Box, CardContent, Grid, Typography } from '@mui/material'
@@ -15,14 +15,9 @@ const CardLayoutStyle = {
 }
 
 const StudyCard = ({ studySet }) => {
-    const history = useHistory()
-    const moveToDetailed = (event) => {
-        event.stopPropagation()
-        history.push(`/study-sets/${studySet.id}`)
-    }
     return (
         <Grid item md={4}>
-            <CardLayout style={CardLayoutStyle} onClick={moveToDetailed}>
+            <CardLayout style={CardLayoutStyle}>
                 <CardContent>
                     <Box display="flex" alignItems="center" justifyContent="space-between">
                         <Box display="flex" alignItems="center">
@@ -40,8 +35,8 @@ const StudyCard = ({ studySet }) => {
                                     color: 'black',
                                     textDecoration: 'none',
                                 }}
-                                // component={Link}
-                                // to={`/study-sets/${studySet.id}`}
+                                component={Link}
+                                to={`/study-sets/${studySet.id}`}
                             >
                                 {/* {studySet?.StudySetName} */}
                                 {studySet.name}
