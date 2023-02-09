@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import { GppGood } from '@mui/icons-material'
 import { Avatar, Box, CardContent, Grid, Typography } from '@mui/material'
@@ -15,9 +15,14 @@ const CardLayoutStyle = {
 }
 
 const StudyCard = ({ studySet }) => {
+    const history = useHistory()
+    const moveToDetailed = (event) => {
+        event.stopPropagation()
+        history.push(`/study-sets/${studySet.id}`)
+    }
     return (
         <Grid item md={4}>
-            <CardLayout style={CardLayoutStyle}>
+            <CardLayout style={CardLayoutStyle} onClick={moveToDetailed}>
                 <CardContent>
                     <Box display="flex" alignItems="center" justifyContent="space-between">
                         <Box display="flex" alignItems="center">
@@ -35,8 +40,8 @@ const StudyCard = ({ studySet }) => {
                                     color: 'black',
                                     textDecoration: 'none',
                                 }}
-                                component={Link}
-                                to={`/study-sets/${studySet.id}`}
+                                // component={Link}
+                                // to={`/study-sets/${studySet.id}`}
                             >
                                 {/* {studySet?.StudySetName} */}
                                 {studySet.name}
@@ -76,7 +81,7 @@ const StudyCard = ({ studySet }) => {
                             100 câu
                         </Typography>
                     </Box>
-                    <Box display="flex" mt={2} textAlign={'left'}>
+                    <Box display="flex" mt={3} textAlign={'left'}>
                         <Avatar sx={{ height: 20, width: 20 }} src={logo} alt="logo" />
                         <Typography
                             ml={1}

@@ -132,21 +132,21 @@ export const Mock_Data = {
     yourSet: [
         {
             id: 1,
-            name: 'Toán THPT 2021-2022',
+            name: 'GD1501',
             creator: 'Arlan',
             NumberPeople: 35,
             gradeName: 5,
         },
         {
             id: 2,
-            name: 'Felis libyca',
+            name: 'SE1507',
             creator: 'Karlen',
             NumberPeople: 23,
             gradeName: 3,
         },
         {
             id: 3,
-            name: 'Toán Cao Cấp',
+            name: 'MTK1501',
             creator: 'Warner',
             NumberPeople: 33,
             gradeName: 2,

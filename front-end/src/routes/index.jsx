@@ -27,6 +27,12 @@ const hyBridRoutes = [
         layout: 'common',
     },
     {
+        component: lazy(() => import('~/pages/MyLibrary')),
+        path: '/thu-vien',
+        name: 'thu-vien',
+        layout: 'common',
+    },
+    {
         component: lazy(() => import('~/pages/StudySetDetail')),
         path: '/study-sets/:id',
         name: 'detail',
