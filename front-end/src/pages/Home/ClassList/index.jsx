@@ -1,9 +1,7 @@
-import React from 'react'
-
 import { Box, Typography } from '@mui/material'
-import ListStudySets from '~/components/ListStudySets'
+import ListClassCard from '~/components/ListClassCard'
 
-const StudySetCards = ({ title, studySets }) => {
+const ClassList = ({ title, studySets }) => {
     return (
         <Box mt={4}>
             <Typography
@@ -19,9 +17,9 @@ const StudySetCards = ({ title, studySets }) => {
             >
                 {title}
             </Typography>
-            <ListStudySets studySets={studySets} />
+            <ListClassCard studySets={studySets} md={4} />
         </Box>
     )
 }
 
-export default StudySetCards
+export default ClassList

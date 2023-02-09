@@ -42,20 +42,20 @@ export const Mock_Data = {
             NumberPeople: 9,
             gradeName: 5,
         },
-        {
-            id: 7,
-            name: 'Potos flavus',
-            creator: 'Robinett',
-            NumberPeople: 5,
-            gradeName: 5,
-        },
-        {
-            id: 8,
-            name: 'Felis silvestris lybica',
-            creator: 'Dulcy',
-            NumberPeople: 1,
-            gradeName: 5,
-        },
+        // {
+        //     id: 7,
+        //     name: 'Potos flavus',
+        //     creator: 'Robinett',
+        //     NumberPeople: 5,
+        //     gradeName: 5,
+        // },
+        // {
+        //     id: 8,
+        //     name: 'Felis silvestris lybica',
+        //     creator: 'Dulcy',
+        //     NumberPeople: 1,
+        //     gradeName: 5,
+        // },
     ],
     search: [
         {
@@ -132,21 +132,44 @@ export const Mock_Data = {
     yourSet: [
         {
             id: 1,
-            name: 'Toán THPT 2021-2022',
+            name: 'GD1501',
             creator: 'Arlan',
             NumberPeople: 35,
             gradeName: 5,
         },
         {
             id: 2,
-            name: 'Felis libyca',
+            name: 'SE1507',
             creator: 'Karlen',
             NumberPeople: 23,
             gradeName: 3,
         },
         {
             id: 3,
-            name: 'Toán Cao Cấp',
+            name: 'MTK1501',
+            creator: 'Warner',
+            NumberPeople: 33,
+            gradeName: 2,
+        },
+    ],
+    myClass: [
+        {
+            id: 1,
+            name: 'GD1501',
+            creator: 'Arlan',
+            NumberPeople: 35,
+            gradeName: 5,
+        },
+        {
+            id: 2,
+            name: 'SE1507',
+            creator: 'Karlen',
+            NumberPeople: 23,
+            gradeName: 3,
+        },
+        {
+            id: 3,
+            name: 'MTK1501',
             creator: 'Warner',
             NumberPeople: 33,
             gradeName: 2,
@@ -181,13 +204,13 @@ export const Mock_Data = {
             NumberPeople: 33,
             gradeName: 2,
         },
-        {
-            id: 4,
-            name: 'Amblyrhynchus cristatus',
-            creator: 'Lara',
-            NumberPeople: 44,
-            gradeName: 4,
-        },
+        // {
+        //     id: 4,
+        //     name: 'Amblyrhynchus cristatus',
+        //     creator: 'Lara',
+        //     NumberPeople: 44,
+        //     gradeName: 4,
+        // },
     ],
     dropdown1: [
         { name: 'Tất cả kết quả', id: 5 },

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { FeedRounded, PersonRounded, TopicRounded } from '@mui/icons-material'
+import { FeedRounded, TopicRounded } from '@mui/icons-material'
 import { Box, Paper, Typography } from '@mui/material'
 
 import TableContent from './TableContent'
@@ -79,31 +79,7 @@ const PopularTable = ({ studySet }) => {
                         >
                             <TopicRounded fontSize="medium" />
                             <Typography component="span" variant="body1" sx={{ fontWeight: 600 }}>
-                                Thư mục
-                            </Typography>
-                        </Box>
-                        <Box
-                            display="flex"
-                            alignItems="center"
-                            sx={{
-                                flex: 1,
-                                px: 4,
-                                py: 2,
-                                textDecoration: 'none',
-                                color: AppStyles.colors['#767680'],
-                                position: 'relative',
-                                ml: 2,
-                                fontFamily: 'Roboto',
-                                ':hover': {
-                                    bgcolor: AppStyles.colors['#004DFF'],
-                                    color: AppStyles.colors['#FFFFFF'],
-                                },
-                                cursor: 'pointer',
-                            }}
-                        >
-                            <PersonRounded fontSize="medium" />
-                            <Typography component="span" variant="body1" sx={{ fontWeight: 600 }}>
-                                Tác giả
+                                Lớp học
                             </Typography>
                         </Box>
                     </Box>

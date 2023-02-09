@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { Box, Typography } from '@mui/material'
-import ListStudySets from '~/components/ListStudySets'
+import { Typography } from '@mui/material'
+import ListDraft from '~/components/ListDraft'
 
-const StudySetCards = ({ title, studySets }) => {
+const Create = ({ title, studySets }) => {
     return (
-        <Box mt={4}>
+        <React.Fragment>
             <Typography
                 textAlign={'left'}
                 variant="h6"
@@ -19,9 +19,9 @@ const StudySetCards = ({ title, studySets }) => {
             >
                 {title}
             </Typography>
-            <ListStudySets studySets={studySets} />
-        </Box>
+            <ListDraft studySets={studySets} md={4} />
+        </React.Fragment>
     )
 }
 
-export default StudySetCards
+export default Create

@@ -23,6 +23,7 @@ import logo from '../../../assets/images/Logo.png'
 import Notification from '../../Noti'
 import Search from '../../Search'
 
+import Crown from '~/assets/images/Crown.png'
 import { AppStyles } from '~/constants/styles'
 import useAuthAction from '~/features/authSlice/auth-actions'
 import { useAppSelector } from '~/hooks/redux-hooks'
@@ -171,7 +172,32 @@ const Header = () => {
                             },
                         }}
                     >
-                        <Search searchHeight="auto" searchWidth={300} inputWidth={235} />
+                        {email && (
+                            <Button
+                                sx={{
+                                    color: AppStyles.colors['#000F33'],
+                                    mr: 4,
+                                    borderRadius: 3,
+                                    px: 3,
+                                    py: 1,
+                                    backgroundColor: AppStyles.colors['#FEDA01'],
+                                    ':hover': {
+                                        bgcolor: '#e4c400',
+                                        color: AppStyles.colors['#000F33'],
+                                        boxShadow: 'none',
+                                    },
+                                    boxShadow: 'none',
+                                }}
+                                draggable={false}
+                                variant="contained"
+                                startIcon={<Avatar src={Crown} sx={{ width: 27, height: 27 }} />}
+                                component={Link}
+                                to="/dang-nhap"
+                            >
+                                <Typography sx={{ textTransform: 'none', fontWeight: 500 }}>Premium Plan</Typography>
+                            </Button>
+                        )}
+                        <Search searchHeight="auto" searchWidth={260} inputWidth={190} />
                         <Notification />
                         {email ? (
                             <React.Fragment>
