@@ -234,30 +234,30 @@ export const Mock_Data = {
     ],
     questions: [
         {
-            quest: 'Mức độ bóc lột của nhà tư bản được tính bằng? ',
-            ans: [
+            name: 'Mức độ bóc lột của nhà tư bản được tính bằng? ',
+            answers: [
                 { name: 'Tỷ suất lợi nhuận', id: 1, isCorrect: false },
                 { name: 'Tỷ suất giá trị thặng dư', id: 2, isCorrect: true },
                 { name: 'Tỷ suất lợi nhuận bình quân', id: 3, isCorrect: false },
             ],
-            answers: ['B'],
+            correct: ['B'],
             multiple: false,
             id: 1,
         },
         {
-            quest: 'Giá trị sử dụng của hàng hóa là khái niệm dùng để chỉ? ',
-            ans: [
+            name: 'Giá trị sử dụng của hàng hóa là khái niệm dùng để chỉ? ',
+            answers: [
                 { name: 'Công dụng của hàng hóa', id: 1, isCorrect: true },
                 { name: 'Mức độ khan hiếm của hàng hóa', id: 2, isCorrect: false },
                 { name: 'Giá trị trao đổi của hàng hóa', id: 3, isCorrect: false },
             ],
-            answers: ['A'],
+            correct: ['A'],
             multiple: false,
             id: 2,
         },
         {
-            quest: 'Tái sản xuất tư bản gồm có hai hình thức cơ bản đó là?',
-            ans: [
+            name: 'Tái sản xuất tư bản gồm có hai hình thức cơ bản đó là?',
+            answers: [
                 { name: 'Tái sản xuất giản đơn và tái sản xuất mở rộng', id: 1, isCorrect: false },
                 {
                     name: 'Tái sản xuất theo chiều rộng và tái sản xuất theo chiều sâu',
@@ -270,24 +270,24 @@ export const Mock_Data = {
                     isCorrect: true,
                 },
             ],
-            answers: ['A'],
+            correct: ['A'],
             multiple: false,
             id: 3,
         },
         {
-            quest: 'Sản xuất hàng hóa ra đời dựa trên mấy điều kiện sau đây?',
-            ans: [
+            name: 'Sản xuất hàng hóa ra đời dựa trên mấy điều kiện sau đây?',
+            answers: [
                 { name: 'Ba điều kiện', id: 1, isCorrect: false },
                 { name: 'Hai điều kiện', id: 2, isCorrect: true },
                 { name: 'Một điều kiện', id: 3, isCorrect: false },
             ],
-            answers: ['B'],
+            correct: ['B'],
             multiple: false,
             id: 4,
         },
         {
-            quest: 'Giá trị sử dụng của hàng hóa phản ánh tính chất nào sau đây? ',
-            ans: [
+            name: 'Giá trị sử dụng của hàng hóa phản ánh tính chất nào sau đây? ',
+            answers: [
                 { name: 'Tính chất tư nhân của hàng hóa', id: 1, isCorrect: false },
                 { name: 'Tính chất xã hội của hàng hóa', id: 2, isCorrect: false },
                 {
@@ -296,13 +296,13 @@ export const Mock_Data = {
                     isCorrect: true,
                 },
             ],
-            answers: ['C'],
+            correct: ['C'],
             multiple: false,
             id: 5,
         },
         {
-            quest: 'Sản xuất hàng hóa là khái niệm dùng để chỉ?',
-            ans: [
+            name: 'Sản xuất hàng hóa là khái niệm dùng để chỉ?',
+            answers: [
                 {
                     name: 'A. Kiểu tổ chức kinh tế mà sản phẩm làm ra được mang ra trao đổi, mua bán trên thị trường để thỏa mãn nhu cầu của xã hội.',
                     id: 1,
@@ -319,7 +319,7 @@ export const Mock_Data = {
                     isCorrect: false,
                 },
             ],
-            answers: ['A'],
+            correct: ['A'],
             multiple: false,
             id: 6,
         },
