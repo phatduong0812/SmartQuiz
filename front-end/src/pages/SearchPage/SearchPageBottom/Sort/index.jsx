@@ -32,12 +32,17 @@ const Sort = () => {
     // }, [type])
 
     return (
-        <FormControl sx={{ minWidth: 149 }}>
+        <FormControl sx={{ minWidth: 260 }}>
             <Select
                 value={type}
                 variant="outlined"
                 onChange={handleChange}
-                sx={{ pl: 1, bgcolor: AppStyles.colors['#E6EDFF'], borderRadius: 3 }}
+                sx={{
+                    pl: 1,
+                    bgcolor: AppStyles.colors['#FAFBFF'],
+                    borderRadius: 3,
+                    boxShadow: '0px 1px 2px rgba(0, 46, 153, 0.3), 0px 1px 3px 1px rgba(0, 46, 153, 0.15)',
+                }}
             >
                 <MenuItem value={'Newest'}>Gần nhất</MenuItem>
                 <MenuItem value={'Oldest'}>Xem nhiều nhất</MenuItem>

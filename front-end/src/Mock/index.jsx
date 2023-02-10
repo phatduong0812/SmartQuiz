@@ -213,22 +213,22 @@ export const Mock_Data = {
         // },
     ],
     dropdown1: [
-        { name: 'Tất cả kết quả', id: 5 },
+        { name: 'Chọn cấp học', id: 5 },
         { name: 'Nhiều kết quả hơn', id: 5323 },
         { name: 'Vừa mới', id: 51 },
     ],
     dropdown2: [
-        { name: 'Cấp 2', id: 5 },
+        { name: 'Chọn tên trường', id: 5 },
         { name: 'Cấp 3', id: 5323 },
         { name: 'Đại học', id: 51 },
     ],
     dropdown3: [
-        { name: 'Lớp 10', id: 5 },
+        { name: 'Chọn lớp', id: 5 },
         { name: 'Lớp 11', id: 5323 },
         { name: 'Lớp 12', id: 51 },
     ],
     dropdown4: [
-        { name: 'Bộ lọc', id: 5 },
+        { name: 'Chọn trường', id: 5 },
         { name: 'Nhiều kết quả hơn', id: 5323 },
         { name: 'Vừa mới', id: 51 },
     ],
@@ -509,7 +509,7 @@ const selectedChoices = [
     },
 ]
 
-const choices = ['A', 'B', 'C', 'D', 'E']
+const choices = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 
 const initialValue = {
     value: '',
