@@ -53,7 +53,7 @@ const SearchPageBottom = () => {
                 </Typography>
                 <Sort />
             </Box>
-            <Box mt={2}>{isFirstRender ? <Loading /> : <ListStudySets studySets={studySet} md={3} />}</Box>
+            <Box mt={4}>{isFirstRender ? <Loading /> : <ListStudySets studySets={studySet} md={3} />}</Box>
             <Typography
                 mt={5}
                 mb={10}
