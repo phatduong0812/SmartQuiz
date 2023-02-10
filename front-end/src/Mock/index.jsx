@@ -303,6 +303,32 @@ export const Mock_Data = {
     ],
 }
 
+const exampleQuestion = [
+    {
+        quest: 'Câu hỏi của bạn ở đây là?',
+        ans: [
+            {
+                name: 'A. Answer 1.',
+                id: 1,
+                isCorrect: true,
+            },
+            {
+                name: 'B. Answer 2.',
+                id: 2,
+                isCorrect: false,
+            },
+            {
+                name: 'C. Answer 3',
+                id: 3,
+                isCorrect: false,
+            },
+        ],
+        answers: ['A'],
+        multiple: false,
+        id: 6969,
+    },
+]
+
 const levelSchool = [
     {
         label: 'Cấp 2',
@@ -504,4 +530,5 @@ export {
     initialValue,
     level,
     choices,
+    exampleQuestion,
 }
