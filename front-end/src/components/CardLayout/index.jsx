@@ -2,7 +2,7 @@ import { Card } from '@mui/material'
 
 import { AppStyles } from '~/constants/styles'
 
-const CardLayout = ({ children, style }) => {
+const CardLayout = ({ children, style, onClick }) => {
     return (
         <Card
             sx={{
@@ -10,6 +10,7 @@ const CardLayout = ({ children, style }) => {
                 backgroundColor: AppStyles.colors['#FAFBFF'],
                 ...style,
             }}
+            onClick={onClick}
         >
             {children}
         </Card>

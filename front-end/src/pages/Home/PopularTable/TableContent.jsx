@@ -4,11 +4,12 @@ import { Avatar, Box, Divider, Grid, Typography } from '@mui/material'
 import Medal1 from '~/assets/images/Metal-1.png'
 import Medal2 from '~/assets/images/Metal-2.png'
 import Medal3 from '~/assets/images/Metal-3.png'
+import logo from '~/assets/images/User 5.png'
 import { AppStyles } from '~/constants/styles'
 
 const TableContent = ({ studySet }) => {
     return (
-        <Box p={2}>
+        <Box p={2} pb={4}>
             {studySet.slice(0, -1).map((data, index) => (
                 <Grid key={index} pl={2} pt={2} container spacing={3}>
                     <Grid item xs={4} md={4} lg={3} display="flex" alignItems="center" justifyContent="center">
@@ -49,7 +50,7 @@ const TableContent = ({ studySet }) => {
                                 gutterBottom
                                 variant="body1"
                                 component="div"
-                                fontWeight={600}
+                                fontWeight={500}
                                 sx={{
                                     overflow: 'hidden',
                                     display: '-webkit-box',
@@ -77,37 +78,54 @@ const TableContent = ({ studySet }) => {
                                     WebkitLineClamp: '2',
                                     textOverflow: 'ellipsis',
                                     fontSize: 14,
+                                    userSelect: 'none',
                                 }}
                             >
-                                Người tạo
+                                Đại học |
                             </Typography>
                             <Typography
                                 ml={0.5}
                                 variant="body1"
                                 color="text.secondary"
-                                sx={{ fontWeight: 'bold', fontSize: 14 }}
+                                sx={{ fontSize: 14, userSelect: 'none' }}
                             >
-                                {data?.PersonCreated}
+                                100 câu
                             </Typography>
                         </Box>
-                        <Box display="flex" mt={2} textAlign={'left'}>
-                            <Box display="flex" alignItems="center" justifyContent="center">
-                                <Groups2 fontSize="small" sx={{ color: AppStyles.colors['#767680'] }} />
+                        <Box display="flex" mt={2} textAlign={'left'} justifyContent="space-between">
+                            <Box display="flex" textAlign={'left'}>
+                                <Avatar sx={{ height: 20, width: 20 }} src={logo} alt="logo" />
                                 <Typography
                                     ml={1}
-                                    sx={{ color: AppStyles.colors['#767680'], fontSize: 14, fontWeight: 400 }}
+                                    sx={{
+                                        color: AppStyles.colors['#767680'],
+                                        fontSize: 14,
+                                        fontWeight: 500,
+                                        userSelect: 'none',
+                                    }}
                                 >
-                                    {data?.NumberPeople}
+                                    {data?.creator}
                                 </Typography>
                             </Box>
-                            <Box ml={2} display="flex" alignItems="center" justifyContent="center">
-                                <Star fontSize="small" sx={{ color: AppStyles.colors['#767680'] }} />
-                                <Typography
-                                    ml={1}
-                                    sx={{ color: AppStyles.colors['#767680'], fontSize: 14, fontWeight: 400 }}
-                                >
-                                    {data?.Star}
-                                </Typography>
+                            <Box display="flex">
+                                <Box display="flex" alignItems="center" justifyContent="center">
+                                    <Groups2 fontSize="small" sx={{ color: AppStyles.colors['#767680'] }} />
+                                    <Typography
+                                        ml={1}
+                                        sx={{ color: AppStyles.colors['#767680'], fontSize: 14, fontWeight: 400 }}
+                                    >
+                                        {data?.NumberPeople}
+                                    </Typography>
+                                </Box>
+                                <Box ml={2} display="flex" alignItems="center" justifyContent="center">
+                                    <Star fontSize="small" sx={{ color: AppStyles.colors['#767680'] }} />
+                                    <Typography
+                                        ml={1}
+                                        sx={{ color: AppStyles.colors['#767680'], fontSize: 14, fontWeight: 400 }}
+                                    >
+                                        {data?.gradeName}
+                                    </Typography>
+                                </Box>
                             </Box>
                         </Box>
                     </Grid>

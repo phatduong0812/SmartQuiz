@@ -98,7 +98,9 @@ const Banner = () => {
                                 component={Link}
                                 to="/dang-nhap"
                             >
-                                <Typography variant="h6">PREMIUM</Typography>
+                                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                                    PREMIUM
+                                </Typography>
                             </Button>
                         </Box>
                         <Typography

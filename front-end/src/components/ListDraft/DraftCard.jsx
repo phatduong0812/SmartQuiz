@@ -1,23 +1,25 @@
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
-import { GppGood } from '@mui/icons-material'
-import { Avatar, Box, CardContent, Grid, Typography } from '@mui/material'
+import { Box, CardContent, Grid, Typography } from '@mui/material'
 
 import CardLayout from '../CardLayout'
-import MoreMenu from '../MoreMenu'
-
-import logo from '~/assets/images/User 5.png'
-import { AppStyles } from '~/constants/styles'
 
 const CardLayoutStyle = {
-    borderRadius: 3,
+    borderRadius: 1,
     boxShadow: '0px 1px 2px rgba(0, 46, 153, 0.3), 0px 1px 3px 1px rgba(0, 46, 153, 0.15)',
+    cursor: 'pointer',
+    borderBottom: '3px solid transparent;',
+    ':hover': {
+        borderBottom: '3px solid #CCDBFF;',
+    },
 }
 
-const StudyCard = ({ studySet, md }) => {
+const DraftCard = ({ studySet }) => {
+    const history = useHistory()
+
     return (
-        <Grid item md={md}>
-            <CardLayout style={CardLayoutStyle}>
+        <Grid item md={3}>
+            <CardLayout style={CardLayoutStyle} onClick={() => history.push(`/study-sets/${studySet.id}`)}>
                 <CardContent>
                     <Box display="flex" alignItems="center" justifyContent="space-between">
                         <Box display="flex" alignItems="center">
@@ -31,26 +33,18 @@ const StudyCard = ({ studySet, md }) => {
                                     WebkitLineClamp: '1',
                                     textOverflow: 'ellipsis',
                                     userSelect: 'none',
-                                    cursor: 'pointer',
                                     color: 'black',
                                     textDecoration: 'none',
                                 }}
-                                component={Link}
-                                to={`/study-sets/${studySet.id}`}
+                                // component={Link}
+                                // to={`/study-sets/${studySet.id}`}
                             >
                                 {/* {studySet?.StudySetName} */}
                                 {studySet.name}
                             </Typography>
-                            {Math.random() < 0.5 && (
-                                <GppGood
-                                    fontSize="small"
-                                    sx={{ ml: 1, mt: -0.5, color: AppStyles.colors['#004DFF'] }}
-                                />
-                            )}
                         </Box>
-                        <MoreMenu saveButtonOn={true} />
                     </Box>
-                    <Box display="flex">
+                    <Box display="flex" mt={1}>
                         <Typography
                             textAlign={'left'}
                             variant="body1"
@@ -76,24 +70,10 @@ const StudyCard = ({ studySet, md }) => {
                             100 câu
                         </Typography>
                     </Box>
-                    <Box display="flex" mt={3} textAlign={'left'}>
-                        <Avatar sx={{ height: 20, width: 20 }} src={logo} alt="logo" />
-                        <Typography
-                            ml={1}
-                            sx={{
-                                color: AppStyles.colors['#767680'],
-                                fontSize: 14,
-                                fontWeight: 500,
-                                userSelect: 'none',
-                            }}
-                        >
-                            {studySet?.creator}
-                        </Typography>
-                    </Box>
                 </CardContent>
             </CardLayout>
         </Grid>
     )
 }
 
-export default StudyCard
+export default DraftCard

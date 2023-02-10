@@ -1,104 +1,104 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
-import { Edit, Quiz } from '@mui/icons-material'
-import { Box, Button, IconButton, Typography } from '@mui/material'
+import { BookmarkAdd, CheckBox, Description, Edit } from '@mui/icons-material'
+import { Avatar, Box, Divider, IconButton, Tooltip, Typography } from '@mui/material'
+import ButtonCompo from '~/components/ButtonCompo'
+import QuestionCard from '~/components/QuestionList/QuestionCard'
 
+import LearnModal from './LearnModal'
+import TestModal from './TestModal'
+
+import logo from '~/assets/images/User 5.png'
 import { AppStyles } from '~/constants/styles'
 
-const DetailHeader = ({ info, id }) => {
+const DetailHeader = ({ info, id, questions }) => {
+    const [openLearn, setOpenLearn] = useState(false)
+    const handleOpenLearn = () => setOpenLearn(true)
+    const handleCloseLearn = () => setOpenLearn(false)
+    const [openTest, setOpenTest] = useState(false)
+    const handleOpenTest = () => setOpenTest(true)
+    const handleCloseTest = () => setOpenTest(false)
+
+    const history = useHistory()
+    const ButtonStyle = {
+        color: AppStyles.colors['#000F33'],
+        textTransform: 'none',
+        height: 56,
+        minWidth: 413,
+        backgroundColor: AppStyles.colors['#CCDBFF'],
+        ':hover': {
+            bgcolor: AppStyles.colors['#004DFF'],
+            color: 'white',
+        },
+    }
+
     return (
         <React.Fragment>
-            <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+            <LearnModal open={openLearn} handleClose={handleCloseLearn} id={id} />
+            <TestModal open={openTest} handleClose={handleCloseTest} id={id} numberOfQuestion={info.questions.length} />
+            <Typography sx={{ fontWeight: 500, fontSize: 32, color: AppStyles.colors['#333333'] }}>
                 {info.name}
             </Typography>
-            <Box display="flex" mt={2}>
-                <Button
-                    variant="outlined"
-                    sx={{
-                        mr: 2,
-                        color: 'black',
-                        borderRadius: 1.5,
-                        pr: 4,
-                        justifyContent: 'flex-start',
-                        textTransform: 'none',
-                        backgroundColor: AppStyles.colors['#CCDBFF'],
-                        ':hover': {
-                            bgcolor: '#b7c5e5',
-                        },
-                    }}
-                    component={Link}
-                    to={`/study-sets/${id}/test`}
-                >
-                    <IconButton
-                        aria-label="create"
-                        size="large"
+            <Divider
+                sx={{ mt: 2, borderBottomWidth: 2, backgroundColor: AppStyles.colors['#000F33'], opacity: '30%' }}
+            />
+            <Box display="flex" mt={4} justifyContent="space-between">
+                <Box display="flex" alignItems="center">
+                    <Avatar sx={{ height: 40, width: 40 }} src={logo} alt="logo" />
+                    <Typography
                         sx={{
-                            p: 0,
+                            ml: 2,
+                            color: AppStyles.colors['#333333'],
+                            fontSize: 16,
+                            fontWeight: 500,
                         }}
                     >
-                        <Quiz fontSize="inherit" sx={{ color: AppStyles.colors['#004DFF'] }} />
-                    </IconButton>
-                    <Typography ml={1} sx={{ fontWeight: 500 }}>
-                        Kiểm tra
+                        {info?.creator}
                     </Typography>
-                </Button>
-                <Button
-                    variant="outlined"
-                    sx={{
-                        mr: 2,
-                        color: 'black',
-                        borderRadius: 1.5,
-                        pr: 4,
-                        justifyContent: 'flex-start',
-                        textTransform: 'none',
-                        backgroundColor: AppStyles.colors['#CCDBFF'],
-                        ':hover': {
-                            bgcolor: '#b7c5e5',
-                        },
-                    }}
-                    component={Link}
-                    to={`/study-sets/${id}/update`}
-                >
-                    <IconButton
-                        aria-label="create"
-                        size="large"
-                        sx={{
-                            p: 0,
-                        }}
-                    >
-                        <Edit fontSize="inherit" sx={{ color: AppStyles.colors['#004DFF'] }} />
-                    </IconButton>
-                    <Typography ml={1} sx={{ fontWeight: 500 }}>
-                        Chỉnh sửa
-                    </Typography>
-                </Button>
+                </Box>
+                <Box display="flex" alignItems="center">
+                    <Tooltip title="Lưu" placement="bottom">
+                        <IconButton aria-label="create" size="large" sx={{ border: '1px solid #767680', mr: 2 }}>
+                            <BookmarkAdd fontSize="small" sx={{ color: AppStyles.colors['#767680'] }} />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Sửa" placement="bottom">
+                        <IconButton
+                            aria-label="create"
+                            size="large"
+                            sx={{ border: '1px solid #767680' }}
+                            onClick={() => history.push(`/study-sets/${id}/update`)}
+                        >
+                            <Edit fontSize="small" sx={{ color: AppStyles.colors['#767680'] }} />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
             </Box>
-            <Box display="flex" mt={4}>
-                <Typography
-                    textAlign={'left'}
-                    variant="body1"
-                    color="text.secondary"
-                    sx={{
-                        overflow: 'hidden',
-                        display: '-webkit-box',
-                        WebkitBoxOrient: 'vertical',
-                        WebkitLineClamp: '2',
-                        textOverflow: 'ellipsis',
-                        fontSize: 14,
-                        userSelect: 'none',
-                    }}
-                >
-                    Người tạo
-                </Typography>
-                <Typography ml={0.5} variant="body1" color="text.secondary" sx={{ fontWeight: 'bold', fontSize: 14 }}>
-                    {info.creator}
+            <Box mt={2.5}>
+                <QuestionCard question={questions[0]} index={0} />
+                <Box display="flex" alignItems="center" justifyContent="space-between" mt={3}>
+                    <ButtonCompo style={ButtonStyle} onClick={handleOpenLearn}>
+                        <Description fontSize="medium" />
+                        <Typography ml={1.5} sx={{ fontSize: 16, fontWeight: 500 }}>
+                            Học
+                        </Typography>
+                    </ButtonCompo>
+                    <ButtonCompo style={ButtonStyle} onClick={handleOpenTest}>
+                        <CheckBox fontSize="medium" />
+                        <Typography ml={1.5} sx={{ fontSize: 16, fontWeight: 500 }}>
+                            Kiểm tra
+                        </Typography>
+                    </ButtonCompo>
+                </Box>
+            </Box>
+            <Box display="flex" mt={8}>
+                <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Tất cả câu hỏi</Typography>
+                <Typography sx={{ ml: 2, fontWeight: 600, fontSize: 20, color: AppStyles.colors['#767680'] }}>
+                    ({info.questions.length})
                 </Typography>
             </Box>
-            <Typography mt={5} variant="h5" sx={{ fontWeight: 'bold' }}>
-                Số lượng câu ({info.questions.length})
-            </Typography>
         </React.Fragment>
     )
 }
