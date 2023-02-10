@@ -7,14 +7,14 @@ import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/mat
 
 import { AppStyles } from '~/constants/styles'
 
-const MoreMenu = ({ studySetId, saveButtonOn }) => {
+const MoreMenu = ({ studySetId, saveButtonOn, color }) => {
     const ref = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
 
     return (
         <React.Fragment>
             <IconButton size="small" sx={{ ml: 1 }} ref={ref} onClick={() => setIsOpen(true)}>
-                <MoreVert size="small" />
+                <MoreVert size="small" sx={{ color: color }} />
             </IconButton>
 
             <Menu

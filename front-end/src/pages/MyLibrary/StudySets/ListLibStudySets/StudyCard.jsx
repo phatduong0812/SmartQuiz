@@ -19,6 +19,7 @@ const StudyCard = ({ studySet, setId, studySets, setClickIndex, clickIndex, inde
         setId(studySet.id)
         setClickIndex(studySets.findIndex((obj) => obj.id === studySet.id))
     }
+    console.log(clickIndex === index)
     return (
         <Grid item>
             <CardLayout style={CardLayoutStyle}>
@@ -50,7 +51,10 @@ const StudyCard = ({ studySet, setId, studySets, setClickIndex, clickIndex, inde
                                 />
                             )}
                         </Box>
-                        <MoreMenu studySetId={studySet.id} />
+                        <MoreMenu
+                            studySetId={studySet.id}
+                            color={clickIndex === index && AppStyles.colors['#767680']}
+                        />
                     </Box>
                     <Box display="flex">
                         <Typography
