@@ -7,7 +7,7 @@ import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/mat
 
 import { AppStyles } from '~/constants/styles'
 
-const MoreMenu = ({ userId }) => {
+const MoreMenu = ({ studySetId, saveButtonOn }) => {
     const ref = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
 
@@ -27,13 +27,20 @@ const MoreMenu = ({ userId }) => {
                 anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             >
-                <MenuItem component={RouterLink} to={`/admin/users/${userId}`} sx={{ color: 'text.secondary' }}>
-                    <ListItemIcon>
-                        <BookmarkAdd fontSize="small" sx={{ color: AppStyles.colors['#767680'] }} />
-                    </ListItemIcon>
-                    <ListItemText primary="Lưu" primaryTypographyProps={{ variant: 'body2' }} />
-                </MenuItem>
-                <MenuItem component={RouterLink} to={`/admin/users/${userId}`} sx={{ color: 'text.secondary' }}>
+                {saveButtonOn && (
+                    <MenuItem component={RouterLink} to={`/admin/users/${studySetId}`} sx={{ color: 'text.secondary' }}>
+                        <ListItemIcon>
+                            <BookmarkAdd fontSize="small" sx={{ color: AppStyles.colors['#767680'] }} />
+                        </ListItemIcon>
+                        <ListItemText primary="Lưu" primaryTypographyProps={{ variant: 'body2' }} />
+                    </MenuItem>
+                )}
+
+                <MenuItem
+                    component={RouterLink}
+                    to={`/study-sets/${studySetId}/update`}
+                    sx={{ color: 'text.secondary' }}
+                >
                     <ListItemIcon>
                         <BorderColor fontSize="small" sx={{ color: AppStyles.colors['#767680'] }} />
                     </ListItemIcon>

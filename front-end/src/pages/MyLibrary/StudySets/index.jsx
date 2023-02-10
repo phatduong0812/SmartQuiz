@@ -6,13 +6,13 @@ import { Grid, Skeleton, Typography } from '@mui/material'
 import ButtonCompo from '~/components/ButtonCompo'
 import QuestionList from '~/components/QuestionList'
 
-import ListMyStudySets from './ListMyStudySets'
+import ListLibStudySets from './ListLibStudySets'
 
 import { useSnackbar } from '~/HOC/SnackbarContext'
 import { useStudySet } from '~/actions/study-set'
 import { AppStyles } from '~/constants/styles'
 
-const MyStudySets = () => {
+const StudySets = ({ getStudySetList }) => {
     const history = useHistory()
     const ButtonStyle = {
         mt: 1,
@@ -21,8 +21,12 @@ const MyStudySets = () => {
         backgroundColor: AppStyles.colors['#004DFF'],
         textTransform: 'none',
         fontSize: 16,
+        ':hover': {
+            bgcolor: AppStyles.colors['#0045e5'],
+            color: 'white',
+        },
     }
-    const { getStudySetList, getStudySet } = useStudySet()
+    const { getStudySet } = useStudySet()
     const [isFirstRender, setIsFirstRender] = useState(true)
     const [studySet, setStudySet] = useState({})
     const [studySetDetail, setStudySetDetail] = useState({})
@@ -91,7 +95,7 @@ const MyStudySets = () => {
                         <Skeleton sx={{ height: 120, mt: 4 }} animation="wave" variant="rounded" />
                     </React.Fragment>
                 ) : (
-                    <ListMyStudySets
+                    <ListLibStudySets
                         studySets={studySet}
                         setId={setId}
                         setClickIndex={setClickIndex}
@@ -133,4 +137,4 @@ const MyStudySets = () => {
     )
 }
 
-export default MyStudySets
+export default StudySets

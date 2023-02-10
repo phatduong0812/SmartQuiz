@@ -48,7 +48,7 @@ const StudyCard = ({ studySet, md }) => {
                                 />
                             )}
                         </Box>
-                        <MoreMenu />
+                        <MoreMenu saveButtonOn={true} />
                     </Box>
                     <Box display="flex">
                         <Typography
