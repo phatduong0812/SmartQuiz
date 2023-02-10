@@ -121,7 +121,13 @@ const StudySets = ({ getStudySetList }) => {
                             {studySetDetail?.name}
                         </Typography>
 
-                        <QuestionList questions={studySetDetail?.questions} />
+                        <QuestionList
+                            questions={
+                                studySetDetail?.questions.length > 3
+                                    ? studySetDetail?.questions.slice(0, 3)
+                                    : studySetDetail?.questions
+                            }
+                        />
                     </React.Fragment>
                 )}
                 <ButtonCompo

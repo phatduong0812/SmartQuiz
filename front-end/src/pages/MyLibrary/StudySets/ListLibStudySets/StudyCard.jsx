@@ -19,7 +19,7 @@ const StudyCard = ({ studySet, setId, studySets, setClickIndex, clickIndex, inde
         setId(studySet.id)
         setClickIndex(studySets.findIndex((obj) => obj.id === studySet.id))
     }
-    console.log(clickIndex === index)
+
     return (
         <Grid item>
             <CardLayout style={CardLayoutStyle}>
