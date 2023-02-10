@@ -6,8 +6,9 @@ import FullWidthHeaderWhite from '~/components/FullWidthHeaderWhite'
 
 import Draft from './Draft'
 import MyClass from './MyClass'
-import MyStudySets from './MyStudySets'
+import StudySets from './StudySets'
 
+import { useStudySet } from '~/actions/study-set'
 // import logo from '~/assets/images/User 5.png'
 import { AppStyles } from '~/constants/styles'
 import { useAppSelector } from '~/hooks/redux-hooks'
@@ -22,6 +23,7 @@ const MyLibrary = () => {
     const changeIndexHandler = (_, value) => {
         setIndex(value)
     }
+    const { getStudySetList } = useStudySet()
     return (
         <FullWidthHeaderWhite maxWidthContent={1670}>
             <Box display="flex" flexDirection="column" width={700}>
@@ -110,10 +112,10 @@ const MyLibrary = () => {
                             <MyClass />
                         </TabPanel>
                         <TabPanel value={'1'} sx={{ p: 0 }}>
-                            <MyStudySets />
+                            <StudySets getStudySetList={getStudySetList} />
                         </TabPanel>
                         <TabPanel value={'2'} sx={{ p: 0 }}>
-                            Đăng ký
+                            <StudySets getStudySetList={getStudySetList} />
                         </TabPanel>
                         <TabPanel value={'3'} sx={{ p: 0 }}>
                             <Draft />

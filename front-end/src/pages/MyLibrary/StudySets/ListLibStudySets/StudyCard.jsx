@@ -11,11 +11,15 @@ const StudyCard = ({ studySet, setId, studySets, setClickIndex, clickIndex, inde
         borderRadius: 3,
         boxShadow: '0px 1px 2px rgba(0, 46, 153, 0.3), 0px 1px 3px 1px rgba(0, 46, 153, 0.15)',
         backgroundColor: clickIndex === index && AppStyles.colors['#004DFF'],
+        '&:hover': {
+            backgroundColor: clickIndex === index ? AppStyles.colors['#004DFF'] : AppStyles.colors['#E6EDFF'],
+        },
     }
     const getId = () => {
         setId(studySet.id)
         setClickIndex(studySets.findIndex((obj) => obj.id === studySet.id))
     }
+
     return (
         <Grid item>
             <CardLayout style={CardLayoutStyle}>
@@ -37,10 +41,7 @@ const StudyCard = ({ studySet, setId, studySets, setClickIndex, clickIndex, inde
                                     textDecoration: 'none',
                                 }}
                                 onClick={getId}
-                                // component={Link}
-                                // to={`/thu-vien/${studySet.id}`}
                             >
-                                {/* {studySet?.StudySetName} */}
                                 {studySet.name}
                             </Typography>
                             {Math.random() < 0.5 && (
@@ -50,7 +51,10 @@ const StudyCard = ({ studySet, setId, studySets, setClickIndex, clickIndex, inde
                                 />
                             )}
                         </Box>
-                        <MoreMenu />
+                        <MoreMenu
+                            studySetId={studySet.id}
+                            color={clickIndex === index && AppStyles.colors['#767680']}
+                        />
                     </Box>
                     <Box display="flex">
                         <Typography

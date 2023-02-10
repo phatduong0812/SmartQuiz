@@ -4,7 +4,7 @@ import { Grid } from '@mui/material'
 
 import StudyCard from './StudyCard'
 
-const ListMyStudySets = ({ studySets, setId, setClickIndex, clickIndex }) => {
+const ListLibStudySets = ({ studySets, setId, setClickIndex, clickIndex }) => {
     return (
         <Grid container rowSpacing={3} columnSpacing={3} display="flex" flexDirection="column">
             {studySets.map((studySet, index) => (
@@ -22,4 +22,4 @@ const ListMyStudySets = ({ studySets, setId, setClickIndex, clickIndex }) => {
     )
 }
 
-export default ListMyStudySets
+export default ListLibStudySets

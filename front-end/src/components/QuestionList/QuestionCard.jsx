@@ -26,7 +26,7 @@ const QuestionCard = ({ question, index }) => {
                         key={question.id}
                         choice={choices[index]}
                         answer={question.name}
-                        isCorrect={question.isCorrect}
+                        isCorrect={question.isCorrectAnswer}
                     />
                 ))}
             </CardContent>
