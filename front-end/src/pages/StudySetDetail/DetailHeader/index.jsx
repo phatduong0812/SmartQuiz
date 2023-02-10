@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useHistory } from 'react-router-dom'
 
@@ -7,10 +7,20 @@ import { Avatar, Box, Divider, IconButton, Tooltip, Typography } from '@mui/mate
 import ButtonCompo from '~/components/ButtonCompo'
 import QuestionCard from '~/components/QuestionList/QuestionCard'
 
+import LearnModal from './LearnModal'
+import TestModal from './TestModal'
+
 import logo from '~/assets/images/User 5.png'
 import { AppStyles } from '~/constants/styles'
 
 const DetailHeader = ({ info, id, questions }) => {
+    const [openLearn, setOpenLearn] = useState(false)
+    const handleOpenLearn = () => setOpenLearn(true)
+    const handleCloseLearn = () => setOpenLearn(false)
+    const [openTest, setOpenTest] = useState(false)
+    const handleOpenTest = () => setOpenTest(true)
+    const handleCloseTest = () => setOpenTest(false)
+
     const history = useHistory()
     const ButtonStyle = {
         color: AppStyles.colors['#000F33'],
@@ -23,8 +33,11 @@ const DetailHeader = ({ info, id, questions }) => {
             color: 'white',
         },
     }
+
     return (
         <React.Fragment>
+            <LearnModal open={openLearn} handleClose={handleCloseLearn} id={id} />
+            <TestModal open={openTest} handleClose={handleCloseTest} id={id} numberOfQuestion={info.questions.length} />
             <Typography sx={{ fontWeight: 500, fontSize: 32, color: AppStyles.colors['#333333'] }}>
                 {info.name}
             </Typography>
@@ -66,13 +79,13 @@ const DetailHeader = ({ info, id, questions }) => {
             <Box mt={2.5}>
                 <QuestionCard question={questions[0]} index={0} />
                 <Box display="flex" alignItems="center" justifyContent="space-between" mt={3}>
-                    <ButtonCompo style={ButtonStyle} onClick={() => history.push(`/study-sets/${id}/learn`)}>
+                    <ButtonCompo style={ButtonStyle} onClick={handleOpenLearn}>
                         <Description fontSize="medium" />
                         <Typography ml={1.5} sx={{ fontSize: 16, fontWeight: 500 }}>
                             Học
                         </Typography>
                     </ButtonCompo>
-                    <ButtonCompo style={ButtonStyle} onClick={() => history.push(`/study-sets/${id}/test`)}>
+                    <ButtonCompo style={ButtonStyle} onClick={handleOpenTest}>
                         <CheckBox fontSize="medium" />
                         <Typography ml={1.5} sx={{ fontSize: 16, fontWeight: 500 }}>
                             Kiểm tra
