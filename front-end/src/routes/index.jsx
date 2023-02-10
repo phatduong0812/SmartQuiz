@@ -72,6 +72,12 @@ const privateRoutes = [
         name: 'test',
         layout: 'common',
     },
+    {
+        component: lazy(() => import('~/pages/LearnPage')),
+        path: '/study-sets/:id/learn',
+        name: 'learn',
+        layout: 'common',
+    },
 ]
 
 const RouteList = (
