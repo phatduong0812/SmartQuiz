@@ -16,5 +16,6 @@ export const AppStyles = {
         ['#767680']: '#767680',
         ['#DCE6FF']: '#DCE6FF',
         ['#EEF2FF']: '#EEF2FF',
+        ['#130F26']: '#130F26',
     },
 }
