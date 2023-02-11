@@ -6,8 +6,6 @@
 
         public string Name { get; set; }
 
-        public int? SchoolId { get; set; }
-
         public int? GradeId { get; set; }
 
         public int? SubjectId { get; set; }

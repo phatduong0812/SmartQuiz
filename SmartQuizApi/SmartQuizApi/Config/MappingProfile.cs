@@ -14,24 +14,21 @@ namespace SmartQuizApi.Config
         public MappingProfile() 
         {
             CreateMap<CreateStudySetDTO, StudySet>();
-            CreateMap<School, GetAllSchoolsDTO>();
             CreateMap<Grade, GetAllGradesDTO>();
             CreateMap<Subject, GetAllSubjectsDTO>();
             CreateMap<StudySet, GetStudySetDetailsDTO>().ForMember(dest => dest.Creator, opt => opt.MapFrom(src => src.User.Name))
                                                         .ForMember(des => des.GradeName, opt => opt.MapFrom(src => src.Grade.Name))
-                                                        .ForMember(des => des.SubjectName, opt => opt.MapFrom(src => src.Subject.Name))
-                                                        .ForMember(des => des.SchoolName, opt => opt.MapFrom(src => src.School.Name));
+                                                        .ForMember(des => des.SubjectName, opt => opt.MapFrom(src => src.Subject.Name));
             CreateMap<Question, GetQuestionDTO>();
             CreateMap<Answer, GetAnswerDTO>();
             CreateMap<StudySet, GetStudySetsListDTO>().ForMember(des => des.Creator, opt => opt.MapFrom(src => src.User.Name))
                                                       .ForMember(des => des.GradeName, opt => opt.MapFrom(src => src.Grade.Name))
-                                                      .ForMember(des => des.SubjectName, opt => opt.MapFrom(src => src.Subject.Name))
-                                                      .ForMember(des => des.SchoolName, opt => opt.MapFrom(src => src.School.Name));
+                                                      .ForMember(des => des.SubjectName, opt => opt.MapFrom(src => src.Subject.Name));
             CreateMap<CreateQuestionDTO, Question>();
             CreateMap<CreateAnwserDTO, Answer>();
             CreateMap<UpdateStudySetDTO, StudySet>().ForMember(des => des.Id, opt => opt.Ignore());
-            CreateMap<UpdateQuestionDTO, Question>().ForMember(des => des.Id, opt => opt.Ignore());
-            CreateMap<UpdateAnswerDTO, Answer>().ForMember(des => des.Id, opt => opt.Ignore());
+            CreateMap<UpdateQuestionDTO, Question>();
+            CreateMap<UpdateAnswerDTO, Answer>();
         }
     }
 }

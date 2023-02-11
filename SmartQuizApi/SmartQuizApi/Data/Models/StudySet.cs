@@ -11,8 +11,6 @@ public partial class StudySet
 
     public int UserId { get; set; }
 
-    public int? SchoolId { get; set; }
-
     public int? GradeId { get; set; }
 
     public int? SubjectId { get; set; }
@@ -30,8 +28,6 @@ public partial class StudySet
     public virtual Grade? Grade { get; set; }
 
     public virtual ICollection<Question> Questions { get; } = new List<Question>();
-
-    public virtual School? School { get; set; }
 
     public virtual Subject? Subject { get; set; }
 
