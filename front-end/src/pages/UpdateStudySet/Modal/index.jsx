@@ -118,7 +118,6 @@ const Modal = ({ open, onClose, submitQuestionHandler }) => {
                         variant="contained"
                         sx={{ borderRadius: 2, py: 2, px: 5, mt: 1 }}
                         color="primary"
-                        z
                         onClick={addMoreAnswer}
                         fullWidth
                         disabled={answers.length === 8}
