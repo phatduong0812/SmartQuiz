@@ -8,6 +8,7 @@
         ISubjectRepository Subject { get; }
         IQuestionRepository Question { get; }
         IAnnswerRepository Annswer { get; }
+        IBookMarkRepository BookMark { get; }
         Task SaveChangesAsync();
     }
 }
