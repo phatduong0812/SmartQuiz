@@ -13,6 +13,7 @@ namespace SmartQuizApi.Data.Repositories
         private ISubjectRepository _subjectRepository;
         private IQuestionRepository _questionRepository;
         private IAnnswerRepository _annswerRepository;
+        private IBookMarkRepository _bookMarkRepository;
         public RepositoryManager(SmartquizContext context)
         {
             _context= context;
@@ -87,6 +88,18 @@ namespace SmartQuizApi.Data.Repositories
                     _annswerRepository = new AnswerRepository(_context);
                 }
                 return _annswerRepository;
+            }
+        }
+
+        public IBookMarkRepository BookMark
+        {
+            get
+            {
+                if (_bookMarkRepository == null)
+                {
+                    _bookMarkRepository= new BookMarkRepository(_context);
+                }
+                return _bookMarkRepository;
             }
         }
         public async Task SaveChangesAsync()
