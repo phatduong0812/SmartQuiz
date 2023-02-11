@@ -49,7 +49,7 @@ namespace SmartQuizApi.Controllers
                 }
                 _repositoryManager.StudySet.CreateStudySet(studySet);
                 await _repositoryManager.SaveChangesAsync();
-                return StatusCode(StatusCodes.Status201Created, new Response(201, "", "Create successfully"));
+                return StatusCode(StatusCodes.Status201Created, new Response(201, studySet.Id, "Create successfully"));
             }
             catch (Exception ex)
             {
@@ -110,7 +110,6 @@ namespace SmartQuizApi.Controllers
                     return StatusCode(StatusCodes.Status400BadRequest, new Response(400, "Study set id does not exist"));
                 }
 
-                _mapper.Map(updateStudySetDTO, studySet);
                 _repositoryManager.StudySet.UpdateStudySet(studySet);
                 await _repositoryManager.SaveChangesAsync();
                 return StatusCode(StatusCodes.Status200OK, new Response(200, "", "Update successfully"));
@@ -118,6 +117,21 @@ namespace SmartQuizApi.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response(500, ex.Message));
+            }
+        }
+
+        [HttpGet("filter")]
+        public async Task<IActionResult> FilterAndSearchStudySet([FromQuery] FilterStudySetDTO filter)
+        {
+            try
+            {
+                var results = await _repositoryManager.StudySet.FilterStudySetAsync(filter.StudySetName, filter.GradeId, filter.SubjectId, 5);
+                var studySets = _mapper.Map<List<GetStudySetsListDTO>>(results);
+                return Ok(studySets);
+            }
+            catch (Exception ex)
+            {
+                return Ok();
             }
         }
     }

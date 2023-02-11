@@ -9,7 +9,6 @@ namespace SmartQuizApi.Data.Repositories
         private SmartquizContext _context;
         private IUserRepository _userRepository;
         private IStudySetRepository _studySetRepository;
-        private ISchoolRepository _schooolRepository;
         private IGradeRepository _gradeRepository;
         private ISubjectRepository _subjectRepository;
         private IQuestionRepository _questionRepository;
@@ -40,18 +39,6 @@ namespace SmartQuizApi.Data.Repositories
                     _studySetRepository = new StudySetRepository(_context);
                 }
                 return _studySetRepository;
-            }
-        }
-
-        public ISchoolRepository School
-        {
-            get
-            {
-                if (_schooolRepository == null)
-                {
-                    _schooolRepository = new SchoolRepository(_context);
-                }
-                return _schooolRepository;
             }
         }
 

@@ -17,7 +17,7 @@ namespace SmartQuizApi.Data.Repositories
 
         public Question? GetQuestionById(string id)
         {
-            return GetByCondition(x => x.Id.Equals(id)).FirstOrDefault();
+            return GetByCondition(x => x.Id.Equals(id)).Include(x => x.Answers).FirstOrDefault();
         }
 
         public async Task<List<Question>> GetQuestionsByStudySetId(string id)
@@ -25,9 +25,9 @@ namespace SmartQuizApi.Data.Repositories
             return await GetByCondition(x => x.StudySetId.Equals(id)).Include(x => x.Answers).ToListAsync();
         }
 
-        public void UpdateQuestion(Question question)
+        public void DeleteQuestion(Question question)
         {
-            Update(question);
+            Delete(question);
         }
     }
 }

@@ -10,10 +10,6 @@
 
         public string Creator { get; set; }
 
-        public int SchoolId { get; set; }
-
-        public string SchoolName { get; set; }
-
         public int GradeId { get; set; }
 
         public string GradeName { get; set; }

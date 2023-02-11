@@ -14,17 +14,13 @@ namespace SmartQuizApi.Data.DTOs.StudySetDTOs
 
         public int UserId { get; set; }
 
-        public int SchoolId { get; set; }
+        public int? GradeId { get; set; }
 
-        public string SchoolName { get; set; }
+        public string? GradeName { get; set; }
 
-        public int GradeId { get; set; }
+        public int? SubjectId { get; set; }
 
-        public string GradeName { get; set; }
-
-        public int SubjectId { get; set; }
-
-        public string SubjectName { get; set; }
+        public string? SubjectName { get; set; }
 
         public int? ClassId { get; set; }
 
