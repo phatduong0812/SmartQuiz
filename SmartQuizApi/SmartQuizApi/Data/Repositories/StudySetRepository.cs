@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartQuizApi.Data.IRepositories;
 using SmartQuizApi.Data.Models;
+using SmartQuizApi.Services.Commons;
 
 namespace SmartQuizApi.Data.Repositories
 {
@@ -15,14 +16,22 @@ namespace SmartQuizApi.Data.Repositories
             Create(studySet);
         }
 
-        public async Task<List<StudySet>> FilterStudySetAsync(string? name, int? gradeId, int? subjectId, int number)
+        public async Task<List<StudySet>> FilterStudySetAsync(string? name, int? gradeId, int? subjectId, string sortType)
         {
-            return await GetByCondition(x => (name == null || x.Name.Contains(name))
-                                        && (gradeId == null || x.GradeId == gradeId)
-                                        && (subjectId == null || x.SubjectId == subjectId)).Take(number).Include(x => x.User)
-                                                                                                        .Include(x => x.Grade)
-                                                                                                        .Include(x => x.Subject)
-                                                                                                        .Include(x => x.Class).ToListAsync();
+            var result = GetByCondition(x => (name == null || x.Name.Contains(name))
+                                                && (gradeId == null || x.GradeId == gradeId)
+                                                && (subjectId == null || x.SubjectId == subjectId)).Include(x => x.User)
+                                                                                                    .Include(x => x.Grade)
+                                                                                                    .Include(x => x.Subject)
+                                                                                                    .Include(x => x.Class);
+            if (sortType.Equals(SortTypes.Oldest))
+            {
+                return await result.OrderBy(x => x.CreateAt).ToListAsync();
+            }
+            else
+            {
+                return await result.OrderByDescending(x => x.CreateAt).ToListAsync();
+            }
         }
 
         public async Task<List<StudySet>> GetListStudySetsAsync()

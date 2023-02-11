@@ -121,17 +121,18 @@ namespace SmartQuizApi.Controllers
         }
 
         [HttpGet("filter")]
-        public async Task<IActionResult> FilterAndSearchStudySet([FromQuery] FilterStudySetDTO filter)
+        public async Task<IActionResult> FilterAndSearchStudySet([FromQuery] FilterStudySetDTO filter, [FromQuery] PaginationParams @params, [FromQuery] string sorttype)
         {
             try
             {
-                var results = await _repositoryManager.StudySet.FilterStudySetAsync(filter.StudySetName, filter.GradeId, filter.SubjectId, 5);
-                var studySets = _mapper.Map<List<GetStudySetsListDTO>>(results);
-                return Ok(studySets);
+                var studySetsList = await _repositoryManager.StudySet.FilterStudySetAsync(filter.StudySetName, filter.GradeId, filter.SubjectId, sorttype);
+                var studySetsListDTO = _mapper.Map<List<GetStudySetsListDTO>>(studySetsList);
+                var result = PaginatedList<GetStudySetsListDTO>.Create(studySetsListDTO, @params.pageNumber, @params.pageSize);
+                return StatusCode(StatusCodes.Status200OK, new Response(200, result, "", result.Meta));
             }
             catch (Exception ex)
             {
-                return Ok();
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response(500, ex.Message));
             }
         }
     }
