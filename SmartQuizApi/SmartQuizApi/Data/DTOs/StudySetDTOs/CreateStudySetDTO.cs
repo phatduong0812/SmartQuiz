@@ -11,8 +11,6 @@ namespace SmartQuizApi.Data.DTOs.StudySetDTOs
         [Required]
         public int UserId { get; set; }
 
-        public int? SchoolId { get; set; }
-
         public int? GradeId { get; set; }
 
         public int? SubjectId { get; set; }

@@ -9,11 +9,11 @@ namespace SmartQuizApi.Data.Repositories
         private SmartquizContext _context;
         private IUserRepository _userRepository;
         private IStudySetRepository _studySetRepository;
-        private ISchoolRepository _schooolRepository;
         private IGradeRepository _gradeRepository;
         private ISubjectRepository _subjectRepository;
         private IQuestionRepository _questionRepository;
         private IAnnswerRepository _annswerRepository;
+        private IBookMarkRepository _bookMarkRepository;
         public RepositoryManager(SmartquizContext context)
         {
             _context= context;
@@ -40,18 +40,6 @@ namespace SmartQuizApi.Data.Repositories
                     _studySetRepository = new StudySetRepository(_context);
                 }
                 return _studySetRepository;
-            }
-        }
-
-        public ISchoolRepository School
-        {
-            get
-            {
-                if (_schooolRepository == null)
-                {
-                    _schooolRepository = new SchoolRepository(_context);
-                }
-                return _schooolRepository;
             }
         }
 
@@ -100,6 +88,18 @@ namespace SmartQuizApi.Data.Repositories
                     _annswerRepository = new AnswerRepository(_context);
                 }
                 return _annswerRepository;
+            }
+        }
+
+        public IBookMarkRepository BookMark
+        {
+            get
+            {
+                if (_bookMarkRepository == null)
+                {
+                    _bookMarkRepository= new BookMarkRepository(_context);
+                }
+                return _bookMarkRepository;
             }
         }
         public async Task SaveChangesAsync()

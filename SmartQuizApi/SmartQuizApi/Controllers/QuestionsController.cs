@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartQuizApi.Data.DTOs.QuestionDTOs;
 using SmartQuizApi.Data.IRepositories;
+using SmartQuizApi.Data.Models;
 using SmartQuizApi.Services.Utils;
 
 namespace SmartQuizApi.Controllers
@@ -31,8 +32,10 @@ namespace SmartQuizApi.Controllers
                     return StatusCode(StatusCodes.Status400BadRequest, new Response(400, "Question id does not exist"));
                 }
 
-                _mapper.Map(updateQuestionDTO, question);
-                _repositoryManager.Question.UpdateQuestion(question);
+                _repositoryManager.Question.DeleteQuestion(question);
+
+                var newQuestion = _mapper.Map<Question>(updateQuestionDTO);
+                _repositoryManager.Question.CreateQuestion(newQuestion);
                 await _repositoryManager.SaveChangesAsync();
                 return StatusCode(StatusCodes.Status200OK, new Response(200, "", "Update successfully"));
             }

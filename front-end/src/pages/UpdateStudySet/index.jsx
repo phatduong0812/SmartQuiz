@@ -1,41 +1,37 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { useHistory, useLocation, useParams } from 'react-router-dom'
-import { v4 as uuid } from 'uuid'
+import { useParams } from 'react-router-dom'
 
 import { AddBox } from '@mui/icons-material'
 import { Box, Container, Typography } from '@mui/material'
 import ButtonCompo from '~/components/ButtonCompo'
 
 import Loading from '../Loading'
+import QuestionsExample from './Example'
 import Modal from './Modal'
 import ModalUpdate from './ModalUpdate'
 import NewStudySet from './NewStudySet'
 import Questions from './Questions'
 
-import { Mock_Data, initialValue, level, levelSchool } from '~/Mock'
+import { initialValue, level, levelSchool } from '~/Mock'
 import { useStudySet } from '~/actions/study-set'
 import { AppStyles } from '~/constants/styles'
-import { useAppSelector } from '~/hooks/redux-hooks'
-import LocalStorageUtils from '~/utils/LocalStorageUtils'
 
 const UpdateStudySet = () => {
-    const { state } = useLocation()
     const { id } = useParams()
     const { getStudySet } = useStudySet()
     const [loading, setIsLoading] = useState(true)
-    const [schoolLevel, setSchoolLevel] = useState(state ? state.schoolLevel : levelSchool[0])
-    const [isUniversity, setIsUniversity] = useState(state ? state.isUniversity : false)
-    const [universityName, setUniversityName] = useState(state ? state.universityName : initialValue)
-    const [classLevel, setClassLevel] = useState(state ? state.classLevel : initialValue)
-    const [subject, setSubject] = useState(state ? state.subject : initialValue)
-    const [title, setTitle] = useState(state ? state.title : '')
-    const [questions, setQuestions] = useState(state ? state.questions : Mock_Data.questions)
+    const [schoolLevel, setSchoolLevel] = useState(initialValue)
+    const [isUniversity, setIsUniversity] = useState(false)
+    const [universityName, setUniversityName] = useState(initialValue)
+    const [classLevel, setClassLevel] = useState(initialValue)
+    const [subject, setSubject] = useState(initialValue)
+    const [title, setTitle] = useState('')
+    const [questions, setQuestions] = useState([])
     const [openModal, setOpenModal] = useState(false)
-    const { userId } = useAppSelector((state) => state.auth)
+    // const { userId } = useAppSelector((state) => state.auth)
     const [modalMode, setModalMode] = useState('create')
     const [question, setQuestion] = useState({})
-    const history = useHistory()
 
     const mutateQuestionHandler = (question) => {
         if (modalMode === 'create') setQuestions((prev) => [...prev, question])
@@ -102,35 +98,6 @@ const UpdateStudySet = () => {
         questions,
     }
 
-    const saveDraft = () => {
-        const drafts = LocalStorageUtils.getItem('drafts') || { path: history.location.pathname, studySet: [] }
-        const draft = {
-            id: uuid(),
-            title,
-            isUniversity,
-            classLevel,
-            subject,
-            universityName,
-            questions,
-            schoolLevel,
-        }
-        if (state) {
-            const draftIndex = drafts.studySet.findIndex((draft) => draft.id === state.id)
-            const updateDrafts = JSON.parse(JSON.stringify(drafts.studySet))
-            updateDrafts.splice(draftIndex, 1, draft)
-            LocalStorageUtils.setItem('update', {
-                path: `/study-sets/${id}/update`,
-                studySet: updateDrafts,
-            })
-        } else {
-            drafts.studySet.push(draft)
-            LocalStorageUtils.setItem('update', {
-                path: `/study-sets/${id}/update`,
-                studySet: drafts.studySet,
-            })
-        }
-    }
-
     useEffect(() => {
         if (schoolLevel.label === level.university) {
             setIsUniversity(true)
@@ -145,40 +112,27 @@ const UpdateStudySet = () => {
     }, [schoolLevel.value])
 
     useEffect(() => {
-        return () => {
-            if (history.location.pathname !== `/study-sets/${id}/update`) {
-                saveDraft()
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [schoolLevel.value, title, subject.value, JSON.stringify(questions), universityName.value])
-
-    useEffect(() => {
         const controller = new AbortController()
         const signal = controller.signal
-        if (!state) {
-            getStudySet(id, signal).then((res) => {
-                const studySet = res.data.data
-                setTitle(studySet.name)
-                if (studySet.schoolId) {
-                    setIsUniversity(true)
-                    setSchoolLevel(levelSchool[2])
-                    setUniversityName({ value: studySet.schoolId, label: studySet.schoolName })
+        getStudySet(id, signal).then((res) => {
+            const studySet = res.data.data
+            setTitle(studySet.name)
+            if (studySet.schoolId) {
+                setIsUniversity(true)
+                setSchoolLevel(levelSchool[2])
+                setUniversityName({ value: studySet.schoolId, label: studySet.schoolName })
+            } else {
+                setIsUniversity(false)
+                if (studySet.gradeId > 5) {
+                    setSchoolLevel(levelSchool[1])
                 } else {
-                    setIsUniversity(false)
-                    if (studySet.gradeId > 5) {
-                        setSchoolLevel(levelSchool[1])
-                    } else {
-                        setSchoolLevel(levelSchool[0])
-                    }
-                    setClassLevel({ value: studySet.gradeId, label: studySet.gradeName })
-                    setSubject({ value: studySet.subjectId, label: studySet.subjectName })
+                    setSchoolLevel(levelSchool[0])
                 }
-                setIsLoading(false)
-            })
-        } else {
+                setClassLevel({ value: studySet.gradeId, label: studySet.gradeName })
+                setSubject({ value: studySet.subjectId, label: studySet.subjectName })
+            }
             setIsLoading(false)
-        }
+        })
         return () => {
             controller.abort()
         }
@@ -212,11 +166,15 @@ const UpdateStudySet = () => {
                             )
                     }
                 })()}
-                <Questions
-                    quest={JSON.stringify(questions)}
-                    deleteQuestionDraft={deleteQuestionDraft}
-                    openEditModal={openEditModal}
-                />
+                {questions.length > 0 ? (
+                    <Questions
+                        quest={JSON.stringify(questions)}
+                        deleteQuestionDraft={deleteQuestionDraft}
+                        openEditModal={openEditModal}
+                    />
+                ) : (
+                    <QuestionsExample />
+                )}
                 <Box
                     display="flex"
                     alignItems="center"
@@ -240,7 +198,12 @@ const UpdateStudySet = () => {
                     </Typography>
                 </Box>
             </Container>
-            <Box sx={{ backgroundColor: AppStyles.colors['#FAFBFF'], mt: 3 }}>
+            <Box
+                sx={{
+                    backgroundColor: AppStyles.colors['#FAFBFF'],
+                    mt: 3,
+                }}
+            >
                 <Container maxWidth="xl">
                     <Box display="flex" justifyContent="space-between" py={3} alignItems="center">
                         <Box display="flex" alignItems="baseline">
@@ -252,13 +215,6 @@ const UpdateStudySet = () => {
                             </Typography>
                         </Box>
                         <Box display="flex">
-                            <ButtonCompo
-                                variant="outlined"
-                                style={{ backgroundColor: AppStyles.colors['#CCDBFF'], mr: 2 }}
-                                onClick={saveDraft}
-                            >
-                                Lưu nháp
-                            </ButtonCompo>
                             <ButtonCompo
                                 variant="contained"
                                 style={{ backgroundColor: AppStyles.colors['#004DFF'] }}

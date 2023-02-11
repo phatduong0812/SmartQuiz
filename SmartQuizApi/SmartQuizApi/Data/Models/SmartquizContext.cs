@@ -19,6 +19,8 @@ public partial class SmartquizContext : DbContext
 
     public virtual DbSet<Bill> Bills { get; set; }
 
+    public virtual DbSet<Bookmark> Bookmarks { get; set; }
+
     public virtual DbSet<Class> Classes { get; set; }
 
     public virtual DbSet<ClassMember> ClassMembers { get; set; }
@@ -28,8 +30,6 @@ public partial class SmartquizContext : DbContext
     public virtual DbSet<Method> Methods { get; set; }
 
     public virtual DbSet<Question> Questions { get; set; }
-
-    public virtual DbSet<School> Schools { get; set; }
 
     public virtual DbSet<StudySet> StudySets { get; set; }
 
@@ -54,7 +54,6 @@ public partial class SmartquizContext : DbContext
 
             entity.HasOne(d => d.Question).WithMany(p => p.Answers)
                 .HasForeignKey(d => d.QuestionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Answers_Questions");
         });
 
@@ -83,6 +82,28 @@ public partial class SmartquizContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Bills_Users");
+        });
+
+        modelBuilder.Entity<Bookmark>(entity =>
+        {
+            entity.HasKey(e => new { e.UserId, e.StudySetId });
+
+            entity.Property(e => e.UserId).HasColumnName("User_id");
+            entity.Property(e => e.StudySetId)
+                .HasMaxLength(50)
+                .HasColumnName("Study_set_id");
+            entity.Property(e => e.CreateDate)
+                .HasColumnType("datetime")
+                .HasColumnName("Create_date");
+
+            entity.HasOne(d => d.StudySet).WithMany(p => p.Bookmarks)
+                .HasForeignKey(d => d.StudySetId)
+                .HasConstraintName("FK_Bookmarks_StudySets");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Bookmarks)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Bookmarks_Users");
         });
 
         modelBuilder.Entity<Class>(entity =>
@@ -147,13 +168,7 @@ public partial class SmartquizContext : DbContext
 
             entity.HasOne(d => d.StudySet).WithMany(p => p.Questions)
                 .HasForeignKey(d => d.StudySetId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Questions_StudySets");
-        });
-
-        modelBuilder.Entity<School>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_Schools_1");
         });
 
         modelBuilder.Entity<StudySet>(entity =>
@@ -167,7 +182,6 @@ public partial class SmartquizContext : DbContext
                 .HasColumnName("Create_at");
             entity.Property(e => e.GradeId).HasColumnName("Grade_id");
             entity.Property(e => e.IsPublic).HasColumnName("Is_public");
-            entity.Property(e => e.SchoolId).HasColumnName("School_id");
             entity.Property(e => e.SubjectId).HasColumnName("Subject_id");
             entity.Property(e => e.UpdateAt)
                 .HasColumnType("date")
@@ -180,17 +194,15 @@ public partial class SmartquizContext : DbContext
 
             entity.HasOne(d => d.Grade).WithMany(p => p.StudySets)
                 .HasForeignKey(d => d.GradeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_StudySets_Grades");
-
-            entity.HasOne(d => d.School).WithMany(p => p.StudySets)
-                .HasForeignKey(d => d.SchoolId)
-                .HasConstraintName("FK_StudySets_Schools");
 
             entity.HasOne(d => d.Subject).WithMany(p => p.StudySets)
                 .HasForeignKey(d => d.SubjectId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_StudySets_Subjects");
 
-            entity.HasOne(d => d.User).WithMany(p => p.StudySetsNavigation)
+            entity.HasOne(d => d.User).WithMany(p => p.StudySets)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_StudySets_Users");
@@ -238,22 +250,6 @@ public partial class SmartquizContext : DbContext
             entity.Property(e => e.Role)
                 .HasMaxLength(10)
                 .IsFixedLength();
-
-            entity.HasMany(d => d.StudySets).WithMany(p => p.Users)
-                .UsingEntity<Dictionary<string, object>>(
-                    "Bookmark",
-                    r => r.HasOne<StudySet>().WithMany()
-                        .HasForeignKey("StudySetId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_Bookmarks_StudySets"),
-                    l => l.HasOne<User>().WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_Bookmarks_Users"),
-                    j =>
-                    {
-                        j.HasKey("UserId", "StudySetId");
-                    });
         });
 
         OnModelCreatingPartial(modelBuilder);
