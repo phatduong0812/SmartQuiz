@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { saveAs } from 'file-saver'
 import { useHistory, useLocation } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
@@ -15,7 +14,7 @@ import ModalUpdate from './ModalUpdate'
 import NewStudySet from './NewStudySet'
 import Questions from './Questions'
 
-import { EXCEL_TEMPLATE_BASE64, initialValue, level, levelSchool } from '~/Mock'
+import { initialValue, level, levelSchool } from '~/Mock'
 import { useStudySet } from '~/actions/study-set'
 import { AppStyles } from '~/constants/styles'
 import { useAppSelector } from '~/hooks/redux-hooks'
@@ -169,24 +168,6 @@ const CreateStudySet = () => {
         }
     }
 
-    const saveFileHandler = () => {
-        let sliceSize = 1024
-        let byteCharacters = window.atob(EXCEL_TEMPLATE_BASE64)
-        let bytesLength = byteCharacters.length
-        let slicesCount = Math.ceil(bytesLength / sliceSize)
-        let byteArrays = new Array(slicesCount)
-        for (let sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
-            let begin = sliceIndex * sliceSize
-            let end = Math.min(begin + sliceSize, bytesLength)
-            let bytes = new Array(end - begin)
-            for (var offset = begin, i = 0; offset < end; ++i, ++offset) {
-                bytes[i] = byteCharacters[offset].charCodeAt(0)
-            }
-            byteArrays[sliceIndex] = new Uint8Array(bytes)
-        }
-        saveAs(new Blob(byteArrays, { type: 'application/vnd.ms-excel' }), 'template.xlsx')
-    }
-
     useEffect(() => {
         if (schoolLevel.label === level.university) {
             setIsUniversity(true)
@@ -224,7 +205,7 @@ const CreateStudySet = () => {
                     rel="noreferrer"
                 >
                     <Tooltip title="Tải template">
-                        <Button variant="contained" sx={{ px: 5, py: 2 }} onClick={saveFileHandler}>
+                        <Button variant="contained" sx={{ px: 5, py: 2 }}>
                             <FileDownload />
                         </Button>
                     </Tooltip>
