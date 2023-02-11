@@ -55,6 +55,12 @@ const privateRoutes = [
         layout: 'common',
     },
     {
+        component: lazy(() => import('~/pages/MyLibrary')),
+        path: '/thu-vien',
+        name: 'thu-vien',
+        layout: 'common',
+    },
+    {
         component: lazy(() => import('~/pages/UpdateStudySet')),
         path: '/study-sets/:id/update',
         name: 'update',
@@ -64,6 +70,12 @@ const privateRoutes = [
         component: lazy(() => import('~/pages/TestPage')),
         path: '/study-sets/:id/test',
         name: 'test',
+        layout: 'common',
+    },
+    {
+        component: lazy(() => import('~/pages/LearnPage')),
+        path: '/study-sets/:id/learn',
+        name: 'learn',
         layout: 'common',
     },
 ]

@@ -7,12 +7,13 @@ import { AddBox } from '@mui/icons-material'
 import { Box, Container, Typography } from '@mui/material'
 import ButtonCompo from '~/components/ButtonCompo'
 
+import QuestionsExample from './Example'
 import Modal from './Modal'
 import ModalUpdate from './ModalUpdate'
 import NewStudySet from './NewStudySet'
 import Questions from './Questions'
 
-import { Mock_Data, initialValue, level, levelSchool } from '~/Mock'
+import { initialValue, level, levelSchool } from '~/Mock'
 import { useStudySet } from '~/actions/study-set'
 import { AppStyles } from '~/constants/styles'
 import { useAppSelector } from '~/hooks/redux-hooks'
@@ -26,13 +27,13 @@ const CreateStudySet = () => {
     const [classLevel, setClassLevel] = useState(state ? state.classLevel : initialValue)
     const [subject, setSubject] = useState(state ? state.subject : initialValue)
     const [title, setTitle] = useState(state ? state.title : '')
-    const [questions, setQuestions] = useState(state ? state.questions : Mock_Data.questions)
+    const [questions, setQuestions] = useState(state ? state.questions : [])
     const [openModal, setOpenModal] = useState(false)
     const { userId } = useAppSelector((state) => state.auth)
     const [modalMode, setModalMode] = useState('create')
     const [question, setQuestion] = useState({})
-    const { createStudySet } = useStudySet()
     const history = useHistory()
+    const { createStudySet } = useStudySet()
 
     const mutateQuestionHandler = (question) => {
         if (modalMode === 'create') setQuestions((prev) => [...prev, question])
@@ -153,13 +154,13 @@ const CreateStudySet = () => {
             const draftIndex = drafts.studySet.findIndex((draft) => draft.id === state.id)
             const updateDrafts = JSON.parse(JSON.stringify(drafts.studySet))
             updateDrafts.splice(draftIndex, 1, draft)
-            LocalStorageUtils.setItem('drafts', {
+            LocalStorageUtils.setItem('create', {
                 path: '/create',
                 studySet: updateDrafts,
             })
         } else {
             drafts.studySet.push(draft)
-            LocalStorageUtils.setItem('drafts', {
+            LocalStorageUtils.setItem('create', {
                 path: '/create',
                 studySet: drafts.studySet,
             })
@@ -177,7 +178,7 @@ const CreateStudySet = () => {
         setSubject(initialValue)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [schoolLevel])
+    }, [schoolLevel.value])
 
     useEffect(() => {
         return () => {
@@ -186,7 +187,7 @@ const CreateStudySet = () => {
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [schoolLevel.value, title.value, subject.value, JSON.stringify(questions), universityName.value])
+    }, [schoolLevel.value, title, subject.value, JSON.stringify(questions), universityName.value])
 
     return (
         <Box component="form" onSubmit={submitStudySetHandler}>
@@ -213,11 +214,15 @@ const CreateStudySet = () => {
                             )
                     }
                 })()}
-                <Questions
-                    quest={JSON.stringify(questions)}
-                    deleteQuestionDraft={deleteQuestionDraft}
-                    openEditModal={openEditModal}
-                />
+                {questions.length > 0 ? (
+                    <Questions
+                        quest={JSON.stringify(questions)}
+                        deleteQuestionDraft={deleteQuestionDraft}
+                        openEditModal={openEditModal}
+                    />
+                ) : (
+                    <QuestionsExample />
+                )}
                 <Box
                     display="flex"
                     alignItems="center"
@@ -264,6 +269,7 @@ const CreateStudySet = () => {
                                 variant="contained"
                                 style={{ backgroundColor: AppStyles.colors['#004DFF'] }}
                                 type="submit"
+                                disable={questions.length === 0}
                             >
                                 Tạo học phần
                             </ButtonCompo>

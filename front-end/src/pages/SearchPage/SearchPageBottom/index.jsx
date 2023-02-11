@@ -38,7 +38,7 @@ const SearchPageBottom = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
-        <Grid maxWidth={1112} container sx={{ m: '0 auto', mt: 2 }} flexDirection="column">
+        <Grid maxWidth={1670} container sx={{ m: '0 auto', mt: 2 }} flexDirection="column">
             <Box mt={1} display="flex" justifyContent="space-between" alignItems="center">
                 <Typography
                     textAlign="left"
@@ -53,7 +53,7 @@ const SearchPageBottom = () => {
                 </Typography>
                 <Sort />
             </Box>
-            <Box mt={2}>{isFirstRender ? <Loading /> : <ListStudySets studySets={studySet} />}</Box>
+            <Box mt={4}>{isFirstRender ? <Loading /> : <ListStudySets studySets={studySet} md={3} />}</Box>
             <Typography
                 mt={5}
                 mb={10}

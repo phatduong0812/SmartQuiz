@@ -9,16 +9,17 @@ const StudySetCards = ({ title, studySets }) => {
             <Typography
                 textAlign={'left'}
                 variant="h6"
-                fontWeight={600}
+                fontWeight={500}
                 sx={{
                     color: 'black',
                     pb: 0.125,
                     mb: 2,
+                    fontFamily: 'Roboto !important',
                 }}
             >
                 {title}
             </Typography>
-            <ListStudySets studySets={studySets} />
+            <ListStudySets studySets={studySets} md={4} />
         </Box>
     )
 }

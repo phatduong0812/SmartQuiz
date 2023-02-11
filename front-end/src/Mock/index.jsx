@@ -42,20 +42,20 @@ export const Mock_Data = {
             NumberPeople: 9,
             gradeName: 5,
         },
-        {
-            id: 7,
-            name: 'Potos flavus',
-            creator: 'Robinett',
-            NumberPeople: 5,
-            gradeName: 5,
-        },
-        {
-            id: 8,
-            name: 'Felis silvestris lybica',
-            creator: 'Dulcy',
-            NumberPeople: 1,
-            gradeName: 5,
-        },
+        // {
+        //     id: 7,
+        //     name: 'Potos flavus',
+        //     creator: 'Robinett',
+        //     NumberPeople: 5,
+        //     gradeName: 5,
+        // },
+        // {
+        //     id: 8,
+        //     name: 'Felis silvestris lybica',
+        //     creator: 'Dulcy',
+        //     NumberPeople: 1,
+        //     gradeName: 5,
+        // },
     ],
     search: [
         {
@@ -132,21 +132,44 @@ export const Mock_Data = {
     yourSet: [
         {
             id: 1,
-            name: 'Toán THPT 2021-2022',
+            name: 'GD1501',
             creator: 'Arlan',
             NumberPeople: 35,
             gradeName: 5,
         },
         {
             id: 2,
-            name: 'Felis libyca',
+            name: 'SE1507',
             creator: 'Karlen',
             NumberPeople: 23,
             gradeName: 3,
         },
         {
             id: 3,
-            name: 'Toán Cao Cấp',
+            name: 'MTK1501',
+            creator: 'Warner',
+            NumberPeople: 33,
+            gradeName: 2,
+        },
+    ],
+    myClass: [
+        {
+            id: 1,
+            name: 'GD1501',
+            creator: 'Arlan',
+            NumberPeople: 35,
+            gradeName: 5,
+        },
+        {
+            id: 2,
+            name: 'SE1507',
+            creator: 'Karlen',
+            NumberPeople: 23,
+            gradeName: 3,
+        },
+        {
+            id: 3,
+            name: 'MTK1501',
             creator: 'Warner',
             NumberPeople: 33,
             gradeName: 2,
@@ -181,60 +204,60 @@ export const Mock_Data = {
             NumberPeople: 33,
             gradeName: 2,
         },
-        {
-            id: 4,
-            name: 'Amblyrhynchus cristatus',
-            creator: 'Lara',
-            NumberPeople: 44,
-            gradeName: 4,
-        },
+        // {
+        //     id: 4,
+        //     name: 'Amblyrhynchus cristatus',
+        //     creator: 'Lara',
+        //     NumberPeople: 44,
+        //     gradeName: 4,
+        // },
     ],
     dropdown1: [
-        { name: 'Tất cả kết quả', id: 5 },
+        { name: 'Chọn cấp học', id: 5 },
         { name: 'Nhiều kết quả hơn', id: 5323 },
         { name: 'Vừa mới', id: 51 },
     ],
     dropdown2: [
-        { name: 'Cấp 2', id: 5 },
+        { name: 'Chọn tên trường', id: 5 },
         { name: 'Cấp 3', id: 5323 },
         { name: 'Đại học', id: 51 },
     ],
     dropdown3: [
-        { name: 'Lớp 10', id: 5 },
+        { name: 'Chọn lớp', id: 5 },
         { name: 'Lớp 11', id: 5323 },
         { name: 'Lớp 12', id: 51 },
     ],
     dropdown4: [
-        { name: 'Bộ lọc', id: 5 },
+        { name: 'Chọn trường', id: 5 },
         { name: 'Nhiều kết quả hơn', id: 5323 },
         { name: 'Vừa mới', id: 51 },
     ],
     questions: [
         {
-            quest: 'Mức độ bóc lột của nhà tư bản được tính bằng? ',
-            ans: [
+            name: 'Mức độ bóc lột của nhà tư bản được tính bằng? ',
+            answers: [
                 { name: 'Tỷ suất lợi nhuận', id: 1, isCorrect: false },
                 { name: 'Tỷ suất giá trị thặng dư', id: 2, isCorrect: true },
                 { name: 'Tỷ suất lợi nhuận bình quân', id: 3, isCorrect: false },
             ],
-            answers: ['B'],
+            correct: ['B'],
             multiple: false,
             id: 1,
         },
         {
-            quest: 'Giá trị sử dụng của hàng hóa là khái niệm dùng để chỉ? ',
-            ans: [
+            name: 'Giá trị sử dụng của hàng hóa là khái niệm dùng để chỉ? ',
+            answers: [
                 { name: 'Công dụng của hàng hóa', id: 1, isCorrect: true },
                 { name: 'Mức độ khan hiếm của hàng hóa', id: 2, isCorrect: false },
                 { name: 'Giá trị trao đổi của hàng hóa', id: 3, isCorrect: false },
             ],
-            answers: ['A'],
+            correct: ['A'],
             multiple: false,
             id: 2,
         },
         {
-            quest: 'Tái sản xuất tư bản gồm có hai hình thức cơ bản đó là?',
-            ans: [
+            name: 'Tái sản xuất tư bản gồm có hai hình thức cơ bản đó là?',
+            answers: [
                 { name: 'Tái sản xuất giản đơn và tái sản xuất mở rộng', id: 1, isCorrect: false },
                 {
                     name: 'Tái sản xuất theo chiều rộng và tái sản xuất theo chiều sâu',
@@ -247,24 +270,24 @@ export const Mock_Data = {
                     isCorrect: true,
                 },
             ],
-            answers: ['A'],
+            correct: ['A'],
             multiple: false,
             id: 3,
         },
         {
-            quest: 'Sản xuất hàng hóa ra đời dựa trên mấy điều kiện sau đây?',
-            ans: [
+            name: 'Sản xuất hàng hóa ra đời dựa trên mấy điều kiện sau đây?',
+            answers: [
                 { name: 'Ba điều kiện', id: 1, isCorrect: false },
                 { name: 'Hai điều kiện', id: 2, isCorrect: true },
                 { name: 'Một điều kiện', id: 3, isCorrect: false },
             ],
-            answers: ['B'],
+            correct: ['B'],
             multiple: false,
             id: 4,
         },
         {
-            quest: 'Giá trị sử dụng của hàng hóa phản ánh tính chất nào sau đây? ',
-            ans: [
+            name: 'Giá trị sử dụng của hàng hóa phản ánh tính chất nào sau đây? ',
+            answers: [
                 { name: 'Tính chất tư nhân của hàng hóa', id: 1, isCorrect: false },
                 { name: 'Tính chất xã hội của hàng hóa', id: 2, isCorrect: false },
                 {
@@ -273,13 +296,13 @@ export const Mock_Data = {
                     isCorrect: true,
                 },
             ],
-            answers: ['C'],
+            correct: ['C'],
             multiple: false,
             id: 5,
         },
         {
-            quest: 'Sản xuất hàng hóa là khái niệm dùng để chỉ?',
-            ans: [
+            name: 'Sản xuất hàng hóa là khái niệm dùng để chỉ?',
+            answers: [
                 {
                     name: 'A. Kiểu tổ chức kinh tế mà sản phẩm làm ra được mang ra trao đổi, mua bán trên thị trường để thỏa mãn nhu cầu của xã hội.',
                     id: 1,
@@ -296,12 +319,38 @@ export const Mock_Data = {
                     isCorrect: false,
                 },
             ],
-            answers: ['A'],
+            correct: ['A'],
             multiple: false,
             id: 6,
         },
     ],
 }
+
+const exampleQuestion = [
+    {
+        quest: 'Câu hỏi của bạn ở đây là?',
+        ans: [
+            {
+                name: 'A. Answer 1.',
+                id: 1,
+                isCorrect: true,
+            },
+            {
+                name: 'B. Answer 2.',
+                id: 2,
+                isCorrect: false,
+            },
+            {
+                name: 'C. Answer 3',
+                id: 3,
+                isCorrect: false,
+            },
+        ],
+        answers: ['A'],
+        multiple: false,
+        id: 6969,
+    },
+]
 
 const levelSchool = [
     {
@@ -486,7 +535,7 @@ const selectedChoices = [
     },
 ]
 
-const choices = ['A', 'B', 'C', 'D', 'E']
+const choices = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 
 const initialValue = {
     value: '',
@@ -504,4 +553,5 @@ export {
     initialValue,
     level,
     choices,
+    exampleQuestion,
 }
