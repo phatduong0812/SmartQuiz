@@ -1,19 +1,19 @@
 import { useState } from 'react'
 
-import { useHistory } from 'react-router-dom'
-
-import { Box, FormControl, FormControlLabel, FormLabel, Modal, Radio, RadioGroup, Typography } from '@mui/material'
+import { Box, Modal, TextField, Typography } from '@mui/material'
 import ButtonCompo from '~/components/ButtonCompo'
 
 import { AppStyles } from '~/constants/styles'
 
-const LearnModal = ({ open, handleClose, id }) => {
-    const [value, setValue] = useState('standard')
+const NumberQuestionModal = ({ open, handleClose, numberOfQuestion }) => {
+    const [num, setNum] = useState(1)
 
-    const handleChange = (event) => {
-        setValue(event.target.value)
+    const handleChange = (e) => {
+        const regex = /^[0-9\b]+$/
+        if (e.target.value === '' || regex.test(e.target.value)) {
+            setNum(e.target.value)
+        }
     }
-    const history = useHistory()
     const EndButton = {
         mt: 5,
         width: '100%',
@@ -48,24 +48,19 @@ const LearnModal = ({ open, handleClose, id }) => {
                 <Typography sx={{ fontSize: 32, mb: 3, fontWeight: 600, color: AppStyles.colors['#333333'] }}>
                     Tùy chọn
                 </Typography>
+                <Typography sx={{ color: AppStyles.colors['#333333'], mb: 1, fontSize: 17, fontWeight: 500 }}>
+                    Số lượng câu hỏi
+                </Typography>
+                <Box display="flex" alignItems="center">
+                    <Box component="form" noValidate autoComplete="off" sx={{ width: 30 }}>
+                        <TextField variant="standard" type="text" onChange={(e) => handleChange(e)} value={num} />
+                    </Box>
 
-                <FormControl>
-                    <FormLabel>Phương pháp học</FormLabel>
-                    <RadioGroup
-                        aria-labelledby="demo-controlled-radio-buttons-group"
-                        name="controlled-radio-buttons-group"
-                        value={value}
-                        onChange={handleChange}
-                    >
-                        <FormControlLabel value="standard" control={<Radio />} label="Học tiêu chuẩn" />
-                        <FormControlLabel value="fee" disabled control={<Radio />} label="Học trả phí" />
-                    </RadioGroup>
-                </FormControl>
-                <ButtonCompo
-                    variant="contained"
-                    style={EndButton}
-                    onClick={() => history.push(`/study-sets/${id}/learn`)}
-                >
+                    <Typography sx={{ color: AppStyles.colors['#333333'], opacity: '80%' }}>
+                        /{numberOfQuestion} câu hỏi
+                    </Typography>
+                </Box>
+                <ButtonCompo variant="contained" style={EndButton}>
                     Tiến hành học
                 </ButtonCompo>
             </Box>
@@ -73,4 +68,4 @@ const LearnModal = ({ open, handleClose, id }) => {
     )
 }
 
-export default LearnModal
+export default NumberQuestionModal
