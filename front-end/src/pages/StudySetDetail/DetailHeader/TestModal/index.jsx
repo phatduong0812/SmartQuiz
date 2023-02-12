@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { useHistory } from 'react-router-dom'
 
 import { Box, Modal, TextField, Typography } from '@mui/material'
@@ -7,6 +9,14 @@ import { AppStyles } from '~/constants/styles'
 
 const TestModal = ({ open, handleClose, id, numberOfQuestion }) => {
     const history = useHistory()
+    const [num, setNum] = useState(1)
+
+    const handleChange = (e) => {
+        const regex = /^[0-9\b]+$/
+        if (e.target.value === '' || regex.test(e.target.value)) {
+            setNum(e.target.value)
+        }
+    }
     const EndButton = {
         mt: 5,
         width: '100%',
@@ -46,7 +56,7 @@ const TestModal = ({ open, handleClose, id, numberOfQuestion }) => {
                 </Typography>
                 <Box display="flex" alignItems="center">
                     <Box component="form" noValidate autoComplete="off" sx={{ width: 30 }}>
-                        <TextField variant="standard" />
+                        <TextField variant="standard" type="text" onChange={(e) => handleChange(e)} value={num} />
                     </Box>
 
                     <Typography sx={{ color: AppStyles.colors['#333333'], opacity: '80%' }}>

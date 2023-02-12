@@ -24,19 +24,19 @@ const SearchPageHeader = () => {
             <Grid item xs={12} mt={3} mb={5}>
                 <Grid container alignItems="center" spacing={1}>
                     <Grid item xs={12}>
-                        <Grid container display="flex" alignItems="center" justifyContent="center" spacing={3}>
+                        <Grid container display="flex" alignItems="center" justifyContent="left" spacing={3}>
                             <Grid item md={3}>
                                 <Filter data={Mock_Data.dropdown1} title="Cấp học" />
                             </Grid>
                             <Grid item md={3}>
-                                <Filter data={Mock_Data.dropdown2} title="Tên trường" />
+                                <Filter data={Mock_Data.dropdown2} title="Lĩnh vực" />
                             </Grid>
-                            <Grid item md={3}>
+                            {/* <Grid item md={3}>
                                 <Filter data={Mock_Data.dropdown3} title="Lớp" />
                             </Grid>
                             <Grid item md={3}>
                                 <Filter data={Mock_Data.dropdown4} title="Môn học" />
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                     </Grid>
                 </Grid>

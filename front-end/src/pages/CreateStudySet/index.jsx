@@ -3,10 +3,11 @@ import { useCallback, useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
-import { AddBox } from '@mui/icons-material'
-import { Box, Container, Typography } from '@mui/material'
+import { AddBox, Article, FileDownload } from '@mui/icons-material'
+import { Box, Button, Container, Tooltip, Typography } from '@mui/material'
 import ButtonCompo from '~/components/ButtonCompo'
 
+import template from '../../assets/files/Template.xlsx'
 import QuestionsExample from './Example'
 import Modal from './Modal'
 import ModalUpdate from './ModalUpdate'
@@ -193,6 +194,22 @@ const CreateStudySet = () => {
         <Box component="form" onSubmit={submitStudySetHandler}>
             <Container maxWidth="xl">
                 <NewStudySet infoStudySetHandler={infoStudySetHandler} infoStudySet={infoStudySet} />
+                <Box
+                    display="flex"
+                    justifyContent="flex-end"
+                    mt={2}
+                    component="a"
+                    href={template}
+                    download="Template.xlsx"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <Tooltip title="Tải template">
+                        <Button variant="contained" sx={{ px: 5, py: 2 }}>
+                            <FileDownload />
+                        </Button>
+                    </Tooltip>
+                </Box>
                 {(() => {
                     switch (modalMode) {
                         case 'create':
@@ -223,27 +240,38 @@ const CreateStudySet = () => {
                 ) : (
                     <QuestionsExample />
                 )}
-                <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    mt={3}
-                    py={4}
-                    sx={{
-                        borderRadius: 4,
-                        backgroundColor: AppStyles.colors['#CCDBFF'],
-                        transition: 'all 0.3s linear',
-                        cursor: 'pointer',
-                        '&:hover': {
-                            opacity: 0.75,
-                        },
-                    }}
-                    onClick={openModalHandler}
-                >
-                    <AddBox sx={{ color: AppStyles.colors['#000F33'] }} />
-                    <Typography fontWeight={600} variant="h6" sx={{ color: AppStyles.colors['#000F33'], ml: 1 }}>
-                        Thêm thẻ mới
-                    </Typography>
+                <Box display="flex">
+                    <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        mt={3}
+                        py={4}
+                        sx={{
+                            borderRadius: 4,
+                            backgroundColor: AppStyles.colors['#185CFF'],
+                            transition: 'all 0.3s linear',
+                            cursor: 'pointer',
+                            '&:hover': {
+                                opacity: 0.75,
+                            },
+                            flex: 1,
+                            mr: 2,
+                        }}
+                        onClick={openModalHandler}
+                    >
+                        <AddBox sx={{ color: AppStyles.colors['#FFFFFF'] }} />
+                        <Typography fontWeight={600} variant="h6" sx={{ ml: 1, color: AppStyles.colors['#FFFFFF'] }}>
+                            Thêm thẻ mới
+                        </Typography>
+                    </Box>
+                    <Button
+                        variant="contained"
+                        sx={{ borderRadius: 3, px: 5, mt: 3, backgroundColor: AppStyles.colors['#CCDBFF'] }}
+                        color="primary"
+                    >
+                        <Article sx={{ color: AppStyles.colors['#000F33'] }} />
+                    </Button>
                 </Box>
             </Container>
             <Box sx={{ backgroundColor: AppStyles.colors['#FAFBFF'], mt: 3 }}>

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 
 import { useParams } from 'react-router-dom'
 
-import { ArrowCircleLeft, ArrowCircleRight } from '@mui/icons-material'
-import { Box, Skeleton, Typography } from '@mui/material'
+import { ArrowCircleLeft, ArrowCircleRight, Settings } from '@mui/icons-material'
+import { Box, IconButton, Skeleton, Tooltip, Typography } from '@mui/material'
 import ButtonCompo from '~/components/ButtonCompo'
 
+import NumberQuestionModal from './NumberQuestionModal'
 import QuestionCard from './QuestionCard'
 
 import { useSnackbar } from '~/HOC/SnackbarContext'
@@ -41,12 +42,16 @@ const LearnPageBottom = () => {
     const showSnackbar = useSnackbar()
     const [studySetDetail, setStudySetDetail] = useState({})
     const [isFirstRender, setIsFirstRender] = useState(true)
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => setOpen(true)
+    const handleClose = () => setOpen(false)
     useEffect(() => {
         const controller = new AbortController()
         const signal = controller.signal
         getStudySet(id, signal)
             .then((response) => {
                 const data = response.data.data
+                console.log(data)
                 setStudySetDetail(data)
                 setIsFirstRender(false)
             })
@@ -63,7 +68,24 @@ const LearnPageBottom = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
-        <Box maxWidth={850} sx={{ m: '0 auto', mt: 5, mb: 5 }}>
+        <Box maxWidth={850} sx={{ m: '0 auto', mt: 3, mb: 5 }}>
+            <NumberQuestionModal
+                open={open}
+                handleClose={handleClose}
+                numberOfQuestion={studySetDetail?.questions?.length}
+            />
+            <Box display="flex" justifyContent="right" mb={2}>
+                <Tooltip title="Tùy chọn" placement="bottom">
+                    <IconButton
+                        aria-label="create"
+                        size="medium"
+                        sx={{ border: '1px solid #767680' }}
+                        onClick={handleOpen}
+                    >
+                        <Settings fontSize="small" sx={{ color: AppStyles.colors['#767680'] }} />
+                    </IconButton>
+                </Tooltip>
+            </Box>
             {isFirstRender ? (
                 <React.Fragment>
                     <Skeleton sx={{ height: 425, mb: 2, mt: 6 }} animation="wave" variant="rounded" />
