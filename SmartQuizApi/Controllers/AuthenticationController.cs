@@ -56,13 +56,16 @@ namespace SmartQuizApi.Controllers
                     user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
                 }
 
-                var accessToken = user.Name;
-                Response.Cookies.Append("jwt", accessToken, new CookieOptions
+                if (user == null)
+                {
+                    return Redirect($"abc");
+                }
+                Response.Cookies.Append("jwt", "abc", new CookieOptions
                 {
                     HttpOnly = true
                 });
 
-                return Redirect($"http://localhost:3000?token={accessToken}");
+                return Redirect($"http://localhost:3000?token={user}");
             }
             catch(Exception ex)
             {
