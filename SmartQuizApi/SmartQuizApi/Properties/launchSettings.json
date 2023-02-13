@@ -4,7 +4,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:50964",
+      "applicationUrl": "http://smart-quiz.herokuapp.com/",
       "sslPort": 0
     }
   },
@@ -14,7 +14,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5148",
+      "applicationUrl": "http://smart-quiz.herokuapp.com/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
