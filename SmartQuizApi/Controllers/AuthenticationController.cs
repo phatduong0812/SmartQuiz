@@ -17,11 +17,13 @@ namespace SmartQuizApi.Controllers
     {
         private readonly IAuthService _authService;
         private readonly IRepositoryManager _repositoryManager;
+        private readonly IConfiguration _configuration;
 
-        public AuthenticationController(IAuthService authService, IRepositoryManager repositoryManager)
+        public AuthenticationController(IAuthService authService, IRepositoryManager repositoryManager, IConfiguration configuration)
         {
             _authService = authService;
             _repositoryManager = repositoryManager;
+            _configuration = configuration;
         }
 
         [HttpGet("")]
@@ -39,11 +41,12 @@ namespace SmartQuizApi.Controllers
             try
             {
                 var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                var UIDomain = _configuration.GetSection("UIDomain").Value;
 
                 var userLogin = _authService.GetUser(result);
                 if (userLogin == null)
                 {
-                    return Redirect($"abc");
+                    return Redirect($"{UIDomain}/error");
                 }
 
                 var user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
@@ -56,13 +59,14 @@ namespace SmartQuizApi.Controllers
                     user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
                 }
 
-                var accessToken = await _authService.GenerateToken(user);
+                //var accessToken = await _authService.GenerateToken(user);
+                var accessToken = "abc";
                 Response.Cookies.Append("jwt", accessToken, new CookieOptions
                 {
                     HttpOnly = true
                 });
 
-                return Redirect($"http://localhost:3000?token={accessToken}");
+                return Redirect($"{UIDomain}?token={accessToken}");
             }
             catch(Exception ex)
             {

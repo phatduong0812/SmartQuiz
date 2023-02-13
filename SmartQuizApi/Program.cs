@@ -37,7 +37,7 @@ builder.Services.AddAuthentication(options =>
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("abc")),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("SecretKey"))),
             ValidateLifetime = true,
             ValidateAudience = true,
             ValidateIssuer = true,
@@ -48,8 +48,9 @@ builder.Services.AddAuthentication(options =>
     })
     .AddGoogle(options =>
     {
-        options.ClientId = "877217021377-qnrb7lma4t1u5od0svhb5q3jc9aepqel.apps.googleusercontent.com";
-        options.ClientSecret = "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";
+        IConfigurationSection googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
+        options.ClientId = googleAuthNSection["ClientId"];
+        options.ClientSecret = googleAuthNSection["ClientSecret"];
         options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.ReturnUrlParameter = "~/";
         options.SaveTokens = true;
