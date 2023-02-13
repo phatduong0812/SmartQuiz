@@ -10,7 +10,7 @@ using SmartQuizApi.Services;
 using SmartQuizApi.Services.Interfaces;
 using System.Security.Claims;
 using System.Text;
-using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
+//using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 var builder = WebApplication.CreateBuilder(args);
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -65,11 +65,11 @@ builder.Services.AddAuthentication(options =>
         };
     })
     .AddCookie();
-builder.Services.Configure<CookiePolicyOptions>(options =>
-{
-    options.CheckConsentNeeded = context => true;
-    options.MinimumSameSitePolicy = SameSiteMode.Strict;
-});
+//builder.Services.Configure<CookiePolicyOptions>(options =>
+//{
+//    options.CheckConsentNeeded = context => true;
+//    options.MinimumSameSitePolicy = SameSiteMode.Strict;
+//});
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -86,10 +86,10 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-//app.UseCookiePolicy(new CookiePolicyOptions
-//{
-//    Secure = CookieSecurePolicy.Always
-//});
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    Secure = CookieSecurePolicy.SameAsRequest
+});
 
 app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
