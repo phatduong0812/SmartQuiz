@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+    using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -13,7 +13,6 @@ using System.Text;
 using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 var builder = WebApplication.CreateBuilder(args);
-var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 
 // Add services to the container.
 
@@ -37,12 +36,8 @@ builder.Services.AddAuthentication(options =>
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("SecretKey"))),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("abc")),
             ValidateLifetime = true,
-            ValidateAudience = true,
-            ValidateIssuer = true,
-            ValidIssuer = jwtSettings.GetSection("ValidIssuer").Value,
-            ValidAudience = jwtSettings.GetSection("ValidAudience").Value,
             ClockSkew = TimeSpan.Zero,
         };
     })
