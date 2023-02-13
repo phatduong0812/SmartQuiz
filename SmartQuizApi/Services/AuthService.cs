@@ -50,8 +50,10 @@ namespace SmartQuizApi.Services
         {
             var tokenOptions = new JwtSecurityToken
             (
-                Environment.GetEnvironmentVariable("ValidIssuer"),
-                Environment.GetEnvironmentVariable("ValidAudience"),
+                //Environment.GetEnvironmentVariable("ValidIssuer"),
+                //Environment.GetEnvironmentVariable("ValidAudience"),
+                "Smartquiz",
+                "http://localhost:5148",
                 claims,
                 expires: DateTime.Now.AddMinutes(Convert.ToDouble(Environment.GetEnvironmentVariable("expires"))),
                 signingCredentials: signingCredentials
