@@ -33,33 +33,39 @@ namespace SmartQuizApi.Controllers
             return Challenge(props, "Google");
         }
 
-        [HttpGet]
-        [Route("~/signin-google")]
+        [HttpGet("~/signin-google")]
         public async Task<IActionResult> ExternalLoginCallBack()
         {
-            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            var userLogin = _authService.GetUser(result);
-            if (userLogin == null)
+            try
             {
-                return Redirect($"abc");
+                var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                var userLogin = _authService.GetUser(result);
+                if (userLogin == null)
+                {
+                    return Redirect($"abc");
+                }
+
+                var user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
+
+                if (user == null)
+                {
+                    userLogin.Role = RoleTypes.User;
+                    _repositoryManager.User.CreateUser(userLogin);
+                    await _repositoryManager.SaveChangesAsync();
+                    user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
+                }
+
+                var accessToken = await _authService.GenerateToken(user);
+                Response.Cookies.Append("jwt", accessToken, new CookieOptions
+                {
+                    //HttpOnly = true
+                });
+                return Redirect($"http://localhost:3000?token={accessToken}");
             }
-
-            var user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
-
-            if (user == null)
+            catch(Exception ex)
             {
-                userLogin.Role = RoleTypes.User;
-                _repositoryManager.User.CreateUser(userLogin);
-                await _repositoryManager.SaveChangesAsync();
-                user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
+                return BadRequest(new Response(500, ex.Message));
             }
-
-            var accessToken = await _authService.GenerateToken(user);
-            Response.Cookies.Append("jwt", accessToken, new CookieOptions
-            {
-                //HttpOnly = true
-            });
-            return Redirect($"http://localhost:3000?token={accessToken}");
         }
 
         [HttpPost]
