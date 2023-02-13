@@ -33,7 +33,7 @@ namespace SmartQuizApi.Controllers
             return Challenge(props, "Google");
         }
 
-        [HttpGet("~/signin-google")]
+        [HttpGet("signin-google")]
         public async Task<IActionResult> ExternalLoginCallBack()
         {
             try
