@@ -43,8 +43,8 @@ builder.Services.AddAuthentication(options =>
             ValidateAudience = true,
             ValidateIssuer = true,
             ClockSkew = TimeSpan.Zero,
-            ValidIssuer = jwtSettings.GetSection("ValidIssuer").Value,
-            ValidAudience = jwtSettings.GetSection("ValidAudience").Value
+            //ValidIssuer = jwtSettings.GetSection("ValidIssuer").Value,
+            //ValidAudience = jwtSettings.GetSection("ValidAudience").Value
         };
     })
     .AddGoogle(options =>
@@ -86,10 +86,10 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.UseCookiePolicy(new CookiePolicyOptions
-{
-    Secure = CookieSecurePolicy.Always
-});
+//app.UseCookiePolicy(new CookiePolicyOptions
+//{
+//    Secure = CookieSecurePolicy.Always
+//});
 
 app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
