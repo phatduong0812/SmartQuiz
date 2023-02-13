@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SmartQuizApi.Data.Models;
 using SmartQuizApi.Services.Interfaces;
@@ -20,7 +19,7 @@ namespace SmartQuizApi.Services
         public JwtSecurityToken DecodeToken(string token)
         {
             var parsedToken = token.Replace("Bearer ", string.Empty);
-            var handler = new JwtSecurityTokenHandler();
+            var handler = new JwtSecurityTokenHandler();    
             return handler.ReadJwtToken(parsedToken);
         }
 
@@ -83,8 +82,8 @@ namespace SmartQuizApi.Services
 
         private SigningCredentials GetSigninCredentials()
         {
-            //var key = Encoding.UTF8.GetBytes(_config.GetValue<string>("SecretKey"));
-            var key = Encoding.UTF8.GetBytes("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");
+            var key = Encoding.UTF8.GetBytes(_config.GetValue<string>("SecretKey"));
+            //var key = Encoding.UTF8.GetBytes("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");
             var secret = new SymmetricSecurityKey(key);
 
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
