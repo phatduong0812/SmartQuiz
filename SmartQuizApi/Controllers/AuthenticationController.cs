@@ -17,13 +17,11 @@ namespace SmartQuizApi.Controllers
     {
         private readonly IAuthService _authService;
         private readonly IRepositoryManager _repositoryManager;
-        private readonly IConfiguration _configuration;
 
-        public AuthenticationController(IAuthService authService, IRepositoryManager repositoryManager, IConfiguration configuration)
+        public AuthenticationController(IAuthService authService, IRepositoryManager repositoryManager)
         {
             _authService = authService;
             _repositoryManager = repositoryManager;
-            _configuration = configuration;
         }
 
         [HttpGet("")]
@@ -41,12 +39,11 @@ namespace SmartQuizApi.Controllers
             try
             {
                 var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                var UIDomain = _configuration.GetSection("UIDomain").Value;
 
                 var userLogin = _authService.GetUser(result);
                 if (userLogin == null)
                 {
-                    return Redirect($"{UIDomain}/error");
+                    return Redirect($"https://smart-quiz.vercel.app/error");
                 }
 
                 var user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
@@ -66,7 +63,7 @@ namespace SmartQuizApi.Controllers
                     HttpOnly = true
                 });
 
-                return Redirect($"{UIDomain}?token={accessToken}");
+                return Redirect($"https://smart-quiz.vercel.app?token={accessToken}");
             }
             catch(Exception ex)
             {
