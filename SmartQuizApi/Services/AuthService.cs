@@ -9,13 +9,7 @@ using System.Text;
 namespace SmartQuizApi.Services
 {
     public class AuthService : IAuthService
-    {
-        private readonly IConfiguration _config;
-        public AuthService(IConfiguration config)
-        {
-            _config = config;
-        }   
-
+    { 
         public JwtSecurityToken DecodeToken(string token)
         {
             var parsedToken = token.Replace("Bearer ", string.Empty);
@@ -50,16 +44,12 @@ namespace SmartQuizApi.Services
 
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
-            //var jwtSettings = _config.GetSection("JwtSettings");
             var tokenOptions = new JwtSecurityToken
             (
-                //jwtSettings.GetSection("ValidIssuer").Value,
-                //jwtSettings.GetSection("ValidAudience").Value,
-                "Smartquiz",
-                "http://localhost:5148",
+                Environment.GetEnvironmentVariable("ValidIssuer"),
+                Environment.GetEnvironmentVariable("ValidAudience"),
                 claims,
-                //expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings.GetSection("expires").Value)),
-                expires: DateTime.Now.AddMinutes(Convert.ToDouble(129600)),
+                expires: DateTime.Now.AddMinutes(Convert.ToDouble(Environment.GetEnvironmentVariable("expires"))),
                 signingCredentials: signingCredentials
             );
 

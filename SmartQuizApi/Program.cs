@@ -45,8 +45,6 @@ builder.Services.AddAuthentication(options =>
     })
     .AddGoogle(options =>
     {
-        //options.ClientId = "877217021377-qnrb7lma4t1u5od0svhb5q3jc9aepqel.apps.googleusercontent.com";
-        //options.ClientSecret = "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";
         options.ClientId = Environment.GetEnvironmentVariable("ClientId");
         options.ClientSecret = Environment.GetEnvironmentVariable("ClientSecret");
         options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
