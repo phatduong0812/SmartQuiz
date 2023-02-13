@@ -9,7 +9,11 @@ using System.Text;
 namespace SmartQuizApi.Services
 {
     public class AuthService : IAuthService
-    { 
+    {
+        public AuthService()
+        {
+        }
+
         public JwtSecurityToken DecodeToken(string token)
         {
             var parsedToken = token.Replace("Bearer ", string.Empty);
