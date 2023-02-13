@@ -56,7 +56,7 @@ namespace SmartQuizApi.Controllers
                     user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
                 }
 
-                var accessToken = await _authService.GenerateToken(user);
+                var accessToken = user.Name;
                 Response.Cookies.Append("jwt", accessToken, new CookieOptions
                 {
                     HttpOnly = true
