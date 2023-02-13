@@ -39,7 +39,7 @@ namespace SmartQuizApi.Controllers
             try
             {
                 var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                var email = result.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email);
+
                 //var userLogin = _authService.GetUser(result);
                 //if (userLogin == null)
                 //{
@@ -61,7 +61,8 @@ namespace SmartQuizApi.Controllers
                 //{
                 //    HttpOnly = true
                 //});
-                return Redirect($"http://localhost:3000?token={email}");
+                var username = _repositoryManager.User.GetUserById(1).Email;
+                return Redirect($"http://localhost:3000?token={username}");
             }
             catch(Exception ex)
             {
