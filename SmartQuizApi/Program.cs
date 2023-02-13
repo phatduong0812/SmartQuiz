@@ -36,17 +36,22 @@ builder.Services.AddAuthentication(options =>
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("abc")),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("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")),
             ValidateLifetime = true,
             ClockSkew = TimeSpan.Zero,
-            ValidIssuer = Environment.GetEnvironmentVariable("ValidIssuer"),
-            ValidAudience = Environment.GetEnvironmentVariable("ValidAudience")
+            //ValidIssuer = Environment.GetEnvironmentVariable("ValidIssuer"),
+            //ValidAudience = Environment.GetEnvironmentVariable("ValidAudience")
+            ValidIssuer = "Smartquiz",
+            ValidAudience = "http://localhost:5148"
+
         };
     })
     .AddGoogle(options =>
     {
-        options.ClientId = Environment.GetEnvironmentVariable("ClientId");
-        options.ClientSecret = Environment.GetEnvironmentVariable("ClientSecret");
+        //options.ClientId = Environment.GetEnvironmentVariable("ClientId");
+        //options.ClientSecret = Environment.GetEnvironmentVariable("ClientSecret");
+        options.ClientId = "877217021377-qnrb7lma4t1u5od0svhb5q3jc9aepqel.apps.googleusercontent.com";
+        options.ClientSecret = "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";
         options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.ReturnUrlParameter = "~/";
         options.SaveTokens = true;

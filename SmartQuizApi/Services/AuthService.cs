@@ -76,8 +76,9 @@ namespace SmartQuizApi.Services
 
         private SigningCredentials GetSigninCredentials()
         {
-            var secretKey = Environment.GetEnvironmentVariable("SecretKey");
-            var key = Encoding.UTF8.GetBytes(secretKey);
+            //var secretKey = Environment.GetEnvironmentVariable("SecretKey");
+            //var key = Encoding.UTF8.GetBytes(secretKey);
+            var key = Encoding.UTF8.GetBytes("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");
             var secret = new SymmetricSecurityKey(key);
 
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
