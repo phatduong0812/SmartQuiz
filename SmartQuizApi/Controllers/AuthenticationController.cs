@@ -34,7 +34,7 @@ namespace SmartQuizApi.Controllers
         }
 
         [HttpGet]
-        [Route("~/sigin-google")]
+        [Route("~/signin-google")]
         public async Task<IActionResult> ExternalLoginCallBack()
         {
             var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -57,7 +57,7 @@ namespace SmartQuizApi.Controllers
             var accessToken = await _authService.GenerateToken(user);
             Response.Cookies.Append("jwt", accessToken, new CookieOptions
             {
-                HttpOnly = true
+                //HttpOnly = true
             });
             return Redirect($"http://localhost:3000?token={accessToken}");
         }
