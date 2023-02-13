@@ -40,29 +40,28 @@ namespace SmartQuizApi.Controllers
             {
                 var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-                //var userLogin = _authService.GetUser(result);
-                //if (userLogin == null)
-                //{
-                //    return Redirect($"abc");
-                //}
+                var userLogin = _authService.GetUser(result);
+                if (userLogin == null)
+                {
+                    return Redirect($"abc");
+                }
 
-                //var user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
+                var user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
 
-                //if (user == null)
-                //{
-                //    userLogin.Role = RoleTypes.User;
-                //    _repositoryManager.User.CreateUser(userLogin);
-                //    await _repositoryManager.SaveChangesAsync();
-                //    user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
-                //}
+                if (user == null)
+                {
+                    userLogin.Role = RoleTypes.User;
+                    _repositoryManager.User.CreateUser(userLogin);
+                    await _repositoryManager.SaveChangesAsync();
+                    user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
+                }
 
-                //var accessToken = await _authService.GenerateToken(user);
-                //Response.Cookies.Append("jwt", accessToken, new CookieOptions
-                //{
-                //    HttpOnly = true
-                //});
-                var username = _repositoryManager.User.GetUserById(1).Email;
-                return Redirect($"http://localhost:3000?token={username}");
+                var accessToken = await _authService.GenerateToken(user);
+                Response.Cookies.Append("jwt", accessToken, new CookieOptions
+                {
+                    HttpOnly = true
+                });
+                return Redirect($"http://localhost:3000?token={accessToken}");
             }
             catch(Exception ex)
             {

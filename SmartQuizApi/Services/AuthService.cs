@@ -57,7 +57,8 @@ namespace SmartQuizApi.Services
                 jwtSettings.GetSection("ValidIssuer").Value,
                 jwtSettings.GetSection("ValidAudience").Value,
                 claims,
-                expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings.GetSection("expires").Value)),
+                //expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings.GetSection("expires").Value)),
+                expires: DateTime.Now.AddMinutes(Convert.ToDouble(129600)),
                 signingCredentials: signingCredentials
             );
 
