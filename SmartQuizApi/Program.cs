@@ -13,7 +13,6 @@ using System.Text;
 using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 var builder = WebApplication.CreateBuilder(args);
-var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 
 // Add services to the container.
 
@@ -40,17 +39,16 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("abc")),
             ValidateLifetime = true,
             ClockSkew = TimeSpan.Zero,
-            ValidIssuer = jwtSettings.GetSection("ValidIssuer").Value,
-            ValidAudience = jwtSettings.GetSection("ValidAudience").Value
+            ValidIssuer = Environment.GetEnvironmentVariable("ValidIssuer"),
+            ValidAudience = Environment.GetEnvironmentVariable("ValidAudience")
         };
     })
     .AddGoogle(options =>
     {
-        //IConfigurationSection googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
-        //options.ClientId = googleAuthNSection["ClientId"];
-        //options.ClientSecret = googleAuthNSection["ClientSecret"];
-        options.ClientId = "877217021377-qnrb7lma4t1u5od0svhb5q3jc9aepqel.apps.googleusercontent.com";
-        options.ClientSecret = "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";
+        //options.ClientId = "877217021377-qnrb7lma4t1u5od0svhb5q3jc9aepqel.apps.googleusercontent.com";
+        //options.ClientSecret = "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";
+        options.ClientId = Environment.GetEnvironmentVariable("ClientId");
+        options.ClientSecret = Environment.GetEnvironmentVariable("ClientSecret");
         options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.ReturnUrlParameter = "~/";
         options.SaveTokens = true;
