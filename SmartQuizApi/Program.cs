@@ -43,9 +43,11 @@ builder.Services.AddAuthentication(options =>
     })
     .AddGoogle(options =>
     {
-        IConfigurationSection googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
-        options.ClientId = googleAuthNSection["ClientId"];
-        options.ClientSecret = googleAuthNSection["ClientSecret"];
+        //IConfigurationSection googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
+        //options.ClientId = googleAuthNSection["ClientId"];
+        //options.ClientSecret = googleAuthNSection["ClientSecret"];
+        options.ClientId = "877217021377-qnrb7lma4t1u5od0svhb5q3jc9aepqel.apps.googleusercontent.com";
+        options.ClientSecret = "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";
         options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.ReturnUrlParameter = "~/";
         options.SaveTokens = true;
