@@ -37,37 +37,29 @@ namespace SmartQuizApi.Controllers
         [Route("~/sigin-google")]
         public async Task<IActionResult> ExternalLoginCallBack()
         {
-            //var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            //var userLogin = _authService.GetUser(result);
-            //if (userLogin == null)
-            //{
-            //    return Redirect($"abc");
-            //}
-
-            //var user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
-
-            //if (user == null)
-            //{
-            //    userLogin.Role = RoleTypes.User;
-            //    _repositoryManager.User.CreateUser(userLogin);
-            //    await _repositoryManager.SaveChangesAsync();
-            //    user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
-            //}
-
-            //var accessToken = await _authService.GenerateToken(user);
-            //Response.Cookies.Append("jwt", accessToken, new CookieOptions
-            //{
-            //    HttpOnly = true
-            //});
-            //return Redirect($"{accessToken}");
             var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-            var email = result.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email);
-            if (result == null)
+            var userLogin = _authService.GetUser(result);
+            if (userLogin == null)
             {
-                return BadRequest("quan que");
+                return Redirect($"abc");
             }
-            return Redirect($"https://fklogin.herokuapp.com/signin-google");
+
+            var user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
+
+            if (user == null)
+            {
+                userLogin.Role = RoleTypes.User;
+                _repositoryManager.User.CreateUser(userLogin);
+                await _repositoryManager.SaveChangesAsync();
+                user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
+            }
+
+            var accessToken = await _authService.GenerateToken(user);
+            Response.Cookies.Append("jwt", accessToken, new CookieOptions
+            {
+                HttpOnly = true
+            });
+            return Redirect($"http://localhost:3000?token={accessToken}");
         }
 
         [HttpPost]
