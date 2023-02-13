@@ -13,6 +13,7 @@ using System.Text;
 using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 var builder = WebApplication.CreateBuilder(args);
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 
 // Add services to the container.
 
@@ -39,6 +40,8 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("abc")),
             ValidateLifetime = true,
             ClockSkew = TimeSpan.Zero,
+            ValidIssuer = jwtSettings.GetSection("ValidIssuer").Value,
+            ValidAudience = jwtSettings.GetSection("ValidAudience").Value
         };
     })
     .AddGoogle(options =>
