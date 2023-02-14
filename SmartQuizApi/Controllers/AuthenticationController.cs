@@ -63,7 +63,7 @@ namespace SmartQuizApi.Controllers
                     HttpOnly = true
                 });
 
-                return Redirect($"https://smart-quiz.vercel.app?token={accessToken}");
+                return Redirect($"https://smart-quiz.vercel.app/login?token={accessToken}");
             }
             catch(Exception ex)
             {
