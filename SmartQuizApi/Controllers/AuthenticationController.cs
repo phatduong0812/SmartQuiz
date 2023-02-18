@@ -97,7 +97,15 @@ namespace SmartQuizApi.Controllers
                         return BadRequest(new Response(400, "Invalid token"));
                     }
 
-                    return Ok(new Response(200, "", "Authorized"));
+                    bool haveInfor = false;
+                    if (userBasedEmail.GradeId != null)
+                    {
+                        haveInfor = true;
+                    }
+                    return Ok(new Response(200, new
+                    {
+                        haveInfor
+                    }, "Authorized"));
                 }
                 return BadRequest(new Response(400, "Fail"));
             }
