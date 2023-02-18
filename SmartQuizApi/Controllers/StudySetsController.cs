@@ -4,6 +4,7 @@ using SmartQuizApi.Data.DTOs.QuestionDTOs;
 using SmartQuizApi.Data.DTOs.StudySetDTOs;
 using SmartQuizApi.Data.IRepositories;
 using SmartQuizApi.Data.Models;
+using SmartQuizApi.Services.Commons;
 using SmartQuizApi.Services.Utils;
 
 namespace SmartQuizApi.Controllers
@@ -83,6 +84,7 @@ namespace SmartQuizApi.Controllers
                 {
                     return StatusCode(StatusCodes.Status200OK, new Response(200, studySetDTO));
                 }
+
                 var history = _repositoryManager.History.GetHistory(userId.Value, id);
                 if (history != null)
                 {
@@ -173,13 +175,14 @@ namespace SmartQuizApi.Controllers
         {
             try
             {
+                var studySetsList = new List<StudySet>();
                 var listSubjectsOfGradeId = _repositoryManager.SubjectsOfGrade.GetListSubjectsOfGradesId(filter.GradeId, filter.SubjectId);
                 if ((filter.SubjectId == null && filter.GradeId == null && filter.StudySetName == null) || listSubjectsOfGradeId == null)
                 {
-                    return StatusCode(StatusCodes.Status200OK, new Response(200, new List<GetStudySetsListDTO>(), ""));
+                    studySetsList = await _repositoryManager.StudySet.GetAllStudySets(sorttype);
                 }            
                 
-                var studySetsList = await _repositoryManager.StudySet.FilterStudySetAsync(filter.StudySetName, listSubjectsOfGradeId, sorttype);
+                studySetsList = await _repositoryManager.StudySet.FilterStudySetAsync(filter.StudySetName, listSubjectsOfGradeId, sorttype);
                 if (studySetsList.Count == 0)
                 {
                     return StatusCode(StatusCodes.Status200OK, new Response(200, new List<GetStudySetsListDTO>(), ""));
@@ -237,6 +240,36 @@ namespace SmartQuizApi.Controllers
                 return StatusCode(StatusCodes.Status200OK, new Response(200, result, "", result.Meta));
             }
             catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response(500, ex.Message));
+            }
+        }
+
+        [HttpGet("{id}/exam")]
+        public async Task<IActionResult> GetStudySetForTest(string id, int amount)
+        {
+            try
+            {
+                var studySet = _repositoryManager.StudySet.GetStudySetById(id);
+                if (studySet == null)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, new Response(400, "Study set id do not exist"));
+                }
+
+                var studySetDTO = _mapper.Map<GetStudySetDetailsDTO>(studySet);
+                var subjectsOfGrade = _repositoryManager.SubjectsOfGrade.GetSubjectsOfGrade(studySet.SubjectsOfGradeId);
+                _mapper.Map(subjectsOfGrade, studySetDTO);
+
+                var questionsList = await _repositoryManager.Question.GetQuestionsByStudySetId(studySet.Id, amount);
+                studySetDTO.Questions = _mapper.Map<List<GetQuestionDTO>>(questionsList);
+                foreach (var question in studySetDTO.Questions)
+                {
+                    question.MultipleChoice = question.Answers.Where(x => x.IsCorrectAnswer == true).Count() > 1;
+                }
+
+                return StatusCode(StatusCodes.Status200OK, new Response(200, studySetDTO));
+            }
+            catch(Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response(500, ex.Message));
             }
