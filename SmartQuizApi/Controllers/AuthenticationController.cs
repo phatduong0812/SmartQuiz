@@ -55,8 +55,8 @@ namespace SmartQuizApi.Controllers
                     await _repositoryManager.SaveChangesAsync();
                     user = await _repositoryManager.User.GetUserByEmailAsync(userLogin.Email);
                 }
-
-                var accessToken = await _authService.GenerateToken(user);
+                bool premium = _repositoryManager.Bill.GetPaymentStatus(user.Id);
+                var accessToken = await _authService.GenerateToken(user, premium);
 
                 Response.Cookies.Append("jwt", accessToken, new CookieOptions
                 {
