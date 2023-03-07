@@ -10,8 +10,6 @@
 
         public int SubjectId { get; set; }
 
-        public int? ClassId { get; set; }
-
         public bool IsPublic { get; set; }
     }
 }

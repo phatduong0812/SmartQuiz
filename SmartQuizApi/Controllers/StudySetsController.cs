@@ -4,7 +4,6 @@ using SmartQuizApi.Data.DTOs.QuestionDTOs;
 using SmartQuizApi.Data.DTOs.StudySetDTOs;
 using SmartQuizApi.Data.IRepositories;
 using SmartQuizApi.Data.Models;
-using SmartQuizApi.Services.Commons;
 using SmartQuizApi.Services.Utils;
 
 namespace SmartQuizApi.Controllers
@@ -99,7 +98,7 @@ namespace SmartQuizApi.Controllers
                         StudySetId = id,
                         CreateAt = DateTime.Now,
                     });
-                }                
+                }
                 await _repositoryManager.SaveChangesAsync();
 
                 return StatusCode(StatusCodes.Status200OK, new Response(200, studySetDTO));
@@ -146,7 +145,7 @@ namespace SmartQuizApi.Controllers
         {
             try
             {
-                var studySet = _repositoryManager.StudySet.GetStudySetById(updateStudySetDTO.Id);               
+                var studySet = _repositoryManager.StudySet.GetStudySetById(updateStudySetDTO.Id);
                 if (studySet == null)
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, new Response(400, "Study set id does not exist"));
@@ -180,8 +179,8 @@ namespace SmartQuizApi.Controllers
                 if ((filter.SubjectId == null && filter.GradeId == null && filter.StudySetName == null) || listSubjectsOfGradeId == null)
                 {
                     studySetsList = await _repositoryManager.StudySet.GetAllStudySetsAsync(sorttype);
-                }            
-                
+                }
+
                 studySetsList = await _repositoryManager.StudySet.FilterStudySetAsync(filter.StudySetName, listSubjectsOfGradeId, sorttype);
                 if (studySetsList.Count == 0)
                 {
@@ -215,7 +214,7 @@ namespace SmartQuizApi.Controllers
                 await _repositoryManager.SaveChangesAsync();
                 return StatusCode(StatusCodes.Status200OK, new Response(200, "", "Delete successfully"));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response(500, ex.Message));
             }
@@ -236,7 +235,7 @@ namespace SmartQuizApi.Controllers
                 var studySetsListDTO = _mapper.Map<List<GetStudySetsListDTO>>(studySetsList).OrderByDescending(x => x.CreateAt).ToList();
                 var result = PaginatedList<GetStudySetsListDTO>.Create(studySetsListDTO, @params.pageNumber, @params.pageSize);
 
-                result = (PaginatedList<GetStudySetsListDTO>) GetInfoForStudyList(result);
+                result = (PaginatedList<GetStudySetsListDTO>)GetInfoForStudyList(result);
                 return StatusCode(StatusCodes.Status200OK, new Response(200, result, "", result.Meta));
             }
             catch (Exception ex)
@@ -269,7 +268,7 @@ namespace SmartQuizApi.Controllers
 
                 return StatusCode(StatusCodes.Status200OK, new Response(200, studySetDTO));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response(500, ex.Message));
             }
@@ -290,13 +289,32 @@ namespace SmartQuizApi.Controllers
                 foreach (var item in user.Favorites)
                 {
                     listFavorites.Add(item.SubjectsOfGradeId);
-                } 
+                }
 
                 var studySetsList = await _repositoryManager.StudySet.GetRecommendStudySetAsync(listFavorites, amount);
                 var studySetsListDTO = _mapper.Map<List<GetStudySetsListDTO>>(studySetsList);
 
                 studySetsListDTO = (List<GetStudySetsListDTO>)GetInfoForStudyList(studySetsListDTO);
                 return StatusCode(StatusCodes.Status200OK, new Response(200, studySetsListDTO, ""));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response(500, ex.Message));
+            }
+        }
+
+        [HttpGet("class/{id}")]
+        public async Task<IActionResult> ClassDetail(string id, [FromQuery] string? name, [FromQuery] PaginationParams @params, [FromQuery] string sorttype)
+        {
+            try
+            {
+                var listStudySetId = _repositoryManager.StudySetClass.GetListStudySetInClass(id);
+                var studySetsList = await _repositoryManager.StudySet.FilterStudySetByNameAsync(name, sorttype, listStudySetId);
+                var studySetsListDTO = _mapper.Map<List<GetStudySetsListDTO>>(studySetsList);
+                var result = PaginatedList<GetStudySetsListDTO>.Create(studySetsListDTO, @params.pageNumber, @params.pageSize);
+
+                result = (PaginatedList<GetStudySetsListDTO>)GetInfoForStudyList(result);
+                return StatusCode(StatusCodes.Status200OK, new Response(200, result, "", result.Meta));
             }
             catch (Exception ex)
             {

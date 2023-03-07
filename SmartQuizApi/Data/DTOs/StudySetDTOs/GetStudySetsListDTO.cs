@@ -22,13 +22,12 @@ namespace SmartQuizApi.Data.DTOs.StudySetDTOs
 
         public int TotalQuestions { get; set; }
 
-        public int? ClassId { get; set; }
-
         public bool IsPublic { get; set; }
 
         public DateTime CreateAt { get; set; }
 
         public DateTime UpdateAt { get; set; }
+        public string? ImageUrl { get; set; }
 
         [JsonIgnore]
         public int SubjectsOfGradeId { get; set; }

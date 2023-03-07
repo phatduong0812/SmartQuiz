@@ -13,6 +13,12 @@
         IHistoryRepository History { get; }
         IBillRepository Bill { get; }
         IFavoriteRepository Favorite { get; }
+        IClassRepository Class { get; }
+        IClassMemberRepository ClassMember { get; }
+        
+        IStudySetRatingRepository StudySetRating { get; }
+
+        IStudySetClassRepository StudySetClass { get; }
         Task SaveChangesAsync();
     }
 }
